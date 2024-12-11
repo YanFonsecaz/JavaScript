@@ -1,0 +1,18 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",                 // Define o tipo de depuração como Node.js
+            "request": "launch",            // Inicia o programa para depuração
+            "name": "Iniciar Node.js",      // Nome da configuração no menu de depuração
+            "program": "${workspaceFolder}/index.js", // Caminho para o arquivo principal do projeto
+            "skipFiles": [
+                "<node_internals>/**"       // Ignora arquivos internos do Node.js durante a depuração
+            ],
+            "console": "integratedTerminal" // Exibe a saída no terminal integrado do VS Code
+        }
+    ]
+}
