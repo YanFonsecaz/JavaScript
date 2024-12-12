@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primeiro passos com DOM</title>
+    <style>
+        body {
+            background: blue;
+            color: white;
+            font: normal 18pt arial;
+        }
+    </style>
+</head>
+<body>
+    <h1>Inciando Estudos DOM</h1>
+    <p>Aqui vai o resultado</p>
+    <p>Aprender a usar o <strong>DOM</strong> em Javascript.</p>
+    <div id="msg">Clique em mim</div>
+    <script>
+        window.document.write('Ola, Mundo!');
+        window.document.write(window.document.URL+"<br>");
+        var corpo = window.document.body;
+        // ('p')[0] array para escolher qual p sera usando pos o comando puxa todos os 'p'
+        var p1 = window.document.getElementsByTagName('p')[1];
+        document.write("esta escrito assim: "+ p1.innerText +"<br>");
+        corpo.style.background = 'black';
+        p1.style.color = 'blue';
+        document.write("esta escrito assim: "+ p1.innerHTML +"<br>");
+        var d = window.document.getElementById('msg');
+        d.style.background  = 'green';
+        d.innerText = 'Estou aguardando';
+        
+    </script>
+</body>
+</html>
