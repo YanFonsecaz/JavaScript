@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu primeiro programa...</title>
+    <style>
+        body {
+            background-color: brown;
+            color: white;
+            font: normal 25pt arial;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        var nome = prompt("Qual o seu nome?");
+        document.write(`Seu nome e ${nome} e tem esse tamanho ${nome.length} letras<br>`);
+        document.write(`Seu nome em maiusculo e ${nome.toUpperCase()}<br>`);
+        document.write(`Seu nome minusculo e ${nome.toLowerCase()}<br>`);
+        var n1 = 1500.30;
+        document.write(n1.toFixed(2)+"<br>");
+        document.write(n1.toFixed(2).replace('.' , ',')+"<br>");
+        document.write(n1.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}));
+    </script>
+</body>
+</html>
