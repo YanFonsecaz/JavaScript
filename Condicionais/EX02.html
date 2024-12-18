@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multas</title>
+</head>
+
+<body>
+    <input type="number" name="multa" id="multa">
+    <button type="button" onclick="calc()">Calcular Velocidade</button>
+    <div id="result">Resultado</div>
+    <script>
+        var veloMax = 60
+        var result = document.querySelector('div#result');
+        function calc() {
+            var multa = document.querySelector('input#multa').value;
+            var mult = parseFloat(multa);
+            if (mult > veloMax) {
+                result.innerHTML = '<strong>, esta acima da velocidade, MULTADO!!</strong>';
+            } else {
+                result.innerHTML = '<strong>, Velocidade Ideal</strong>';
+            }
+        }
+    </script>
+</body>
+
+</html>
