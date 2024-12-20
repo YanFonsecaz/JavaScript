@@ -9,6 +9,6 @@ function carregar(){
     }else if(hora > 12 && hora <18){
         foto.src = 'tarde.png';
     }else{
-        foto.src = 'noite.png'
+        foto.src = 'noite.png';
     }
 }
