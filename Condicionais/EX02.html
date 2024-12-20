@@ -15,12 +15,17 @@
         var veloMax = 60
         var result = document.querySelector('div#result');
         function calc() {
-            var multa = document.querySelector('input#multa').value;
+            /*var multa = document.querySelector('input#multa').value;
             var mult = parseFloat(multa);
             if (mult > veloMax) {
                 result.innerHTML = '<strong>, esta acima da velocidade, MULTADO!!</strong>';
             } else {
                 result.innerHTML = '<strong>, Velocidade Ideal</strong>';
+            }*/
+            if (document.querySelector('#multa').value > veloMax) {
+                document.querySelector('#result').innerHTML = '<strong>, está acima da velocidade, MULTADO!!</strong>'
+            } else {
+                document.querySelector('#result').innerHTML = '<strong>, velocidade ideal</strong>'
             }
         }
     </script>
