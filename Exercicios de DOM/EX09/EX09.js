@@ -9,6 +9,7 @@ function calcular(){
     for(let i = 1; i<11;i++){
         let optionAdd = document.createElement('option');
         optionAdd.text = `${number} x ${i} = ${number * i}`
+        optionAdd.value = `v${i}`
         selectHTML.appendChild(optionAdd);
         
     }
