@@ -1,0 +1,35 @@
+body {
+    background:rebeccapurple ;
+    font: normal 1tpt Arial;
+}
+
+header{
+    color: white;
+    text-align: center;
+}
+
+section{
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    width: 500px;
+    margin: auto;
+    box-shadow:3px 3px 10px black(0,0,0.363) ;
+}
+
+footer{
+    color: white;
+    text-align: center;
+    font-style: italic;
+}
+select#valor {
+    width: 200px; /* Define a largura */
+    height: 500px; /* Define a altura */
+    font-size: 16px; /* Tamanho da fonte para visibilidade */
+    text-align: left; /* Alinha o texto à esquerda */
+    border: 2px solid #333; /* Adiciona uma borda */
+    border-radius: 8px; /* Bordas levemente arredondadas */
+    background-color: #f4f4f4; /* Cor de fundo */
+    cursor: not-allowed; /* Cursor indicando que está desabilitado */
+    overflow: auto; /* Permite rolagem caso o conteúdo exceda a altura */
+}
