@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reajuste</title>
+    <link rel="icon" href="js.png" type="image/x-icon">
+    <link rel="stylesheet" href="estilo.css">o
+</head>
+
+<body>
+    <header>
+        <h1>
+            Reajuste Salarial
+        </h1>
+    </header>
+    <Section>
+        <div>
+            <p>
+                Nome: <input type="text" name="nome" id="nome">
+            </p>
+            <p>
+                Idade: <input type="number" name="id" id="id">
+            </p>
+            <p>
+                Salario <input type="number" name="salario" id="salario">
+            </p>
+            <p>
+                <input type="button" value="Reajuste" onclick="veriSalario()">
+            </p>
+        </div>
+        <div id="result">
+            Solicite o nome, a idade e o salário de uma pessoa. Calcule e apresente o novo salário, de acordo com os
+            critérios
+            abaixo:
+            Idade até 35 anos, aumento de 12%
+            Idade entre 36 e 50 anos, aumento de 14,5%
+            Idade superior a 50 anos, aumento de 17%
+        </div>
+    </Section>
+    <footer>&copy;Estudos de Logica</footer>
+    <script src="EX04.js"></script>
+</body>
+
+</html>
