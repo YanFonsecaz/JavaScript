@@ -1,12 +1,10 @@
-function removerRep(n1){
-    let valorUni = []
-    for(let i = 0; i < n1.length ; i++){
-        if(!valorUni.includes(n1[i])){
-            valorUni.push(n1[i])
-        }
+function invertName(n1){
+    let nomeInvert = ''
+    for(let i = n1.length - 1; i >= 0; i--){
+        nomeInvert += n1[i]
     }
-    return valorUni
+    return nomeInvert
 }
-let numeros = [1, 2, 2, 3, 4, 4, 5, 6, 6]
-let valor = removerRep(numeros)
-console.log(valor)
+
+let nome = "JavaScript"
+console.log(invertName(nome))
