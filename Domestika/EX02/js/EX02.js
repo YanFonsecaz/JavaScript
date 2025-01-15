@@ -1,26 +1,48 @@
-    var grupoDesenhos = ["🦄", "🍦", "🌈", "👽", "👾", "🤖", "👹", "👺"];
-    var totalDesenhos = grupoDesenhos.concat(grupoDesenhos);
-    function Desenhos() {
-    let mesa = document.querySelector("#mesa");
-    mesa.innerHTML = "";
-    totalDesenhos.forEach(function (elemento) {
-        let desenhos = document.createElement("div");
-        desenhos.innerHTML =
-        "<div class='tarjeta'>" +
-        "<div class='tarjeta__contenido'>" +
-        elemento +
-        "</div>" +
-        "</div>";
-        mesa.appendChild(desenhos);
-    });
-    }
+var grupoTarjetas = ["🦄", "🍦", "🌈", "👽", "👾", "🤖", "👹", "👺"];
+var totalTarjetas = grupoTarjetas.concat(grupoTarjetas);
 
-    function descobrir() {
-    this.classList.add("descubierta");
-    }
+function barajaTarjetas() {
+  var resultado;
+  resultado = totalTarjetas.sort(function() {
+    return 0.5 - Math.random();
+  });
+  return resultado;
+}
 
-    Desenhos();
+function reparteTarjetas() {
+  var mesa = document.querySelector("#mesa");
+  var tarjetasBarajadas = barajaTarjetas();
+  mesa.innerHTML = "";
+  tarjetasBarajadas.forEach(function (elemento){
+    let carta = document.createElement("div")
+     carta.innerHTML = "<div class='tarjeta'>" +
+     "<div class='tarjeta__contenido'>" +
+     elemento +
+     "</div>" +
+     "</div>";
+     mesa.appendChild(carta)
+  })
 
-    document.querySelectorAll(".tarjeta").forEach(function (elemento) {
-    elemento.addEventListener("click", descobrir);
-    });
+}
+
+let botao = document.createElement('button')
+botao.id = 'butao-distibuidor'
+botao.textContent = 'Destribuir Cartas'
+document.body.appendChild(botao);
+
+botao.addEventListener('keydown', function (evento){
+  if(evento.key === 'Enter'){
+    reparteTarjetas()
+  }
+})
+botao.addEventListener('click', reparteTarjetas)
+
+
+function descubrir() {
+  this.classList.add("descubierta");
+}
+
+
+document.querySelectorAll(".tarjeta").forEach(function(elemento) {
+  elemento.addEventListener("click", descubrir);
+});
