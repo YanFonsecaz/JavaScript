@@ -1,1 +1,0 @@
-console.log(true ? "Verdadeiro" : "falso")
