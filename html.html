@@ -1,0 +1,91 @@
+<div class="bg-white faq-perguntas-frequentes">
+    <div class="conteudo-duvidas">
+        <div class="wrapper">
+            <div class="row no-gutters justify-content-center">
+                <div class="col-12 col-lg-10">
+                    <div class="row no-gutters meus-pedidos" data-filtro="meus-pedidos">
+                        <div class="content">
+                            <ul>
+                                <li>
+                                    <div class="titulo">
+                                        <h2>O que é cômoda de quarto?</h2>
+                                    </div>
+                                    <div class="texto">
+                                        <p>A cômoda para quarto é um móvel versátil com gavetas (e, em alguns casos,
+                                            portas), projetado pra <strong>organizar roupas, acessórios e outros itens
+                                                essenciais</strong> do dia a dia. Além de funcional, ela pode
+                                            complementar a decoração do ambiente e até servir como <a target="_blank"
+                                                rel="noopener noreferrer"
+                                                href="https://www.schumann.com.br/tv-e-video/suporte-para-tv">suporte
+                                                para TV,</a> espelho ou objetos decorativos.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="titulo">
+                                        <h2>Para o que serve uma cômoda?</h2>
+                                    </div>
+                                    <div class="texto">
+                                        <p>A cômoda para quarto de casal ou solteiro pode ter várias funções dependendo
+                                            do modelo e da necessidade. Ela pode ser usada para:</p>
+                                        <ul>
+                                            <li>Guardar roupas e acessórios de forma prática;</li>
+                                            <li>Servir como apoio para <a target="_blank" rel="noopener noreferrer"
+                                                    href="https://www.schumann.com.br/tv-e-video/smart-tv">TV</a>,
+                                                perfumes ou itens decorativos;</li>
+                                            <li>Organizar documentos e pequenos objetos;</li>
+                                            <li>Funcionar como <a target="_blank" rel="noopener noreferrer"
+                                                    href="https://www.schumann.com.br/moveis/quarto/sapateira-e-armario-multiuso">sapateira
+                                                    ou armário multiúso</a>, dependendo do modelo;</li>
+                                            <li>Complementar o visual do quarto com um design sofisticado.</li>
+                                        </ul>
+                                        <p>Tem modelos pra todo tipo de necessidade!</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="titulo">
+                                        <h2>Como arrumar uma cômoda no quarto?</h2>
+                                    </div>
+                                    <div class="texto">
+                                        <p>Quer deixar sua cômoda bem organizada, seja ela alta, baixa ou tradicional?
+                                            Aqui vão algumas dicas:</p>
+                                        <ol>
+                                            <li>Divida as gavetas por tipo de item (roupas íntimas, camisetas, pijamas
+                                                etc.);</li>
+                                            <li>Use colmeias organizadoras pra facilitar o acesso aos pequenos objetos;
+                                            </li>
+                                            <li>Aproveite o tampo da cômoda pra colocar espelho, luminária ou decoração;
+                                            </li>
+                                            <li>Escolha um modelo que harmonize com o resto do ambiente, como uma cômoda
+                                                bege, marrom ou branca, conforme sua paleta de cores.</li>
+                                        </ol>
+                                        <p>Agora que você já sabe tudo sobre esse móvel incrível, que tal garantir o
+                                            seu? Aqui na Schumann, tem <strong>cômoda de madeira, cômoda com porta e
+                                                muitos outros modelos em promoção</strong>. Aproveite para conferir
+                                            também nossas opções de <a target="_blank" rel="noopener noreferrer"
+                                                href="https://www.schumann.com.br/moveis/quarto/comoda-e-mesa-de-cabeceira/mesa-de-cabeceira">mesa
+                                                de cabeceira</a> e renovar seu ambiente. Aproveite e boas compras!</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.conteudo-duvidas .content ul li').on('click', function () {
+            $(this).toggleClass('active');
+        });
+
+        $('.perguntas-frequentes .header-duvidas ul li').on('click', function () {
+            $('html,body').animate({
+                scrollTop: $('body.perguntas-frequentes #middle #content-wrapper .conteudo-duvidas').offset().top - 100
+            }, 500);
+        });
+    });
+
+</script>
