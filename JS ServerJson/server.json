@@ -1,0 +1,7 @@
+{
+    "products": [
+        {"id": "1", "name": "mouse", "price": 150.25},
+        {"id": "2", "name": "teclado", "price": 50.25},
+        {"id": "3", "name": "monitor", "price": 90.25}
+    ]
+}

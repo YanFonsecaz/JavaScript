@@ -1,0 +1,82 @@
+.box {
+    height: 451px;
+    position: relative;
+    width: 517px;
+}
+
+.group {
+    height: 451px;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 529px;
+}
+
+.overlapGroup {
+    height: 279px;
+    left: 45px;
+    position: absolute;
+    top: 138px;
+    width: 427px;
+}
+
+.login {
+    height: 279px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 427px;
+}
+
+.users {
+    background-color: #fff;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 50px;
+    box-shadow: 0px 4px 50px 20px #00000082;
+    height: 81px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 427px;
+}
+
+.password {
+    background-color: #fff;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 50px;
+    box-shadow: 0px 4px 50.4px 29px #00000040;
+    height: 81px;
+    left: 0;
+    position: absolute;
+    top: 99px;
+    width: 427px;
+}
+
+.signIn {
+    background-color: #fff;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 50px;
+    box-shadow: 0px 4px 50px 29px #00000040;
+    height: 81px;
+    left: 0;
+    position: absolute;
+    top: 198px;
+    width: 427px;
+}
+
+.signIn:hover {
+    background: paleturquoise;
+}
+
+.iconUsers {
+background-color: #ffffff;
+  border-radius: 34.5px / 31.5px;
+  height: 63px;
+  left: 9px;
+  position: absolute;
+  top: 9px;
+  width: 69px;
+}
