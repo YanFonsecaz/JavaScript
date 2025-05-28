@@ -1,0 +1,12 @@
+main {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os elementos sejam empilhados em linhas */
+    gap: 24px;
+    padding-block: 24px;
+}
+
+main img {
+    width: 286px;
+    height: 286px;
+    object-fit: cover; /* Garante que a imagem se ajuste ao tamanho do contêiner */
+}

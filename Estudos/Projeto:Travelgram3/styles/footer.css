@@ -1,0 +1,9 @@
+footer{
+    display: flex;
+    padding-block: 24px;
+    align-items: center;
+    gap: 16px;
+}
+footer span:nth-child(1){
+    margin-right: auto;
+}

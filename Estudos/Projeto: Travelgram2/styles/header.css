@@ -1,0 +1,30 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 32px;
+    gap: 32px;
+    
+}
+header div{
+    max-width: 384px;
+}
+header h1 {
+    font: var(--text-lg);
+    color: var(--text-color-primary);
+    margin-bottom: 8px;
+}
+
+#info {
+    list-style: none;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+}
+
+#info li {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+}
