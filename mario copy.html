@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Metas - Moeda do Bloco Visível</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Reset Básico e Estilos Base --- */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Roboto', sans-serif; background-color: #f8f9fa; color: #495057; line-height: 1.65; padding: 20px; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
+        .dashboard-container { background-color: #ffffff; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.07); width: 90%; max-width: 850px; text-align: center; overflow: hidden; }
+        .dashboard-header { background: linear-gradient(135deg, #007bff, #0056b3); color: #ffffff; padding: 25px 30px; border-bottom: 1px solid #004085; }
+        .dashboard-header h1 { font-family: 'Montserrat', sans-serif; font-size: 1.75em; font-weight: 700; margin: 0; letter-spacing: 0.5px; }
+        .dashboard-content { padding: 30px; }
+        .card { background-color: #ffffff; border: 1px solid #dee2e6; border-radius: 10px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-align: left; transition: transform 0.25s ease-out, box-shadow 0.25s ease-out; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        .card h2 { font-family: 'Montserrat', sans-serif; color: #343a40; font-size: 1.35em; font-weight: 700; margin-top: 0; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #e9ecef; }
+        .modern-button { font-family: 'Roboto', sans-serif; background-image: linear-gradient(to right, #007bff, #0056b3); color: #ffffff; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9em; font-weight: 500; text-transform: uppercase; letter-spacing: 0.75px; transition: background-image 0.3s ease, box-shadow 0.2s ease, transform 0.1s ease; box-shadow: 0 3px 6px rgba(0,123,255,0.25); }
+        .modern-button:hover { background-image: linear-gradient(to right, #0056b3, #004085); box-shadow: 0 5px 12px rgba(0,123,255,0.35); transform: translateY(-2px); }
+        .modern-button:active { transform: translateY(0px); box-shadow: 0 2px 4px rgba(0,123,255,0.2); }
+        .navigation-section { text-align: center; padding-top: 10px; margin-top: 20px; }
+        .controls { margin-top: 25px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .controls label { font-size: 0.95em; color: #495057; font-weight: 500; }
+        .controls input[type="number"] { width: 75px; padding: 10px; border-radius: 6px; border: 1px solid #ced4da; font-family: 'Roboto', sans-serif; text-align: center; font-size: 0.95em; }
+        .controls .modern-button { padding: 10px 18px; font-size: 0.9em; text-transform: none; }
+        .dashboard-footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e9ecef; font-size: 0.85em; color: #6c757d; }
+
+        /* --- ESTILOS TEMÁTICOS MARIO --- */
+
+        .mario-progress-section { 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px; 
+            position: relative; 
+            padding-top: 25px; 
+        }
+        .mario-progress-container-wrapper { 
+            flex-grow: 1;
+            position: relative; 
+        }
+        .mario-progress-container { 
+            background-color: #FFFFFF; 
+            border-radius: 22px;     
+            border: 2px solid #a0a0a0; 
+            height: 42px; 
+            position: relative; 
+            overflow: hidden; 
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1), inset 0 1px 1px rgba(0,0,0,0.05);
+            display: flex; 
+            align-items: center;
+            padding: 4px; 
+        }
+
+        .mario-progress-bar-fill { 
+            height: 100%; 
+            width: 0%; 
+            border-radius: 16px; 
+            transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.6s ease; 
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+            position: relative;
+            -webkit-mask-image: repeating-linear-gradient(45deg, black, black 6px, transparent 6px, transparent 12px);
+            mask-image: repeating-linear-gradient(45deg, black, black 6px, transparent 6px, transparent 12px);
+            -webkit-mask-size: 17px 17px; 
+            mask-size: 17px 17px;
+        }
+        .mario-progress-bar-fill.green  { background-color: #37a600; } 
+        .mario-progress-bar-fill.orange { background-color: #f88c00; } 
+        .mario-progress-bar-fill.red    { background-color: #e52521; } 
+        
+        .mario-progress-bar-fill::before {
+            content: "";
+            position: absolute;
+            top: 1px; left: 1px; right: 1px; 
+            height: 50%; 
+            border-radius: 16px 16px 0 0; 
+            background-image: linear-gradient(to bottom, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.3) 60%, transparent 100%);
+            z-index: 0; 
+        }
+        .mario-progress-bar-fill.full-radius::before { border-radius: 16px; }
+
+        .main-progress-text-display { 
+            font-family: 'Montserrat', sans-serif; 
+            color: #343a40; 
+            font-size: 1em; 
+            font-weight: 700; 
+            position: absolute; 
+            top: -5px; 
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f8f9fa; 
+            padding: 0 5px;
+            z-index: 10; 
+        }
+        
+        .mario-progress-icons { 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .mario-icon { 
+            font-size: 1.8em; 
+            line-height: 1; 
+            text-shadow: 0 2px 3px rgba(0,0,0,0.2);
+            display: inline-block; 
+        }
+
+        /* Caixas "?" e Moedas na Barra Principal */
+        .mario-block-wrapper {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%); 
+            z-index: 3; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+        }
+        .mario-question-block {
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 1em; 
+            font-weight: 800;
+            cursor: default;
+            padding: 1px 4px; 
+            background-color: #f39c12; 
+            color: white;
+            border: 1px solid #d35400; 
+            border-bottom-width: 3px; 
+            border-radius: 3px;
+            text-shadow: 1px 1px #a5600c;
+            line-height: 1;
+            transition: background-color 0.2s;
+        }
+        .mario-question-block.hit { 
+            background-color: #a0a0a0; 
+            border-color: #777;
+            text-shadow: none;
+        }
+
+        .mario-block-coin { /* Moeda que sai da caixa - Animação revertida para saltar ACIMA */
+            font-size: 1.3em; 
+            position: absolute;
+            bottom: 100%; /* Posiciona a base da moeda no topo do wrapper do bloco */
+            left: 50%;
+            /* Estado inicial da animação: um pouco para baixo (relativo ao topo do bloco) e menor */
+            transform: translateX(-50%) translateY(10px) scale(0.5); 
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            transition: opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); 
+            opacity: 0; 
+            pointer-events: none; 
+            z-index: 5; /* Garante que a moeda fique visível */
+        }
+        .mario-block-coin.visible {
+            opacity: 1;
+            /* Estado final da animação: salta para cima do bloco */
+            transform: translateX(-50%) translateY(-12px) scale(1); 
+        }
+        
+        /* Estilos para a página de Detalhes (mantidos) */
+        .mario-themed-chart-content { padding: 15px 0; }
+        .mario-themed-chart-content .meta-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .mario-themed-chart-content .meta-title-mario { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.1em; margin: 0; }
+        .meta-title-mario.color-blue   { color: #007bff; } 
+        .meta-title-mario.color-green  { color: #28a745; } 
+        .meta-title-mario.color-yellow { color: #ffc107; } 
+        .mario-themed-chart-content .meta-percentage-mario { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.1em; color: #343a40; }
+        .meta-progress-values { font-family: 'Roboto', sans-serif; font-size: 0.8em; color: #6c757d; text-align: right; margin-bottom: 3px;}
+        .mario-simulated-bar-container { width: 100%; height: 14px; background-color: #f0f0f0; border: 1px solid #e0e0e0; border-radius: 7px; margin-top: 5px; margin-bottom: 12px; overflow: hidden;}
+        .mario-simulated-bar { height: 100%; border-radius: 6px; box-shadow: inset 0px 1px 1px rgba(255,255,255,0.5), inset 0px -1px 1px rgba(0,0,0,0.15); transition: width 0.5s ease-out;}
+        .mario-simulated-bar.blue   { background-color: #007bff; }
+        .mario-simulated-bar.green  { background-color: #28a745; }
+        .mario-simulated-bar.yellow { background-color: #ffc107; }
+        .mario-themed-chart-content .meta-status { font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 0.85em; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-top: 10px; margin-bottom: 10px;}
+        .meta-status.in-progress { background-color: #ffc10720; color: #c88f00; border: 1px solid #ffc10780;}
+        .meta-status.almost-done { background-color: #007bff20; color: #0056b3; border: 1px solid #007bff80;}
+        .meta-status.completed   { background-color: #28a74520; color: #1c7430; border: 1px solid #28a74580;}
+        .mario-themed-chart-content .meta-icons-mario { text-align: left; font-size: 0.9em; margin-top: 12px; color: #555; display: flex; flex-wrap: wrap; gap: 10px 12px;}
+        .mario-themed-chart-content .meta-icons-mario .icon-group { display: inline-flex; align-items: center; background-color: #f8f9fa; padding: 4px 10px; border-radius: 20px; border: 1px solid #e0e7ee; box-shadow: 0 1px 2px rgba(0,0,0,0.05);}
+        .mario-themed-chart-content .meta-icons-mario .icon-label { font-size: 1.3em; margin-right: 6px; line-height: 1;}
+        .mario-themed-chart-content .meta-icons-mario .icon-text { font-family: 'Roboto', sans-serif; font-weight: 500;}
+
+        /* --- Media Queries --- */
+        @media (max-width: 768px) {
+            .dashboard-header h1 { font-size: 1.5em; }
+            .card h2 { font-size: 1.2em; }
+            .mario-themed-chart-content .meta-title-mario { font-size: 0.95em; }
+            .mario-themed-chart-content .meta-percentage-mario { font-size: 0.95em; }
+            .controls { flex-direction: column; gap: 15px; }
+            .controls .modern-button { width: 100%; }
+            .modern-button { font-size: 0.9em; padding: 10px 20px;}
+            .mario-progress-section { flex-direction: column; align-items: center; gap: 10px; padding-top:30px; }
+            .main-progress-text-display { top: 5px; }
+            .mario-progress-container-wrapper { width:100%; } 
+            .mario-icon { font-size: 1.6em; margin-top: 5px; } 
+            .mario-block-wrapper { font-size: 0.8em; }
+            .mario-progress-icons { justify-content: center; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mainPage" class="dashboard-container">
+        <header class="dashboard-header"><h1>Dashboard de Metas</h1></header>
+        <div class="dashboard-content">
+            <section class="card">
+                <h2>Progresso da Meta Principal</h2>
+                <div class="mario-progress-section">
+                    <span id="mainProgressTextDisplay" class="main-progress-text-display">0%</span>
+                    <div class="mario-progress-container-wrapper">
+                        <div class="mario-progress-container">
+                            <div id="mainProgressBar" class="mario-progress-bar-fill">
+                                {/* O texto da porcentagem foi removido daqui */}
+                            </div>
+                            <script>
+                                const progressBarContainer = document.currentScript.parentElement;
+                                for (let i = 1; i <= 9; i++) {
+                                    const percent = i * 10;
+                                    const blockWrapper = document.createElement('div');
+                                    blockWrapper.className = 'mario-block-wrapper';
+                                    blockWrapper.style.left = `${percent}%`;
+                                    
+                                    const qBlock = document.createElement('span');
+                                    qBlock.id = `marioQuestionBlock_${percent}`;
+                                    qBlock.className = 'mario-question-block';
+                                    qBlock.textContent = '?';
+                                    qBlock.title = `Bônus em ${percent}%`;
+                                    
+                                    const coin = document.createElement('span');
+                                    coin.id = `blockCoin_${percent}`;
+                                    coin.className = 'mario-icon mario-block-coin'; // Reutiliza .mario-icon para tamanho base
+                                    coin.textContent = '🪙';
+                                    
+                                    blockWrapper.appendChild(qBlock);
+                                    blockWrapper.appendChild(coin);
+                                    progressBarContainer.appendChild(blockWrapper);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="mario-progress-icons"> 
+                        <span class="mario-icon">🪙</span>
+                        <span id="marioCharacterIcon" class="mario-icon" style="display:none;">🧑</span>
+                        <span id="marioFlagIcon" class="mario-icon" style="display:none;">🏁</span>
+                    </div>
+                </div>
+                <div class="controls">
+                    <label for="goalValueInput">Progresso (%):</label>
+                    <input type="number" id="goalValueInput" min="0" max="100" value="0">
+                    <button id="updateGoalButton" class="modern-button">Atualizar</button>
+                </div>
+            </section>
+            <section class="navigation-section">
+                <button id="viewDetailsButton" class="modern-button">Ver Detalhes</button>
+            </section>
+            <footer class="dashboard-footer"><p>&copy; 2025 Seu Dashboard</p></footer>
+        </div>
+    </div>
+
+    <div id="detailsPage" class="dashboard-container" style="display:none;">
+        <header class="dashboard-header"><h1>Detalhes das Metas</h1></header>
+        <div class="dashboard-content">
+             <section class="card"> 
+                <div class="mario-themed-chart-content"> 
+                    <div class="meta-header">
+                        <h3 class="meta-title-mario color-blue">Level Alpha</h3>
+                        <span class="meta-percentage-mario">75%</span>
+                    </div>
+                    <p class="meta-progress-values">750 / 1000 Pontos</p>
+                    <div class="mario-simulated-bar-container">
+                        <div class="mario-simulated-bar blue" style="width: 75%;"></div> 
+                    </div>
+                    <p class="meta-status in-progress">Status: Em Andamento</p>
+                    <div class="meta-icons-mario">
+                        <span class="icon-group"><span class="icon-label">👤</span><span class="icon-text">Nível</span></span>
+                        <span class="icon-group"><span class="icon-label">🪙</span><span class="icon-text">Moedas</span></span>
+                        <span class="icon-group"><span class="icon-label">🛡️</span><span class="icon-text">Defesa</span></span> 
+                        <span class="icon-group"><span class="icon-label">🎯</span><span class="icon-text">Alvo</span></span> 
+                    </div>
+                </div>
+            </section>
+            <section class="card">
+                 <div class="mario-themed-chart-content">
+                    <div class="meta-header">
+                        <h3 class="meta-title-mario color-green">Mato Level</h3>
+                        <span class="meta-percentage-mario">50%</span>
+                    </div>
+                     <p class="meta-progress-values">5 / 10 Inimigos</p>
+                    <div class="mario-simulated-bar-container">
+                        <div class="mario-simulated-bar green" style="width: 50%;"></div> 
+                    </div>
+                    <p class="meta-status almost-done">Status: Quase lá!</p>
+                    <div class="meta-icons-mario">
+                        <span class="icon-group"><span class="icon-label">👤</span><span class="icon-text">Nível</span></span>
+                        <span class="icon-group"><span class="icon-label">🍄</span><span class="icon-text">Power-up</span></span>
+                         <span class="icon-group"><span class="icon-label">🕒</span><span class="icon-text">Tempo</span></span>
+                    </div>
+                </div>
+            </section>
+            <section class="card">
+                <div class="mario-themed-chart-content">
+                     <div class="meta-header">
+                        <h3 class="meta-title-mario color-yellow">Out Level</h3>
+                        <span class="meta-percentage-mario">100%</span>
+                    </div>
+                    <p class="meta-progress-values">100 / 100 Km</p>
+                    <div class="mario-simulated-bar-container">
+                        <div class="mario-simulated-bar yellow" style="width: 100%;"></div> 
+                    </div>
+                    <p class="meta-status completed">Status: Concluído!</p>
+                     <div class="meta-icons-mario">
+                        <span class="icon-group"><span class="icon-label">👤</span><span class="icon-text">Nível</span></span>
+                        <span class="icon-group"><span class="icon-label">⭐</span><span class="icon-text">Estrela</span></span>
+                         <span class="icon-group"><span class="icon-label">💚</span><span class="icon-text">Vida Extra</span></span>
+                    </div>
+                </div>
+            </section>
+            <section class="navigation-section">
+                <button id="backToMainButton" class="modern-button">Voltar ao Início</button>
+            </section>
+            <footer class="dashboard-footer"><p>Detalhes e gráficos por Seu Nome/Empresa</p></footer>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainPageDiv = document.getElementById('mainPage');
+            const detailsPageDiv = document.getElementById('detailsPage');
+            const mainProgressBar = document.getElementById('mainProgressBar'); 
+            const mainProgressTextDisplay = document.getElementById('mainProgressTextDisplay'); 
+            const goalValueInput = document.getElementById('goalValueInput');
+            const updateGoalButton = document.getElementById('updateGoalButton');
+            const viewDetailsButton = document.getElementById('viewDetailsButton');
+            const backToMainButton = document.getElementById('backToMainButton');
+            const marioIcon = document.getElementById('marioCharacterIcon');
+            const flagIcon = document.getElementById('marioFlagIcon');
+
+            const questionBlocksConfig = [];
+            for (let i = 1; i <= 9; i++) {
+                const percent = i * 10;
+                questionBlocksConfig.push({
+                    position: percent,
+                    blockElement: document.getElementById(`marioQuestionBlock_${percent}`),
+                    coinElement: document.getElementById(`blockCoin_${percent}`),
+                    activated: false
+                });
+            }
+
+            function updateMainProgress(percentage) {
+                const validPercentage = Math.max(0, Math.min(100, percentage));
+                if (!mainProgressBar || !mainProgressTextDisplay) return;
+
+                mainProgressBar.style.width = validPercentage + '%';
+                mainProgressTextDisplay.textContent = Math.round(validPercentage) + '%';
+                mainProgressBar.classList.remove('red', 'orange', 'green', 'full-radius');
+
+                if (validPercentage <= 24) { mainProgressBar.classList.add('red'); } 
+                else if (validPercentage <= 49) { mainProgressBar.classList.add('orange'); } 
+                else { mainProgressBar.classList.add('green'); }
+                
+                const fillElement = mainProgressBar;
+                const pseudoShineElement = mainProgressBar;
+
+                if (validPercentage === 100) {
+                    fillElement.style.borderRadius = '16px'; 
+                    pseudoShineElement.classList.add('full-radius');
+                    if (marioIcon) marioIcon.style.display = 'inline-block';
+                    if (flagIcon) flagIcon.style.display = 'inline-block';
+                } else {
+                    fillElement.style.borderRadius = '16px 0 0 16px'; 
+                    pseudoShineElement.classList.remove('full-radius');
+                    if (marioIcon) marioIcon.style.display = 'none';
+                    if (flagIcon) flagIcon.style.display = 'none';
+                }
+
+                questionBlocksConfig.forEach(config => {
+                    if (config.blockElement && config.coinElement) { 
+                        if (validPercentage >= config.position && !config.activated) {
+                            config.coinElement.classList.add('visible');
+                            config.blockElement.textContent = '!'; 
+                            config.blockElement.classList.add('hit');
+                            config.activated = true;
+                        } else if (validPercentage < config.position && config.activated) {
+                            config.coinElement.classList.remove('visible');
+                            config.blockElement.textContent = '?'; 
+                            config.blockElement.classList.remove('hit');
+                            config.activated = false;
+                        }
+                    }
+                });
+            }
+            
+            if (updateGoalButton) {
+                updateGoalButton.addEventListener('click', function() {
+                    const newValue = parseInt(goalValueInput.value, 10);
+                    if (!isNaN(newValue)) {
+                        updateMainProgress(newValue);
+                    } else {
+                        alert("Por favor, insira um número válido para a porcentagem.");
+                    }
+                });
+            }
+            if (goalValueInput) {
+                 goalValueInput.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') { if (updateGoalButton) updateGoalButton.click(); }
+                });
+            }
+            if (viewDetailsButton) {
+                viewDetailsButton.addEventListener('click', function() {
+                    if(mainPageDiv) mainPageDiv.style.display = 'none';
+                    if(detailsPageDiv) detailsPageDiv.style.display = 'block';
+                });
+            }
+            if (backToMainButton) {
+                backToMainButton.addEventListener('click', function() {
+                    if(detailsPageDiv) detailsPageDiv.style.display = 'none';
+                    if(mainPageDiv) mainPageDiv.style.display = 'block'; 
+                });
+            }
+            if (goalValueInput && mainProgressBar) { 
+                 updateMainProgress(parseInt(goalValueInput.value, 10) || 0);
+            } else if (mainProgressBar) { 
+                 updateMainProgress(0); 
+            }
+        });
+    </script>
+</body>
+</html>

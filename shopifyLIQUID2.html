@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Completo: Microsserviços com Go</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa; --sidebar-bg: #f8f9fa; --content-bg: #ffffff;
+            --primary-color: #6d28d9; --text-color: #343a40; --border-color: #e9ecef;
+            --code-bg: #212529; --code-color: #f8f9fa;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0; background-color: var(--bg-color); color: var(--text-color);
+            display: flex; min-height: 100vh;
+        }
+        .sidebar {
+            width: 260px; flex-shrink: 0; background-color: var(--sidebar-bg);
+            padding: 2rem 0; border-right: 1px solid var(--border-color);
+            overflow-y: auto; position: fixed; height: 100%;
+        }
+        .sidebar h1 { font-size: 1.75rem; padding: 0 1.5rem; margin-bottom: 2rem; }
+        .sidebar nav ul { list-style: none; padding: 0; margin: 0; }
+        .sidebar nav li a {
+            display: block; padding: 0.75rem 1.5rem; color: var(--text-color);
+            text-decoration: none; font-weight: 500; border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .sidebar nav li a:hover { background-color: var(--border-color); }
+        .sidebar nav li a.active {
+            background-color: #e9d5ff; border-left-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        .main-content {
+            flex-grow: 1; padding: 2rem 3rem; margin-left: 260px; max-width: 900px;
+        }
+        .section { margin-bottom: 3rem; scroll-margin-top: 2rem; }
+        h2 { font-size: 2rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.6rem; margin-top: 2.5rem; color: var(--primary-color); }
+        .exercise-card {
+            background-color: var(--content-bg); border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;
+        }
+        .exercise-card h4 { font-size: 1.25rem; font-weight: 600; margin-top: 0; }
+        .exercise-card p, .exercise-card ul { color: #495057; line-height: 1.6; }
+        .toggle-solution-btn {
+            background-color: #f3e8ff; color: var(--primary-color); border: 1px solid #d8b4fe;
+            padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: bold; cursor: pointer;
+            display: inline-flex; align-items: center; margin-top: 1rem; transition: background-color 0.2s;
+        }
+        .toggle-solution-btn:hover { background-color: #e9d5ff; }
+        .toggle-solution-btn svg { width: 20px; height: 20px; margin-left: 8px; transition: transform 0.3s ease; }
+        .toggle-solution-btn.open svg { transform: rotate(180deg); }
+        .solution-content { max-height: 0; overflow: hidden; transition: max-height 0.6s ease-in-out; margin-top: 0; }
+        .solution-content.show { max-height: 5000px; /* Generous height */ margin-top: 1.5rem; }
+        .filename {
+            font-family: "SF Mono", "Fira Code", monospace; font-size: 0.9em; color: #6c757d;
+            padding: 0.25rem 0.5rem; background-color: #f1f3f5; border-radius: 4px 4px 0 0;
+            display: inline-block; margin-bottom: -1px; border: 1px solid var(--border-color); border-bottom: none;
+        }
+        .code-container { position: relative; }
+        .code-container pre {
+            background-color: var(--code-bg); color: var(--code-color); padding: 1.5rem;
+            border-radius: 6px; border-top-left-radius: 0; overflow-x: auto; margin: 0;
+            font-family: "SF Mono", "Fira Code", monospace; font-size: 0.9em; line-height: 1.5;
+        }
+        .copy-btn {
+            position: absolute; top: 10px; right: 10px; background-color: #495057;
+            color: white; border: none; padding: 6px 12px; border-radius: 4px;
+            cursor: pointer; font-size: 0.8em; opacity: 0; transition: all 0.2s;
+        }
+        .code-container:hover .copy-btn { opacity: 1; }
+        .copy-btn:hover { background-color: #6c757d; }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <h1>Guia Artemis</h1>
+        <nav>
+            <ul>
+                <li><a href="#intro" class="nav-link">Introdução</a></li>
+                <li><a href="#tools" class="nav-link">Conhecendo as Ferramentas</a></li>
+                <li><a href="#step1" class="nav-link">Passo 1: Fundação</a></li>
+                <li><a href="#step2" class="nav-link">Passo 2: Código Comum</a></li>
+                <li><a href="#step3" class="nav-link">Passo 3: Serviço Crawler</a></li>
+                <li><a href="#step4" class="nav-link">Passo 4: Serviço API</a></li>
+                <li><a href="#step5" class="nav-link">Passo 5: Execução</a></li>
+                <li><a href="#conclusion" class="nav-link">Conclusão</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <section id="intro" class="section">
+             <h2>Introdução</h2>
+            <p>Bem-vindo ao Guia Interativo do Projeto Artemis! O objetivo é construir um sistema de extração de dados web do zero. Usuários poderão se cadastrar, fazer login e solicitar a extração do conteúdo de uma URL.</p>
+            <p>Este guia fornecerá todo o código necessário e as explicações para cada passo, permitindo que você construa o projeto completo seguindo um formato prático e interativo.</p>
+        </section>
+
+        <section id="tools" class="section">
+            <h2>Conhecendo as Ferramentas</h2>
+            <p>Antes de começarmos, é crucial entender as ferramentas que compõem nosso ecossistema.</p>
+            <div class="exercise-card"><h4>1. Docker</h4><p>Empacota uma aplicação e suas dependências em uma "caixa" padronizada chamada <strong>contêiner</strong>. Garante que nossa aplicação rode da mesma forma em qualquer ambiente.</p></div>
+            <div class="exercise-card"><h4>2. Docker Compose</h4><p>Orquestra múltiplos contêineres. Com um único arquivo, iniciamos todos os nossos serviços (API, Crawler, Banco de Dados).</p></div>
+            <div class="exercise-card"><h4>3. PostgreSQL</h4><p>Nosso banco de dados relacional para guardar informações de forma segura e permanente.</p></div>
+            <div class="exercise-card"><h4>4. GORM</h4><p>Uma biblioteca ORM (Object-Relational Mapper) que nos permite interagir com o banco de dados usando structs Go, tornando o código mais limpo e seguro.</p></div>
+            <div class="exercise-card"><h4>5. NATS</h4><p>Um sistema de mensagens de alta performance. Funciona como um "serviço postal" entre nossas aplicações, permitindo uma comunicação assíncrona e resiliente.</p></div>
+            <div class="exercise-card"><h4>6. Gin</h4><p>Um framework web para Go que nos ajuda a construir APIs rapidamente, fornecendo ferramentas prontas para gerenciar rotas e requisições.</p></div>
+        </section>
+        
+        <section id="step1" class="section">
+            <h2>Passo 1: Fundação do Projeto</h2>
+            <p>Vamos criar a estrutura de arquivos e pastas, e configurar nosso ambiente de desenvolvimento com Docker.</p>
+            <div class="exercise-card">
+                <h4>1.1: Criar a Estrutura de Pastas e Arquivos</h4>
+                <button class="toggle-solution-btn">Ver Comando<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button>
+                <div class="solution-content">
+                    <div class="code-container"><button class="copy-btn">Copiar</button><pre><code>mkdir artemis-golang && cd artemis-golang
+
+mkdir -p cmd/api cmd/crawler \
+         internal/api/handler internal/api/service internal/api/repository internal/api/middleware \
+         internal/crawler \
+         internal/common/config internal/common/database internal/common/messaging \
+         pkg/models
+
+touch go.mod .env docker-compose.yml Dockerfile
+touch cmd/api/main.go
+touch internal/api/router.go
+touch internal/api/handler/auth_handler.go internal/api/handler/crawler_handler.go internal/api/handler/payloads.go
+touch internal/api/service/jwt_service.go internal/api/service/password_service.go
+touch internal/api/repository/user_repository.go internal/api/repository/crawler_repository.go
+touch internal/api/middleware/auth_middleware.go
+touch cmd/crawler/main.go
+touch internal/crawler/subscriber.go internal/crawler/scraper.go
+touch internal/common/config/config.go
+touch internal/common/database/database.go
+touch internal/common/messaging/nats.go
+touch pkg/models/user.go pkg/models/crawler.go pkg/models/messaging.go</code></pre></div>
+                </div>
+            </div>
+            <div class="exercise-card">
+                <h4>1.2: Inicializar o Módulo Go</h4>
+                <button class="toggle-solution-btn">Ver Comando<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button>
+                <div class="solution-content"><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>go mod init artemis-golang</code></pre></div></div>
+            </div>
+            <div class="exercise-card">
+                <h4>1.3: Configurar Variáveis de Ambiente</h4>
+                <button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button>
+                <div class="solution-content">
+                    <div class="filename">.env</div>
+                    <div class="code-container"><button class="copy-btn">Copiar</button><pre><code>DATABASE_URL="host=postgres_db user=artemis_user password=artemis_pass dbname=artemis_db port=5432 sslmode=disable"
+NATS_URL="nats://nats_server:4222"
+JWT_SECRET="um-segredo-muito-forte-e-dificil-de-adivinhar-12345"
+API_SERVER_ADDRESS="0.0.0.0:8080"</code></pre></div>
+                </div>
+            </div>
+            <div class="exercise-card">
+                <h4>1.4: Orquestrar com Docker Compose</h4>
+                <button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button>
+                <div class="solution-content">
+                    <div class="filename">docker-compose.yml</div>
+                    <div class="code-container"><button class="copy-btn">Copiar</button><pre><code>version: '3.8'
+services:
+  postgres_db:
+    image: postgres:16-alpine
+    container_name: postgres_db
+    environment:
+      - POSTGRES_USER=artemis_user
+      - POSTGRES_PASSWORD=artemis_pass
+      - POSTGRES_DB=artemis_db
+    ports: ["5432:5432"]
+    volumes: [db_data:/var/lib/postgresql/data]
+    restart: always
+  nats_server:
+    image: nats:2.10-alpine
+    container_name: nats_server
+    ports: ["4222:4222", "8222:8222"]
+    command: -js
+  api:
+    build: { context: ., dockerfile: Dockerfile, args: { APP_NAME: api } }
+    container_name: api
+    ports: ["8080:8080"]
+    volumes: [.:/app]
+    env_file: .env
+    depends_on: [postgres_db, nats_server]
+    restart: on-failure
+  crawler:
+    build: { context: ., dockerfile: Dockerfile, args: { APP_NAME: crawler } }
+    container_name: crawler
+    volumes: [.:/app]
+    env_file: .env
+    depends_on: [nats_server]
+    restart: on-failure
+    cap_add: [SYS_ADMIN]
+volumes:
+  db_data:</code></pre></div>
+                </div>
+            </div>
+            <div class="exercise-card">
+                <h4>1.5: Criar a Imagem Docker</h4>
+                <button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button>
+                <div class="solution-content">
+                    <div class="filename">Dockerfile</div>
+                    <div class="code-container"><button class="copy-btn">Copiar</button><pre><code># --- Estágio 1: Builder ---
+FROM golang:1.22-alpine AS builder
+ARG APP_NAME
+RUN apk add --no-cache build-base
+WORKDIR /build
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/main ./cmd/${APP_NAME}
+
+# --- Estágio 2: Final ---
+FROM alpine:latest
+RUN apk add --no-cache ca-certificates chromium
+WORKDIR /app
+COPY --from=builder /app/main .
+EXPOSE 8080
+CMD ["./main"]</code></pre></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="step2" class="section">
+            <h2>Passo 2: Código Comum</h2>
+            <p>Código compartilhado entre os serviços, como as structs que representam nossos dados e os conectores.</p>
+            <h3>pkg/models/</h3>
+            <div class="exercise-card"><h4>Modelo de Usuário</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">pkg/models/user.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package models
+import "gorm.io/gorm"
+type User struct {
+	gorm.Model
+	Email    string `gorm:"uniqueIndex;not null"`
+	Password string `gorm:"not null"`
+}</code></pre></div></div></div>
+            <div class="exercise-card"><h4>Modelo do Crawler</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">pkg/models/crawler.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package models
+import "gorm.io/gorm"
+type Status string
+const (
+	StatusPending   Status = "PENDING"
+	StatusCompleted Status = "COMPLETED"
+	StatusFailed    Status = "FAILED"
+)
+type Crawler struct {
+	gorm.Model
+	UserID uint
+	URL    string `gorm:"not null"`
+	Status Status `gorm:"type:varchar(20);default:'PENDING'"`
+	Result string `gorm:"type:text"`
+}</code></pre></div></div></div>
+            <div class="exercise-card"><h4>Modelos de Mensageria</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">pkg/models/messaging.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package models
+type CrawlerRequest struct {
+	CrawlerID uint   `json:"crawler_id"`
+	URL       string `json:"url"`
+}
+type CrawlerResult struct {
+	CrawlerID uint   `json:"crawler_id"`
+	Success   bool   `json:"success"`
+	Content   string `json:"content,omitempty"`
+	Error     string `json:"error,omitempty"`
+}</code></pre></div></div></div>
+            <h3>internal/common/</h3>
+            <div class="exercise-card"><h4>Configuração (Viper)</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">internal/common/config/config.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package config
+import ("log"; "github.com/spf13/viper")
+type Config struct {
+	DatabaseURL string `mapstructure:"DATABASE_URL"`
+	NatsURL string `mapstructure:"NATS_URL"`
+	JWTSecret string `mapstructure:"JWT_SECRET"`
+	APIServerAddress string `mapstructure:"API_SERVER_ADDRESS"`
+}
+var AppConfig Config
+func LoadConfig(path string) {
+	viper.AddConfigPath(path)
+	viper.SetConfigFile(".env")
+	viper.AutomaticEnv()
+	if err := viper.ReadInConfig(); err != nil {
+        log.Println("Atenção: .env não encontrado, usando variáveis de ambiente.")
+    }
+	if err := viper.Unmarshal(&AppConfig); err != nil {
+		log.Fatalf("Não foi possível carregar a configuração: %v", err)
+	}
+}</code></pre></div></div></div>
+            <div class="exercise-card"><h4>Conexão com Banco de Dados (GORM)</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">internal/common/database/database.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package database
+import ("log"; "artemis-golang/pkg/models"; "gorm.io/driver/postgres"; "gorm.io/gorm")
+var DB *gorm.DB
+func ConnectDB(dsn string) {
+	var err error
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil { log.Fatalf("Falha ao conectar ao banco de dados: %v", err) }
+	log.Println("Conexão com o banco de dados estabelecida.")
+	err = DB.AutoMigrate(&models.User{}, &models.Crawler{})
+	if err != nil { log.Fatalf("Falha ao migrar o banco de dados: %v", err) }
+	log.Println("Banco de dados migrado.")
+}</code></pre></div></div></div>
+            <div class="exercise-card"><h4>Conexão com Mensageria (NATS)</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">internal/common/messaging/nats.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package messaging
+import ("log"; "time"; "github.com/nats-io/nats.go")
+var NatsClient *nats.Conn
+func ConnectNATS(url string) {
+	var err error
+	opts := []nats.Option{
+		nats.MaxReconnects(5),
+		nats.ReconnectWait(2 * time.Second),
+		nats.DisconnectErrHandler(func(nc *nats.Conn, err error) {
+			log.Printf("Desconectado do NATS: %v", err)
+		}),
+		nats.ReconnectHandler(func(nc *nats.Conn) {
+			log.Printf("Reconectado ao NATS em %s", nc.ConnectedUrl())
+		}),
+	}
+	NatsClient, err = nats.Connect(url, opts...)
+	if err != nil { log.Fatalf("Falha ao conectar ao NATS: %v", err) }
+	log.Println("Conexão com NATS estabelecida.")
+}</code></pre></div></div></div>
+        </section>
+
+        <section id="step3" class="section">
+            <h2>Passo 3: Microsserviço Crawler</h2>
+             <p>Nosso serviço "trabalhador". Ele ouve por tarefas via NATS, executa a extração e publica o resultado.</p>
+             <div class="exercise-card">
+                <h4>Lógica de Extração (Scraper)</h4>
+                <button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button>
+                <div class="solution-content"><div class="filename">internal/crawler/scraper.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package crawler
+import ("context"; "fmt"; "log"; "time"; "github.com/chromedp/chromedp")
+func ScrapePage(url string) (string, error) {
+	log.Printf("Iniciando scraping para URL: %s", url)
+	opts := append(chromedp.DefaultExecAllocatorOptions[:],
+		chromedp.Flag("headless", true),
+		chromedp.Flag("disable-gpu", true),
+		chromedp.Flag("no-sandbox", true),
+		chromedp.Flag("disable-dev-shm-usage", true),
+	)
+	allocCtx, cancel := chromedp.NewExecAllocator(context.Background(), opts...)
+	defer cancel()
+	ctx, cancel := chromedp.NewContext(allocCtx)
+	defer cancel()
+	ctx, cancel = context.WithTimeout(ctx, 40*time.Second)
+	defer cancel()
+	var content string
+	err := chromedp.Run(ctx,
+		chromedp.Navigate(url),
+		chromedp.WaitVisible(`body`, chromedp.ByQuery),
+		chromedp.OuterHTML(`html`, &content),
+	)
+	if err != nil { return "", fmt.Errorf("falha no scraping com chromedp: %w", err) }
+	log.Println("Scraping com Chromedp bem-sucedido.")
+	return content, nil
+}</code></pre></div></div>
+            </div>
+             <div class="exercise-card">
+                <h4>Ouvinte de Tarefas (Subscriber)</h4>
+                <button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button>
+                <div class="solution-content"><div class="filename">internal/crawler/subscriber.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package crawler
+import ("encoding/json"; "log"; "artemis-golang/internal/common/messaging"; "artemis-golang/pkg/models"; "github.com/nats-io/nats.go")
+const ( RequestSubject = "CRAWLER.REQUEST"; ResultSubject  = "CRAWLER.RESULT" )
+func StartSubscriber() {
+	_, err := messaging.NatsClient.Subscribe(RequestSubject, handleRequest)
+	if err != nil { log.Fatalf("Falha ao inscrever no tópico NATS: %v", err) }
+	log.Printf("Ouvindo no tópico: %s", RequestSubject)
+	select {}
+}
+func handleRequest(msg *nats.Msg) {
+	var req models.CrawlerRequest
+	if err := json.Unmarshal(msg.Data, &req); err != nil { log.Printf("Erro ao deserializar mensagem: %v", err); return }
+	log.Printf("Recebida requisição para Crawler ID %d: %s", req.CrawlerID, req.URL)
+	content, err := ScrapePage(req.URL)
+	result := models.CrawlerResult{CrawlerID: req.CrawlerID}
+	if err != nil {
+		result.Success, result.Error = false, err.Error()
+	} else {
+		result.Success, result.Content = true, content
+	}
+	resultBytes, _ := json.Marshal(result)
+	if err := messaging.NatsClient.Publish(ResultSubject, resultBytes); err != nil {
+        log.Printf("Erro ao publicar resultado para Crawler ID %d: %v", req.CrawlerID, err)
+    }
+}</code></pre></div></div>
+            </div>
+            <div class="exercise-card">
+                <h4>Ponto de Entrada do Crawler</h4>
+                <button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button>
+                <div class="solution-content"><div class="filename">cmd/crawler/main.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package main
+import ("log"; "artemis-golang/internal/common/config"; "artemis-golang/internal/common/messaging"; "artemis-golang/internal/crawler")
+func main() {
+	log.Println("Iniciando serviço APP-CRAWLER...")
+	config.LoadConfig(".")
+	messaging.ConnectNATS(config.AppConfig.NatsURL)
+	defer messaging.NatsClient.Close()
+	crawler.StartSubscriber()
+}</code></pre></div></div>
+            </div>
+        </section>
+
+        <section id="step4" class="section">
+            <h2>Passo 4: Microsserviço API</h2>
+            <p>A interface do nosso sistema. Recebe as requisições, interage com o banco e publica tarefas para o Crawler.</p>
+            <h3>Repositórios</h3>
+            <div class="exercise-card"><h4>Repositório de Usuário</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">internal/api/repository/user_repository.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package repository
+import ("artemis-golang/internal/common/database";"artemis-golang/pkg/models")
+func FindUserByEmail(email string)(models.User,error){var user models.User;result:=database.DB.Where("email = ?",email).First(&user);return user,result.Error}
+func CreateUser(user *models.User)error{return database.DB.Create(user).Error}</code></pre></div></div></div>
+            <div class="exercise-card"><h4>Repositório do Crawler</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">internal/api/repository/crawler_repository.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package repository
+import ("artemis-golang/internal/common/database";"artemis-golang/pkg/models")
+func CreateCrawler(crawler *models.Crawler)error{return database.DB.Create(crawler).Error}
+func UpdateCrawlerResult(id uint,status models.Status,resultText string,errorMsg string)error{var crawler models.Crawler;if errorMsg!=""{resultText=errorMsg};return database.DB.Model(&crawler).Where("id = ?",id).Updates(models.Crawler{Status:status,Result:resultText}).Error}
+func GetUserCrawlers(userID uint)([]models.Crawler,error){var crawlers[]models.Crawler;result:=database.DB.Where("user_id = ?",userID).Order("id desc").Find(&crawlers);return crawlers,result.Error}</code></pre></div></div></div>
+            
+            <h3>Serviços</h3>
+            <div class="exercise-card"><h4>Serviço de Senha (Bcrypt)</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">internal/api/service/password_service.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package service
+import "golang.org/x/crypto/bcrypt"
+func HashPassword(password string)(string,error){bytes,err:=bcrypt.GenerateFromPassword([]byte(password),14);return string(bytes),err}
+func CheckPasswordHash(password,hash string)bool{err:=bcrypt.CompareHashAndPassword([]byte(hash),[]byte(password));return err==nil}</code></pre></div></div></div>
+            <div class="exercise-card"><h4>Serviço de Token (JWT)</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">internal/api/service/jwt_service.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package service
+import ("fmt";"time";"artemis-golang/internal/common/config";"github.com/golang-jwt/jwt/v5")
+func GenerateToken(userID uint)(string,error){claims:=jwt.MapClaims{"user_id":userID,"exp":time.Now().Add(time.Hour*72).Unix(),};token:=jwt.NewWithClaims(jwt.SigningMethodHS256,claims);return token.SignedString([]byte(config.AppConfig.JWTSecret))}
+func ValidateToken(tokenString string)(uint,error){token,err:=jwt.Parse(tokenString,func(token *jwt.Token)(interface{},error){if _,ok:=token.Method.(*jwt.SigningMethodHMAC);!ok{return nil,fmt.Errorf("método de assinatura inesperado: %v",token.Header["alg"])};return[]byte(config.AppConfig.JWTSecret),nil});if err!=nil{return 0,err};if claims,ok:=token.Claims.(jwt.MapClaims);ok&&token.Valid{userID:=uint(claims["user_id"].(float64));return userID,nil};return 0,fmt.Errorf("token inválido")}</code></pre></div></div></div>
+            
+            <h3>Handlers (Controladores)</h3>
+            <div class="exercise-card"><h4>Payloads de Requisição</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">internal/api/handler/payloads.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package handler
+type RegisterPayload struct{Email string `json:"email" binding:"required,email"`;Password string `json:"password" binding:"required,min=8"`}
+type LoginPayload struct{Email string `json:"email" binding:"required,email"`;Password string `json:"password" binding:"required"`}
+type CreateCrawlerPayload struct{URL string `json:"url" binding:"required,url"`}</code></pre></div></div></div>
+            <div class="exercise-card"><h4>Handler de Autenticação</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">internal/api/handler/auth_handler.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package handler
+import ("errors";"net/http";"artemis-golang/internal/api/repository";"artemis-golang/internal/api/service";"artemis-golang/pkg/models";"github.com/gin-gonic/gin";"gorm.io/gorm")
+func Register(c *gin.Context){var payload RegisterPayload;if err:=c.ShouldBindJSON(&payload);err!=nil{c.JSON(http.StatusBadRequest,gin.H{"error":"Entrada inválida: "+err.Error()});return};_,err:=repository.FindUserByEmail(payload.Email);if!errors.Is(err,gorm.ErrRecordNotFound){c.JSON(http.StatusConflict,gin.H{"error":"E-mail já cadastrado"});return};hashedPassword,err:=service.HashPassword(payload.Password);if err!=nil{c.JSON(http.StatusInternalServerError,gin.H{"error":"Não foi possível processar a senha"});return};newUser:=models.User{Email:payload.Email,Password:hashedPassword};if err:=repository.CreateUser(&newUser);err!=nil{c.JSON(http.StatusInternalServerError,gin.H{"error":"Não foi possível criar o usuário"});return};c.JSON(http.StatusCreated,gin.H{"message":"Usuário registrado com sucesso!"})}
+func Login(c *gin.Context){var payload LoginPayload;if err:=c.ShouldBindJSON(&payload);err!=nil{c.JSON(http.StatusBadRequest,gin.H{"error":"Entrada inválida: "+err.Error()});return};user,err:=repository.FindUserByEmail(payload.Email);if err!=nil{c.JSON(http.StatusUnauthorized,gin.H{"error":"Credenciais inválidas"});return};if!service.CheckPasswordHash(payload.Password,user.Password){c.JSON(http.StatusUnauthorized,gin.H{"error":"Credenciais inválidas"});return};token,err:=service.GenerateToken(user.ID);if err!=nil{c.JSON(http.StatusInternalServerError,gin.H{"error":"Não foi possível gerar o token"});return};c.JSON(http.StatusOK,gin.H{"token":token})}</code></pre></div></div></div>
+            <div class="exercise-card"><h4>Handler do Crawler</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">internal/api/handler/crawler_handler.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package handler
+import ("encoding/json";"log";"net/http";"artemis-golang/internal/api/repository";"artemis-golang/internal/common/messaging";"artemis-golang/internal/crawler";"artemis-golang/pkg/models";"github.com/gin-gonic/gin")
+func CreateCrawlerTask(c *gin.Context){var payload CreateCrawlerPayload;if err:=c.ShouldBindJSON(&payload);err!=nil{c.JSON(http.StatusBadRequest,gin.H{"error":"URL inválida: "+err.Error()});return};userID,_:=c.Get("user_id");newCrawler:=models.Crawler{UserID:userID.(uint),URL:payload.URL,Status:models.StatusPending,};if err:=repository.CreateCrawler(&newCrawler);err!=nil{c.JSON(http.StatusInternalServerError,gin.H{"error":"Não foi possível criar a tarefa"});return};request:=models.CrawlerRequest{CrawlerID:newCrawler.ID,URL:newCrawler.URL,};reqBytes,_:=json.Marshal(request);if err:=messaging.NatsClient.Publish(crawler.RequestSubject,reqBytes);err!=nil{log.Printf("Falha ao publicar tarefa no NATS: %v",err);c.JSON(http.StatusInternalServerError,gin.H{"error":"Não foi possível enfileirar a tarefa"});return};c.JSON(http.StatusAccepted,gin.H{"message":"Tarefa de extração recebida!","crawler_id":newCrawler.ID,})}
+func GetMyCrawlers(c *gin.Context){userID,_:=c.Get("user_id");crawlers,err:=repository.GetUserCrawlers(userID.(uint));if err!=nil{c.JSON(http.StatusInternalServerError,gin.H{"error":"Não foi possível buscar as tarefas"});return};c.JSON(http.StatusOK,crawlers)}</code></pre></div></div></div>
+            
+            <h3>Middleware e Roteador</h3>
+            <div class="exercise-card"><h4>Middleware de Autenticação</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">internal/api/middleware/auth_middleware.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package middleware
+import ("net/http";"strings";"artemis-golang/internal/api/service";"github.com/gin-gonic/gin")
+func AuthMiddleware()gin.HandlerFunc{return func(c *gin.Context){authHeader:=c.GetHeader("Authorization");if authHeader==""{c.AbortWithStatusJSON(http.StatusUnauthorized,gin.H{"error":"Autorização não encontrada"});return};parts:=strings.Split(authHeader," ");if len(parts)!=2||parts[0]!="Bearer"{c.AbortWithStatusJSON(http.StatusUnauthorized,gin.H{"error":"Formato do cabeçalho de autorização inválido"});return};userID,err:=service.ValidateToken(parts[1]);if err!=nil{c.AbortWithStatusJSON(http.StatusUnauthorized,gin.H{"error":"Token inválido ou expirado"});return};c.Set("user_id",userID);c.Next()}}</code></pre></div></div></div>
+            <div class="exercise-card"><h4>Configuração do Roteador (Gin)</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">internal/api/router.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package api
+import ("artemis-golang/internal/api/handler";"artemis-golang/internal/api/middleware";"github.com/gin-gonic/gin")
+func SetupRouter()*gin.Engine{r:=gin.Default();r.GET("/ping",func(c *gin.Context){c.JSON(200,gin.H{"message":"pong"})});authRoutes:=r.Group("/auth");{authRoutes.POST("/register",handler.Register);authRoutes.POST("/login",handler.Login)};apiRoutes:=r.Group("/api");apiRoutes.Use(middleware.AuthMiddleware());{apiRoutes.POST("/crawlers",handler.CreateCrawlerTask);apiRoutes.GET("/crawlers",handler.GetMyCrawlers)};return r}</code></pre></div></div></div>
+
+            <h3>Ponto de Entrada da API</h3>
+            <div class="exercise-card"><h4>Main da API</h4><button class="toggle-solution-btn">Ver Código<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button><div class="solution-content"><div class="filename">cmd/api/main.go</div><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>package main
+import ("encoding/json";"log";"artemis-golang/internal/api";"artemis-golang/internal/api/repository";"artemis-golang/internal/common/config";"artemis-golang/internal/common/database";"artemis-golang/internal/common/messaging";"artemis-golang/internal/crawler";"artemis-golang/pkg/models";"github.com/nats-io/nats.go")
+func main(){log.Println("Iniciando serviço APP-API...");config.LoadConfig(".");database.ConnectDB(config.AppConfig.DatabaseURL);messaging.ConnectNATS(config.AppConfig.NatsURL);defer messaging.NatsClient.Close();_,err:=messaging.NatsClient.Subscribe(crawler.ResultSubject,handleCrawlerResult);if err!=nil{log.Fatalf("Falha ao inscrever no tópico de resultados: %v",err)};r:=api.SetupRouter();if err:=r.Run(config.AppConfig.APIServerAddress);err!=nil{log.Fatalf("Falha ao iniciar o servidor Gin: %v",err)}}
+func handleCrawlerResult(msg *nats.Msg){var result models.CrawlerResult;if err:=json.Unmarshal(msg.Data,&result);err!=nil{log.Printf("Erro ao deserializar resultado do crawler: %v",err);return};log.Printf("Recebido resultado para Crawler ID %d. Sucesso: %v",result.CrawlerID,result.Success);status:=models.StatusCompleted;if!result.Success{status=models.StatusFailed};err:=repository.UpdateCrawlerResult(result.CrawlerID,status,result.Content,result.Error);if err!=nil{log.Printf("Erro ao atualizar o status do Crawler ID %d no banco: %v",result.CrawlerID,err)}}</code></pre></div></div></div>
+        </section>
+
+        <section id="step5" class="section">
+            <h2>Passo 5: Executando e Testando</h2>
+            <p>Com todo o código pronto, vamos colocar o sistema para funcionar e testar os endpoints.</p>
+            <div class="exercise-card">
+                <h4>5.1: Instalar Dependências</h4>
+                <p>Execute <code>go mod tidy</code> para baixar todas as bibliotecas Go que usamos no projeto.</p>
+                <button class="toggle-solution-btn">Ver Comando<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button>
+                <div class="solution-content"><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>go mod tidy</code></pre></div></div>
+            </div>
+             <div class="exercise-card">
+                <h4>5.2: Iniciar os Serviços</h4>
+                <p>Use o Docker Compose para construir as imagens e iniciar todos os contêineres.</p>
+                <button class="toggle-solution-btn">Ver Comando<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button>
+                <div class="solution-content"><div class="code-container"><button class="copy-btn">Copiar</button><pre><code>docker-compose up --build</code></pre></div></div>
+            </div>
+             <div class="exercise-card">
+                <h4>5.3: Testar a API</h4>
+                <p>Use os comandos <code>curl</code> abaixo em um novo terminal para registrar, logar e criar tarefas.</p>
+                <button class="toggle-solution-btn">Ver Comandos<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg></button>
+                <div class="solution-content">
+                    <div class="code-container"><button class="copy-btn">Copiar</button><pre><code># 1. Registre um usuário
+curl -i -X POST http://localhost:8080/auth/register \
+-H "Content-Type: application/json" \
+-d '{"email": "seu-email@exemplo.com", "password": "senha-muito-segura"}'
+
+# 2. Faça login e salve o token
+# (Copie o token da resposta do comando abaixo)
+curl -i -X POST http://localhost:8080/auth/login \
+-H "Content-Type: application/json" \
+-d '{"email": "seu-email@exemplo.com", "password": "senha-muito-segura"}'
+
+# 3. Crie uma tarefa de extração (substitua SEU_TOKEN_AQUI)
+TOKEN="SEU_TOKEN_AQUI"
+curl -i -X POST http://localhost:8080/api/crawlers \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer $TOKEN" \
+-d '{"url": "https://gobyexample.com/"}'
+
+# 4. Verifique suas tarefas
+curl -i -X GET http://localhost:8080/api/crawlers \
+-H "Authorization: Bearer $TOKEN"</code></pre></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusion" class="section">
+           <h2>Conclusão</h2>
+           <h3>Parabéns!</h3>
+           <p>Você construiu e testou um sistema de microsserviços completo em Go. Você utilizou contêineres para consistência, um banco de dados para persistência, um mensageiro para resiliência e uma API REST segura.</p>
+           <p>Este projeto serve como uma base sólida. A partir daqui, você pode expandi-lo, adicionar mais funcionalidades, melhorar o tratamento de erros ou até mesmo prepará-lo para ser implantado em um provedor de nuvem.</p>
+        </section>
+
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleButtons = document.querySelectorAll('.toggle-solution-btn');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    button.classList.toggle('open');
+                    button.nextElementSibling.classList.toggle('show');
+                });
+            });
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            copyButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const pre = e.target.closest('.code-container').querySelector('pre');
+                    navigator.clipboard.writeText(pre.innerText).then(() => {
+                        button.innerText = 'Copiado!';
+                        setTimeout(() => { button.innerText = 'Copiar'; }, 2000);
+                    });
+                });
+            });
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        document.querySelector('.nav-link.active')?.classList.remove('active');
+                        document.querySelector(`a[href="#${id}"]`)?.classList.add('active');
+                    }
+                });
+            }, { rootMargin: "-40% 0px -60% 0px" });
+            sections.forEach(section => observer.observe(section));
+            navLinks.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

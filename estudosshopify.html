@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Estudos Shopify para Iniciantes com Revisão Progressiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #374151; 
+        }
+        .sidebar {
+            background-color: #f9fafb; 
+            border-right: 1px solid #e5e7eb; 
+        }
+        .sidebar a {
+            color: #4b5563; 
+            transition: all 0.2s ease-in-out;
+            font-weight: 500;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            background-color: #eef2ff; 
+            color: #4f46e5; 
+            border-radius: 6px;
+        }
+        .sidebar .module-title {
+            font-weight: 600;
+            color: #1f2937; 
+            font-size: 1.05rem;
+            padding-left: 0.25rem;
+        }
+        .sidebar .level-title { 
+            padding-left: 1.75rem; 
+            font-size: 0.9rem;
+            color: #6b7280; 
+        }
+        .sidebar a.level-title:hover, .sidebar a.level-title.active {
+             color: #4f46e5; 
+        }
+
+        .content-area h1 { 
+            font-size: 2.25rem; 
+            font-weight: 700;
+            color: #111827; 
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #d1d5db;
+        }
+        .content-area h2 { 
+            font-size: 1.5rem; 
+            font-weight: 600;
+            color: #1f2937;
+            margin-top: 2.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .content-area h3 { 
+            font-size: 1.15rem; 
+            font-weight: 600;
+            color: #374151;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        .content-area h4 { 
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #374151;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .content-area p, .content-area li {
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            color: #4b5563;
+        }
+        .content-area ul {
+            list-style-position: outside;
+            padding-left: 1.5rem; 
+            list-style-type: disc;
+        }
+         .content-area ol {
+            list-style-position: outside;
+            padding-left: 1.5rem;
+            list-style-type: decimal;
+        }
+        .code-block-wrapper {
+            background-color: #2d3748; 
+            border-radius: 8px;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            overflow: hidden; 
+            position: relative;
+        }
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background-color: #4a5568; 
+            color: #e2e8f0;
+            font-size: 0.875rem;
+        }
+        .code-block-header span {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+        }
+        .copy-button {
+            background-color: #718096; 
+            color: #ffffff;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        .copy-button:hover {
+            background-color: #a0aec0; 
+        }
+        .copy-button .fa-copy { margin-right: 0.3rem; }
+        .copy-button .fa-check { color: #68d391; margin-right: 0.3rem; }
+        pre {
+            background-color: transparent; 
+            color: #e2e8f0; 
+            padding: 1rem; 
+            overflow-x: auto;
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin: 0; 
+        }
+        pre code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            background-color: transparent !important; 
+            color: inherit !important;
+            padding: 0 !important;
+            font-size: inherit !important;
+        }
+        .inline-code { 
+            background-color: #eef2ff; 
+            color: #4338ca; 
+            padding: 0.2em 0.45em;
+            border-radius: 4px;
+            font-size: 0.875em; 
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+        }
+        .exercise-card, .solution-card {
+            background-color: #f0f9ff; 
+            border-left: 4px solid #3b82f6; 
+            padding: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 0; 
+        }
+        .exercise-title, .solution-title {
+            font-weight: 600;
+            color: #1e40af; 
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+        .summary-card {
+            background-color: #f0fdf4; 
+            border-left: 4px solid #22c55e; 
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-radius: 0 8px 8px 0;
+        }
+        .summary-title {
+            font-weight: 600;
+            color: #15803d; 
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+        .solution-card {
+            background-color: #fffbeb; /* Amarelo claro para solução */
+            border-left-color: #f59e0b; /* Amarelo mais escuro para a borda */
+            display: none; /* Escondido por padrão */
+        }
+        .solution-card .solution-title {
+            color: #b45309; /* Texto do título da solução */
+        }
+        .toggle-solution-button {
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-top: 1rem;
+            display: inline-block;
+            transition: background-color 0.2s;
+        }
+        .toggle-solution-button:hover {
+            background-color: #2563eb;
+        }
+    </style>
+</head>
+<body class="flex h-screen bg-gray-100">
+
+    <aside class="sidebar w-72 h-full overflow-y-auto p-6 space-y-3 hidden sm:block">
+        <div class="module-title mb-2">M1: Fundamentos (Ini.)</div>
+        <nav class="space-y-1 mb-3">
+            <a href="#mod1-intro" class="block px-3 py-2 text-sm">O que é Shopify?</a>
+            <a href="#mod1-conceitos" class="block px-3 py-2 text-sm">Conceitos Essenciais</a>
+        </nav>
+        <div class="module-title mb-2">M2: Primeiros Passos (Ini.)</div>
+        <nav class="space-y-1 mb-3">
+            <a href="#mod2-conta-loja" class="block px-3 py-2 text-sm">Conta e Loja de Dev</a>
+            <a href="#mod2-admin" class="block px-3 py-2 text-sm">Navegando no Admin</a>
+            <a href="#mod2-estrutura-tema" class="block px-3 py-2 text-sm">Estrutura de Tema</a>
+        </nav>
+        <div class="module-title mb-2">M3: Intro Liquid (Ini.)</div>
+        <nav class="space-y-1 mb-3">
+            <a href="#mod3-intro-liquid" class="block px-3 py-2 text-sm">O que é Liquid?</a>
+            <a href="#mod3-sintaxe" class="block px-3 py-2 text-sm">Sintaxe Básica</a>
+            <a href="#mod3-exemplos" class="block px-3 py-2 text-sm">Exemplos Práticos</a>
+        </nav>
+        <div class="module-title mb-2">M4: HTML & CSS (Ini.)</div>
+        <nav class="space-y-1 mb-3">
+             <a href="#mod4-html-css-geral" class="block px-3 py-2 text-sm">HTML Estrutural</a>
+             <a href="#mod4-css-basico" class="block px-3 py-2 text-sm">CSS Básico</a>
+             <a href="#mod4-inspecionar" class="block px-3 py-2 text-sm">Inspecionar Elementos</a>
+        </nav>
+        <div class="module-title mb-2">M5: JavaScript (Ini.)</div>
+        <nav class="space-y-1 mb-3">
+             <a href="#mod5-js-intro" class="block px-3 py-2 text-sm">Incluindo JavaScript</a>
+             <a href="#mod5-js-dom" class="block px-3 py-2 text-sm">Manipulação do DOM</a>
+             <a href="#mod5-js-eventos" class="block px-3 py-2 text-sm">Eventos Comuns</a>
+        </nav>
+        <div class="module-title mb-2">M6: Person. Temas (Ini.)</div>
+        <nav class="space-y-1 mb-3">
+             <a href="#mod6-editor-temas" class="block px-3 py-2 text-sm">Editor de Temas</a>
+             <a href="#mod6-editando-codigo" class="block px-3 py-2 text-sm">Editando Código</a>
+        </nav>
+        <div class="module-title mb-2">M7: Shopify CLI (Ini.)</div>
+        <nav class="space-y-1 mb-3">
+             <a href="#mod7-cli-intro" class="block px-3 py-2 text-sm">O que é o CLI?</a>
+             <a href="#mod7-cli-comandos" class="block px-3 py-2 text-sm">Comandos Úteis</a>
+        </nav>
+        <div class="module-title mb-2">M8: Fundamentos (Rev. Prog.)</div>
+        <nav class="space-y-1 mb-3">
+            <a href="#prog-mod1-conceitos" class="block px-3 py-2 text-sm">Revisão de Conceitos</a>
+        </nav>
+        <div class="module-title mb-2">M9: Ambiente Dev (Rev. Prog.)</div>
+        <nav class="space-y-1 mb-3">
+            <a href="#prog-mod2-config" class="block px-3 py-2 text-sm">Configuração Essencial</a>
+        </nav>
+         <div class="module-title mb-2">M10: Dominando o Liquid</div>
+        <nav class="space-y-1 mb-3">
+            <a href="#prog-mod3-liquid-intro" class="block px-3 py-2 text-sm">O que é Liquid? (Revisão)</a>
+            <a href="#prog-mod3-liquid-iniciante" class="block px-3 py-2 text-sm level-title">Nível Iniciante</a>
+            <a href="#prog-mod3-liquid-intermediario" class="block px-3 py-2 text-sm level-title">Nível Intermediário</a> 
+            <a href="#prog-mod3-liquid-avancado" class="block px-3 py-2 text-sm level-title">Nível Avançado</a>
+        </nav>
+        <div class="module-title mb-2">M11: Seções e Blocos</div>
+        <nav class="space-y-1 mb-3">
+            <a href="#mod11-sections-intro" class="block px-3 py-2 text-sm level-title active">Nível Iniciante</a>
+            </nav>
+    </aside>
+
+    <main class="flex-1 h-full overflow-y-auto p-6 sm:p-10 content-area">
+        <header class="mb-8 sm:hidden"> 
+            <h1 class="text-2xl font-bold text-gray-800">Guia Shopify Iniciante & Revisão</h1>
+        </header>
+        
+        <section id="mod1-intro">
+            <h1>Módulo 1: Fundamentos do Shopify (Iniciante)</h1>
+            <p>Antes de colocar a mão na massa, é crucial entender alguns conceitos básicos da plataforma.</p>
+
+            <h2 id="mod1-oque-e-shopify">O que é Shopify?</h2>
+            <p>Shopify é uma plataforma de comércio eletrônico completa que permite a qualquer pessoa criar uma loja online para vender seus produtos ou serviços. Ela cuida de muitos aspectos técnicos, como hospedagem, segurança e processamento de pagamentos, permitindo que os lojistas foquem em seus negócios. Para desenvolvedores, o Shopify oferece um ecossistema robusto para personalizar a aparência e as funcionalidades das lojas.</p>
+            
+            <h2 id="mod1-conceitos">Conceitos Essenciais:</h2>
+            <ul>
+                <li><strong>Loja (Store):</strong> É a sua loja virtual completa, onde seus produtos são exibidos, os clientes compram e você gerencia tudo.</li>
+                <li><strong>Tema (Theme):</strong> É o "esqueleto" e o "visual" da sua loja online. Controla a aparência, o layout e a experiência do usuário.</li>
+                <li><strong>Produtos, Coleções, Clientes:</strong> Itens à venda, agrupamentos de produtos e informações dos compradores.</li>
+                <li><strong>Carrinho (Cart):</strong> Onde os clientes adicionam os produtos antes de finalizar o pedido.</li>
+                <li><strong>Checkout:</strong> O processo final de compra.</li>
+                <li><strong>Apps (Aplicativos):</strong> Extensões que adicionam funcionalidades extras à sua loja.</li>
+                <li><strong>APIs (Interfaces de Programação de Aplicativos):</strong> Permitem que diferentes softwares "conversem" entre si para ler/escrever dados da loja.</li>
+                <li><strong>Liquid:</strong> A linguagem de template do Shopify, usada para carregar dados dinâmicos nos temas. Verá muito <span class="inline-code">{{ }}</span> e <span class="inline-code">{% %}</span>.</li>
+                <li><strong>Metafields (Campos Personalizados):</strong> Permitem adicionar informações extras e personalizadas a produtos, coleções, etc.</li>
+            </ul>
+
+            <div class="exercise-card">
+                <div class="exercise-title">Exercício Prático Módulo 1:</div>
+                <ol>
+                    <li>Pense em um tipo de produto que você gostaria de vender (mesmo que fictício).</li>
+                    <li>Liste 3 informações específicas sobre esse produto que você gostaria de mostrar na página dele (além do nome e preço). Uma delas poderia ser um "metafield"?</li>
+                </ol>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Ver Resposta</button>
+                <div class="solution-card">
+                    <div class="solution-title">Resposta do Exercício (Módulo 1):</div>
+                    <p>Vamos imaginar que queremos vender "Canecas Temáticas Artesanais".</p>
+                    <p>Três informações específicas (além de nome e preço) que gostaríamos de mostrar:</p>
+                    <ol>
+                        <li><strong>Material:</strong> Ex: "Cerâmica de alta qualidade". Esta é uma informação comum.</li>
+                        <li><strong>Capacidade:</strong> Ex: "325ml". Informação técnica importante.</li>
+                        <li><strong>Artista Criador (Metafield):</strong> Ex: "Arte por Artista X". Esta informação é perfeita para um metafield porque:
+                            <ul>
+                                <li>Pode não ser um campo padrão do Shopify.</li>
+                                <li>É uma informação específica que agrega valor e pode ser diferente para cada caneca ou coleção de canecas.</li>
+                                <li>Permite filtrar ou agrupar produtos por artista no futuro, se desejado.</li>
+                                <li>Pode ser facilmente adicionado via admin do Shopify em <span class="inline-code">Configurações > Dados Personalizados > Produtos</span>.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p>Assim, "Artista Criador" seria um excelente candidato para um metafield do tipo "Texto (uma linha)" ou "Texto (múltiplas linhas)".</p>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-title">Resumo Módulo 1:</div>
+                <p>Você aprendeu o que é o Shopify e os blocos de construção fundamentais de qualquer loja na plataforma. Entender esses termos é o primeiro passo.</p>
+            </div>
+        </section>
+
+        <section id="mod2-conta-loja" class="mt-12">
+            <h1>Módulo 2: Primeiros Passos na Prática (Iniciante)</h1>
+            <p>Agora, vamos configurar seu ambiente para começar a explorar.</p>
+
+            <h2 id="mod2-conta-e-loja-dev">Criando sua Conta de Parceiro e Loja de Desenvolvimento</h2>
+            <p>A melhor forma de aprender é praticando. O Shopify Partners permite criar lojas de desenvolvimento gratuitas.</p>
+            <ol>
+                <li>Acesse <a href="https://www.shopify.com/partners" target="_blank" class="text-indigo-600 hover:underline">Shopify Partners</a> e crie sua conta.</li>
+                <li>No Painel de Parceiro, vá em "Development stores" e clique em "Create store".</li>
+                <li>Escolha "Create a store for a client or for testing".</li>
+                <li>Preencha os dados e marque para instalar o tema padrão mais recente (geralmente o "Dawn").</li>
+            </ol>
+
+            <h2 id="mod2-admin">Navegando pelo Admin da Shopify</h2>
+            <p>Explore o painel administrativo da sua loja de desenvolvimento. Familiarize-se com as seções: Produtos, Coleções, Loja Virtual (Online Store) > Temas, etc.</p>
+            
+            <h2 id="mod2-estrutura-tema">Entendendo a Estrutura de um Tema Shopify</h2>
+            <p>Os temas têm uma estrutura de pastas padronizada. Acesse <span class="inline-code">Loja Virtual > Temas > Ações > Editar código</span> para ver:</p>
+            <ul>
+                <li><span class="inline-code">layout/</span>: Contém <span class="inline-code">theme.liquid</span> (layout principal).</li>
+                <li><span class="inline-code">templates/</span>: Estrutura de páginas específicas (<span class="inline-code">index.liquid</span>, <span class="inline-code">product.liquid</span>).</li>
+                <li><span class="inline-code">sections/</span>: Seções modulares e reutilizáveis.</li>
+                <li><span class="inline-code">snippets/</span>: Pedaços de código reutilizáveis.</li>
+                <li><span class="inline-code">assets/</span>: Recursos estáticos (CSS, JS, imagens, fontes).</li>
+                <li><span class="inline-code">config/</span>: <span class="inline-code">settings_schema.json</span> (opções de personalização global) e <span class="inline-code">settings_data.json</span> (valores salvos).</li>
+                <li><span class="inline-code">locales/</span>: Arquivos de tradução.</li>
+            </ul>
+            <div class="exercise-card">
+                <div class="exercise-title">Exercício Prático Módulo 2:</div>
+                <ol>
+                    <li>Crie sua conta de Parceiro e uma loja de desenvolvimento.</li>
+                    <li>Adicione 3 produtos de exemplo com nome, preço e imagem.</li>
+                    <li>Crie uma coleção "Promoções" e adicione esses produtos a ela.</li>
+                    <li>Navegue até <span class="inline-code">Editar código</span>. Explore as pastas. Abra <span class="inline-code">layout/theme.liquid</span> e tente identificar <span class="inline-code">{{ content_for_layout }}</span>.</li>
+                </ol>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Ver Resposta</button>
+                <div class="solution-card">
+                    <div class="solution-title">Resposta do Exercício (Módulo 2):</div>
+                    <p><strong>1. Criação da Conta e Loja de Desenvolvimento:</strong><br>
+                    Siga os passos indicados no módulo. Certifique-se de que sua loja de desenvolvimento seja criada com o tema mais recente (ex: Dawn) para ter uma base moderna para seus estudos.
+                    </p>
+                    <p class="mt-4"><strong>2. Adicionar Produtos de Exemplo:</strong><br>
+                    No admin da sua loja de desenvolvimento, vá em <span class="inline-code">Produtos > Adicionar produto</span>.
+                    <ul>
+                        <li><strong>Produto 1:</strong> Nome: "Camiseta Estilosa", Preço: R$79,90. Adicione uma imagem qualquer.</li>
+                        <li><strong>Produto 2:</strong> Nome: "Caneca Criativa", Preço: R$39,90. Adicione uma imagem.</li>
+                        <li><strong>Produto 3:</strong> Nome: "Boné Descolado", Preço: R$59,90. Adicione uma imagem.</li>
+                    </ul>
+                    </p>
+                    <p class="mt-4"><strong>3. Criar Coleção "Promoções":</strong><br>
+                    Vá em <span class="inline-code">Produtos > Coleções > Criar coleção</span>.
+                    <ul>
+                        <li>Título: Promoções</li>
+                        <li>Tipo de coleção: Manual</li>
+                        <li>Salve a coleção. Depois, na seção "Produtos" dentro da coleção, adicione os 3 produtos que você criou.</li>
+                    </ul>
+                    </p>
+                    <p class="mt-4"><strong>4. Explorar <span class="inline-code">layout/theme.liquid</span> e Identificar <span class="inline-code">{{ content_for_layout }}</span>:</strong><br>
+                    No admin, vá em <span class="inline-code">Loja virtual > Temas > (Seu tema ativo) > Ações > Editar código</span>.
+                    Na árvore de arquivos à esquerda, abra a pasta <span class="inline-code">layout</span> e clique no arquivo <span class="inline-code">theme.liquid</span>.
+                    Procure por <span class="inline-code">{{ content_for_layout }}</span>. Geralmente, ele está dentro da tag <span class="inline-code">&lt;main&gt;</span> ou de uma <span class="inline-code">&lt;div&gt;</span> principal que representa o conteúdo da página.
+                    </p>
+                    <p><strong>O que é <span class="inline-code">{{ content_for_layout }}</span>?</strong><br>
+                    É um objeto Liquid crucial. Ele atua como um placeholder. Quando o Shopify renderiza uma página (seja a página inicial, uma página de produto, coleção, etc.), o conteúdo específico da template correspondente (ex: <span class="inline-code">index.liquid</span>, <span class="inline-code">product.liquid</span>) é injetado no local onde <span class="inline-code">{{ content_for_layout }}</span> está no <span class="inline-code">theme.liquid</span>. Isso permite que o <span class="inline-code">theme.liquid</span> defina a estrutura global da página (cabeçalho, rodapé, barras laterais) e o conteúdo específico da página seja inserido dinamicamente.
+                    </p>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-title">Resumo Módulo 2:</div>
+                <p>Você configurou seu ambiente de desenvolvimento e deu os primeiros passos no admin. Entender a estrutura de pastas de um tema é fundamental.</p>
+            </div>
+        </section>
+
+        <section id="mod3-intro-liquid" class="mt-12">
+            <h1>Módulo 3: Introdução ao Liquid (Iniciante)</h1>
+            <p>Liquid é a espinha dorsal da personalização de temas Shopify.</p>
+
+            <h2 id="mod3-o-que-e-liquid">O que é Liquid e por que usá-lo?</h2>
+            <p>Liquid é uma linguagem de template de código aberto criada pelo Shopify. Ela atua como uma ponte entre os dados da sua loja e o HTML enviado ao navegador. Com Liquid, você pode exibir dados dinâmicos, criar loops, usar condicionais e formatar dados.</p>
+
+            <h2 id="mod3-sintaxe">Sintaxe Básica:</h2>
+            <ul>
+                <li><strong>Objetos (<span class="inline-code">{{ }}</span>):</strong> Usados para exibir (output) dados. Ex: <span class="inline-code">{{ product.title }}</span>.</li>
+                <li><strong>Tags (<span class="inline-code">{% %}</span>):</strong> Usadas para lógica e controle de fluxo. Ex: <span class="inline-code">{% for product in collection.products %}</span>, <span class="inline-code">{% if customer %}</span>.</li>
+                <li><strong>Filtros (<span class="inline-code">|</span>):</strong> Usados dentro de objetos <span class="inline-code">{{ }}</span> para modificar a saída. Ex: <span class="inline-code">{{ product.price | money }}</span>, <span class="inline-code">{{ 'olá mundo' | capitalize }}</span>.</li>
+            </ul>
+
+            <h2 id="mod3-exemplos">Exemplos Práticos:</h2>
+            <p><strong>1. Exibindo o nome da loja:</strong></p>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>Liquid</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-liquid">{{ shop.name }}</code></pre>
+            </div>
+
+            <p><strong>2. Listando produtos na página de coleção (<span class="inline-code">templates/collection.liquid</span>):</strong></p>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>Liquid / HTML</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-liquid">&lt;h1&gt;{{ collection.title }}&lt;/h1&gt;
+&lt;ul&gt;
+  {% for product in collection.products %}
+    &lt;li&gt;
+      &lt;a href="{{ product.url | within: collection }}"&gt;
+        {{ product.title }} - {{ product.price | money }}
+      &lt;/a&gt;
+    &lt;/li&gt;
+  {% else %}
+    &lt;p&gt;Nenhum produto encontrado nesta coleção.&lt;/p&gt;
+  {% endfor %}
+&lt;/ul&gt;</code></pre>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-title">Exercício Prático Módulo 3:</div>
+                 <ol>
+                    <li>Em <span class="inline-code">templates/product.liquid</span>, encontre onde o título do produto é exibido.</li>
+                    <li>Logo abaixo, adicione o seguinte para exibir o fornecedor (vendor) em maiúsculas:
+                        <div class="code-block-wrapper mt-2">
+                            <div class="code-block-header">
+                                <span>Liquid / HTML</span>
+                                <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                            </div>
+                            <pre><code class="language-liquid">&lt;p&gt;Marca: {{ product.vendor | upcase }}&lt;/p&gt;</code></pre>
+                        </div>
+                    </li>
+                    <li>Adicione um "Fornecedor" a um produto no Admin e visualize a página do produto.</li>
+                </ol>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Ver Resposta</button>
+                <div class="solution-card">
+                    <div class="solution-title">Resposta do Exercício (Módulo 3):</div>
+                    <p><strong>1. Encontrando o Título do Produto:</strong><br>
+                    Abra o arquivo <span class="inline-code">templates/product.liquid</span> no editor de código do seu tema. Procure por uma linha que se pareça com <span class="inline-code">&lt;h1&gt;{{ product.title }}&lt;/h1&gt;</span> ou algo similar. A tag exata pode variar dependendo do tema, mas <span class="inline-code">{{ product.title }}</span> é o objeto Liquid que exibe o título.
+                    </p>
+                    <p class="mt-4"><strong>2. Adicionando o Fornecedor em Maiúsculas:</strong><br>
+                    Imediatamente após a linha onde o título do produto é exibido (ou em um local próximo que faça sentido visualmente), adicione o código fornecido:
+                    </p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span>Liquid / HTML (Exemplo em product.liquid)</span>
+                            <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code class="language-liquid">&lt;!-- Código existente da página do produto --&gt;
+&lt;h1&gt;{{ product.title }}&lt;/h1&gt;
+&lt;p&gt;Marca: {{ product.vendor | upcase }}&lt;/p&gt;
+&lt;!-- Restante do código da página do produto --&gt;</code></pre>
+                    </div>
+                     <p><strong>Explicação:</strong>
+                     <ul>
+                        <li><span class="inline-code">{{ product.vendor }}</span>: Acessa o campo "Fornecedor" do produto.</li>
+                        <li><span class="inline-code">| upcase</span>: Este é um filtro Liquid que converte todo o texto do fornecedor para letras maiúsculas.</li>
+                     </ul>
+                    </p>
+                    <p class="mt-4"><strong>3. Adicionar "Fornecedor" no Admin e Visualizar:</strong><br>
+                    <ul>
+                        <li>Vá no admin da sua loja Shopify.</li>
+                        <li>Clique em <span class="inline-code">Produtos</span> e selecione um dos seus produtos de exemplo para editar.</li>
+                        <li>Na página de edição do produto, procure pelo campo "Fornecedor" (geralmente na seção "Organização"). Se não encontrar, pode ser que o tema não o exiba por padrão ou esteja em outro local. Para temas modernos, este campo é padrão.</li>
+                        <li>Digite um nome de fornecedor, por exemplo, "Minha Marca Fantástica".</li>
+                        <li>Salve o produto.</li>
+                        <li>Agora, visualize a página deste produto na sua loja. Você deverá ver "Marca: MINHA MARCA FANTÁSTICA" exibido, com o nome do fornecedor em letras maiúsculas.</li>
+                    </ul>
+                    </p>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-title">Resumo Módulo 3:</div>
+                <p>Você aprendeu o que é Liquid, sua sintaxe básica e como ele é usado para exibir dados dinâmicos e controlar a lógica de apresentação nos temas.</p>
+            </div>
+        </section>
+        
+        <section id="mod4-html-css-geral" class="mt-12">
+            <h1>Módulo 4: HTML e CSS no Contexto Shopify (Iniciante)</h1>
+            <p>Liquid gera HTML, e CSS estiliza esse HTML. Entender o básico dessas linguagens é fundamental.</p>
+
+            <h2 id="mod4-html-estrutural">Revisão Rápida de HTML Estrutural</h2>
+            <p>HTML (HyperText Markup Language) é a linguagem de marcação padrão para criar páginas web. Ela descreve a estrutura do conteúdo usando elementos como:</p>
+            <ul>
+                <li><span class="inline-code">&lt;h1&gt;</span> a <span class="inline-code">&lt;h6&gt;</span>: Títulos</li>
+                <li><span class="inline-code">&lt;p&gt;</span>: Parágrafos</li>
+                <li><span class="inline-code">&lt;a&gt;</span>: Links (âncoras)</li>
+                <li><span class="inline-code">&lt;img&gt;</span>: Imagens</li>
+                <li><span class="inline-code">&lt;ul&gt;</span>, <span class="inline-code">&lt;ol&gt;</span>, <span class="inline-code">&lt;li&gt;</span>: Listas</li>
+                <li><span class="inline-code">&lt;div&gt;</span>: Divisões, usadas para agrupar elementos.</li>
+                <li><span class="inline-code">&lt;header&gt;</span>, <span class="inline-code">&lt;footer&gt;</span>, <span class="inline-code">&lt;nav&gt;</span>, <span class="inline-code">&lt;main&gt;</span>: Elementos semânticos.</li>
+            </ul>
+            <p>Nos arquivos <span class="inline-code">.liquid</span> do Shopify, você verá código HTML misturado com código Liquid. O Liquid é processado no servidor, e o resultado final enviado ao navegador é HTML puro.</p>
+
+            <h2 id="mod4-css-basico">CSS Básico para Estilização</h2>
+            <p>CSS (Cascading Style Sheets) é usado para controlar a aparência visual dos elementos HTML. Com CSS, você define cores, fontes, espaçamentos, layout, etc.</p>
+            <p>O CSS é aplicado usando seletores. Exemplo:</p>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>CSS</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-css">/* Estiliza todos os parágrafos para terem texto azul */
+p {
+  color: blue;
+  font-size: 16px;
+}
+
+/* Estiliza elementos com a classe "product-title" */
+.product-title {
+  font-size: 24px;
+  font-weight: bold;
+}</code></pre>
+            </div>
+            <p>Os arquivos CSS geralmente ficam na pasta <span class="inline-code">assets/</span> e são vinculados no <span class="inline-code">layout/theme.liquid</span> usando o filtro <span class="inline-code">stylesheet_tag</span>:</p>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>Liquid / HTML</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-liquid">{{ 'nome-do-arquivo.css' | asset_url | stylesheet_tag }}</code></pre>
+            </div>
+
+            <h2 id="mod4-inspecionar">Inspecionando Elementos e Testando Estilos</h2>
+            <p>As ferramentas de desenvolvedor do seu navegador (clique com o botão direito em qualquer elemento da página e escolha "Inspecionar") são essenciais. Com elas, você pode ver o HTML, os estilos CSS aplicados e testar alterações em tempo real.</p>
+
+            <div class="exercise-card">
+                <div class="exercise-title">Exercício Prático Módulo 4:</div>
+                <ol>
+                    <li>Na página de um produto da sua loja, clique com o botão direito no título do produto e "Inspecionar".</li>
+                    <li>No painel de estilos, tente adicionar uma propriedade CSS para o título, como <span class="inline-code">color: green;</span>.</li>
+                    <li>Vá em <span class="inline-code">Editar código</span> e abra o arquivo CSS principal do seu tema (em <span class="inline-code">assets/</span>).</li>
+                    <li>Adicione uma regra CSS para mudar a cor de fundo de todos os botões (<span class="inline-code">button</span> ou uma classe comum de botão do seu tema) para uma cor de sua escolha. Salve e visualize.</li>
+                </ol>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Ver Resposta</button>
+                <div class="solution-card">
+                    <div class="solution-title">Resposta do Exercício (Módulo 4):</div>
+                    <p><strong>1. Inspecionar Título do Produto:</strong><br>
+                    Abra a página de um produto na sua loja. Clique com o botão direito do mouse sobre o título do produto. No menu de contexto que aparece, selecione "Inspecionar" ou "Inspecionar Elemento". Isso abrirá as Ferramentas de Desenvolvedor do navegador, com o elemento HTML do título selecionado na aba "Elementos" (ou similar) e os estilos CSS aplicados a ele na aba "Estilos" (ou similar).
+                    </p>
+                    <p class="mt-4"><strong>2. Adicionar Propriedade CSS Temporariamente:</strong><br>
+                    Com o título selecionado na aba "Elementos", olhe o painel "Estilos". Você verá as regras CSS que se aplicam a ele. Muitas vezes, há uma seção chamada <span class="inline-code">element.style</span> ou um botão "+" para adicionar uma nova regra inline. Clique ali e digite <span class="inline-code">color: green;</span> e pressione Enter. Você deverá ver a cor do título mudar para verde na página.
+                    <em>Lembre-se: Esta alteração é temporária e só existe no seu navegador. Ao recarregar a página, ela sumirá.</em>
+                    </p>
+                    <p class="mt-4"><strong>3. Abrir Arquivo CSS Principal:</strong><br>
+                    No admin do Shopify, vá em <span class="inline-code">Loja Virtual > Temas > Ações > Editar código</span>. Na pasta <span class="inline-code">assets/</span>, procure por um arquivo CSS principal. Comumente, ele se chama <span class="inline-code">base.css</span>, <span class="inline-code">theme.css</span>, <span class="inline-code">style.css</span>, ou algo similar (no tema Dawn, por exemplo, é o <span class="inline-code">base.css</span>). Abra este arquivo.
+                    </p>
+                    <p class="mt-4"><strong>4. Adicionar Regra CSS para Botões:</strong><br>
+                    No final do arquivo CSS que você abriu, adicione a seguinte regra (ou uma similar, dependendo do seu tema):
+                    </p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span>CSS</span>
+                            <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code class="language-css">/* Meu estilo personalizado para botões */
+button, .button, .btn { /* Seletores comuns para botões */
+  background-color: orange !important; /* Escolha sua cor! */
+  color: white !important; /* Para garantir que o texto seja legível */
+}</code></pre>
+                    </div>
+                    <p><strong>Explicação:</strong>
+                    <ul>
+                        <li><span class="inline-code">button, .button, .btn</span>: Estes são seletores comuns. <span class="inline-code">button</span> seleciona todos os elementos HTML <span class="inline-code">&lt;button&gt;</span>. <span class="inline-code">.button</span> e <span class="inline-code">.btn</span> selecionam elementos que têm essas classes CSS, que são frequentemente usadas em temas para estilizar links ou divs para parecerem botões. Verifique no seu tema quais classes são usadas para botões inspecionando-os.</li>
+                        <li><span class="inline-code">background-color: orange !important;</span>: Define a cor de fundo. O <span class="inline-code">!important</span> é usado aqui para tentar sobrescrever outros estilos do tema que possam estar definindo a cor de fundo do botão. Use <span class="inline-code">!important</span> com cautela, pois pode dificultar a manutenção do CSS a longo prazo. Tente primeiro sem ele.</li>
+                        <li><span class="inline-code">color: white !important;</span>: Muda a cor do texto do botão para branco, para melhor contraste com o fundo laranja.</li>
+                    </ul>
+                    Salve o arquivo CSS. Vá até sua loja e atualize a página (Ctrl+R ou Cmd+R). Você deverá ver os botões com a nova cor de fundo. Se não funcionar, verifique se os seletores CSS (<span class="inline-code">button</span>, <span class="inline-code">.button</span>, etc.) correspondem aos elementos de botão do seu tema.
+                    </p>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-title">Resumo Módulo 4:</div>
+                <p>Você relembrou os fundamentos de HTML para estrutura e CSS para estilização, e como eles se integram com o Liquid nos temas Shopify.</p>
+            </div>
+        </section>
+
+        <section id="mod5-js-intro" class="mt-12">
+            <h1>Módulo 5: JavaScript para Interatividade (Iniciante)</h1>
+            <p>JavaScript (JS) adiciona comportamento e interatividade às suas páginas, rodando no navegador do cliente.</p>
+
+            <h2 id="mod5-incluindo-js">Onde e Como Incluir JavaScript</h2>
+            <p>Arquivos JavaScript geralmente ficam na pasta <span class="inline-code">assets/</span> (ex: <span class="inline-code">theme.js</span> ou <span class="inline-code">global.js</span>) e são incluídos no <span class="inline-code">layout/theme.liquid</span>, normalmente antes do fechamento da tag <span class="inline-code">&lt;/body&gt;</span>:</p>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>Liquid / HTML</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-liquid">{{ 'nome-do-arquivo.js' | asset_url | script_tag }}</code></pre>
+            </div>
+            <p>O atributo <span class="inline-code">defer</span> pode ser adicionado para melhorar o carregamento da página: <span class="inline-code">{{ 'theme.js' | asset_url | script_tag: defer: 'defer' }}</span>.</p>
+
+            <h2 id="mod5-js-dom">Manipulação do DOM com JavaScript</h2>
+            <p>O DOM (Document Object Model) é a representação da estrutura HTML. JavaScript pode interagir com o DOM para:</p>
+            <ul>
+                <li>Encontrar elementos: <span class="inline-code">document.getElementById('meuId')</span>, <span class="inline-code">document.querySelector('.minhaClasse')</span>.</li>
+                <li>Alterar conteúdo: <span class="inline-code">elemento.innerHTML = 'Novo texto'</span>.</li>
+                <li>Alterar estilos: <span class="inline-code">elemento.style.color = 'blue'</span>.</li>
+                <li>Adicionar/remover classes CSS: <span class="inline-code">elemento.classList.add('nova-classe')</span>.</li>
+            </ul>
+
+            <h2 id="mod5-js-eventos">Eventos Comuns</h2>
+            <p>JavaScript é muito baseado em eventos. Você "escuta" por eventos e executa funções quando eles ocorrem:</p>
+            <ul>
+                <li><span class="inline-code">click</span>: Quando um elemento é clicado.</li>
+                <li><span class="inline-code">submit</span>: Quando um formulário é enviado.</li>
+                <li><span class="inline-code">DOMContentLoaded</span>: Quando o HTML da página foi completamente carregado (bom lugar para iniciar seus scripts).</li>
+            </ul>
+            <p>Exemplo de um evento de clique:</p>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>JavaScript</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-javascript">document.addEventListener('DOMContentLoaded', function() {
+  const meuBotao = document.getElementById('meuBotaoEspecial');
+  if (meuBotao) {
+    meuBotao.addEventListener('click', function() {
+      alert('Botão clicado!'); // Evite alert() em produção, use modais ou outras UI.
+    });
+  }
+});</code></pre>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-title">Exercício Prático Módulo 5:</div>
+                 <ol>
+                    <li>Na <span class="inline-code">templates/product.liquid</span>, adicione um botão: <span class="inline-code">&lt;button id="showDescriptionButton"&gt;Mostrar Descrição&lt;/button&gt;</span>.</li>
+                    <li>Adicione um <span class="inline-code">&lt;div id="productDescriptionOutput" style="display:none;"&gt;&lt;/div&gt;</span>.</li>
+                    <li>No seu arquivo JS principal (em <span class="inline-code">assets/</span>, ex: <span class="inline-code">global.js</span> ou <span class="inline-code">theme.js</span>):
+                        <ul>
+                            <li>Ao carregar o DOM, encontre o botão e o div.</li>
+                            <li>Adicione um evento de clique ao botão.</li>
+                            <li>Quando clicado, pegue a descrição do produto (você pode precisar passá-la do Liquid para o JS, talvez usando um atributo de dados no HTML ou um script inline que defina uma variável JS com <span class="inline-code">{{ product.description | json }}</span>) e coloque-a dentro do <span class="inline-code">div#productDescriptionOutput</span>, tornando-o visível. Altere o texto do botão para "Ocultar Descrição".</li>
+                            <li>Implemente a funcionalidade de ocultar também (efeito toggle).</li>
+                        </ul>
+                    </li>
+                </ol>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Ver Resposta</button>
+                <div class="solution-card">
+                    <div class="solution-title">Resposta do Exercício (Módulo 5):</div>
+                    <p><strong>1 & 2. Adicionar HTML em <span class="inline-code">templates/product.liquid</span>:</strong><br>
+                    Coloque este HTML em um local apropriado dentro do seu arquivo <span class="inline-code">templates/product.liquid</span>, por exemplo, perto de onde a descrição do produto normalmente seria exibida ou logo após ela.
+                    </p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span>Liquid / HTML</span>
+                            <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code class="language-liquid">&lt;!-- Botão para controlar a visibilidade da descrição --&gt;
+&lt;button id="showDescriptionButton" class="my-4 p-2 bg-blue-500 text-white rounded"&gt;Mostrar Descrição&lt;/button&gt;
+
+&lt;!-- Div onde a descrição será exibida/ocultada --&gt;
+&lt;div id="productDescriptionOutput" style="display:none; border: 1px solid #ccc; padding: 10px; margin-top:10px;"&gt;
+  &lt;!-- A descrição será inserida aqui pelo JavaScript --&gt;
+&lt;/div&gt;
+
+&lt;!-- Passando a descrição do produto para o JavaScript de forma segura --&gt;
+&lt;script&gt;
+  var productDescriptionForJS = {{ product.description | json }};
+&lt;/script&gt;
+</code></pre>
+                    </div>
+                    <p><strong>Explicação do HTML:</strong>
+                        <ul>
+                            <li>O botão tem o ID <span class="inline-code">showDescriptionButton</span>.</li>
+                            <li>O <span class="inline-code">div</span> com ID <span class="inline-code">productDescriptionOutput</span> está inicialmente oculto com <span class="inline-code">style="display:none;"</span>.</li>
+                            <li>Incluímos uma tag <span class="inline-code">&lt;script&gt;</span> para passar a descrição do produto para uma variável JavaScript chamada <span class="inline-code">productDescriptionForJS</span>. O filtro <span class="inline-code">| json</span> é MUITO IMPORTANTE aqui, pois ele formata a string da descrição do produto (que pode conter quebras de linha, aspas, etc.) de forma que seja uma string JavaScript válida e segura.</li>
+                        </ul>
+                    </p>
+                    <p class="mt-4"><strong>3. Código JavaScript no seu arquivo JS principal (ex: <span class="inline-code">assets/global.js</span>):</strong></p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span>JavaScript</span>
+                            <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code class="language-javascript">document.addEventListener('DOMContentLoaded', function() {
+  const descriptionButton = document.getElementById('showDescriptionButton');
+  const descriptionOutputDiv = document.getElementById('productDescriptionOutput');
+
+  // Verifica se os elementos existem na página atual e se a descrição foi passada
+  if (descriptionButton && descriptionOutputDiv && typeof productDescriptionForJS !== 'undefined') {
+    
+    descriptionButton.addEventListener('click', function() {
+      const isHidden = descriptionOutputDiv.style.display === 'none';
+
+      if (isHidden) {
+        // Mostrar descrição
+        descriptionOutputDiv.innerHTML = productDescriptionForJS; // Insere a descrição como HTML
+        descriptionOutputDiv.style.display = 'block';
+        descriptionButton.textContent = 'Ocultar Descrição';
+      } else {
+        // Ocultar descrição
+        descriptionOutputDiv.style.display = 'none';
+        descriptionOutputDiv.innerHTML = ''; // Limpa o conteúdo ao ocultar (opcional)
+        descriptionButton.textContent = 'Mostrar Descrição';
+      }
+    });
+  }
+});</code></pre>
+                    </div>
+                    <p><strong>Explicação do JavaScript:</strong>
+                        <ul>
+                            <li><span class="inline-code">document.addEventListener('DOMContentLoaded', ...)</spa>: Garante que o script só rode após o HTML da página estar completamente carregado.</li>
+                            <li>Selecionamos o botão e o <span class="inline-code">div</span> pelos seus IDs.</li>
+                            <li>Verificamos se <span class="inline-code">productDescriptionForJS</span> existe (ela foi definida no <span class="inline-code">product.liquid</span>).</li>
+                            <li>Adicionamos um "ouvinte de evento" de clique ao botão.</li>
+                            <li>Dentro da função do clique:
+                                <ul>
+                                    <li>Verificamos se o <span class="inline-code">div</span> está oculto.</li>
+                                    <li>Se estiver oculto: inserimos a descrição (que está na variável <span class="inline-code">productDescriptionForJS</span>) no <span class="inline-code">innerHTML</span> do <span class="inline-code">div</span>, mudamos o <span class="inline-code">display</span> para <span class="inline-code">block</span> (para torná-lo visível) e atualizamos o texto do botão.</li>
+                                    <li>Se estiver visível: mudamos o <span class="inline-code">display</span> para <span class="inline-code">none</span>, limpamos o <span class="inline-code">innerHTML</span> (opcional, mas bom para não deixar conteúdo desnecessário no DOM) e atualizamos o texto do botão.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    Certifique-se de que este código JavaScript esteja em um arquivo que é carregado em todas as páginas de produto (geralmente um arquivo JS global do tema).
+                    </p>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-title">Resumo Módulo 5:</div>
+                <p>Você aprendeu o básico sobre como JavaScript adiciona interatividade, como incluir scripts, manipular o DOM e responder a eventos.</p>
+            </div>
+        </section>
+
+        <section id="mod6-editor-temas" class="mt-12">
+            <h1>Módulo 6: Personalizando seu Tema (Iniciante)</h1>
+            <p>Existem duas formas principais de personalizar um tema: pelo editor visual e editando o código.</p>
+
+            <h2 id="mod6-usando-editor">Usando o Editor de Temas da Shopify</h2>
+            <p>O Editor de Temas (<span class="inline-code">Loja Virtual > Temas > Personalizar</span>) é uma ferramenta visual que permite personalizar muitos aspectos do tema sem código.</p>
+            <ul>
+                <li><strong>Seções e Blocos:</strong> Adicione, remova, reordene e configure seções (como "Banner de Imagem", "Lista de Coleções") na página inicial e outras páginas.</li>
+                <li><strong>Configurações do Tema:</strong> Em "Configurações do tema", altere cores, tipografia, links de redes sociais, etc., que se aplicam globalmente.</li>
+            </ul>
+            <p>É importante entender o que pode ser feito pelo editor antes de ir para o código.</p>
+
+            <h2 id="mod6-editando-codigo">Editando Código do Tema:</h2>
+            <p>Quando o Editor de Temas não é suficiente, edite diretamente o código (<span class="inline-code">Loja Virtual > Temas > Ações > Editar código</span>).</p>
+            <ul>
+                <li><strong>Backup:</strong> SEMPRE duplique seu tema antes de fazer alterações significativas no código! Faça isso em <span class="inline-code">Loja Virtual > Temas > Ações > Duplicar</span>.</li>
+                <li><strong>Pequenas Modificações:</strong> Alterar textos fixos, ajustar CSS, modificar estrutura HTML de snippets/seções, adicionar/modificar lógica Liquid.</li>
+            </ul>
+
+            <div class="exercise-card">
+                <div class="exercise-title">Exercício Prático Módulo 6:</div>
+                <ol>
+                    <li>No Editor de Temas, explore as seções da página inicial. Tente adicionar uma seção "Depoimentos" (se disponível no seu tema) ou "Texto Rico" e configure-a.</li>
+                    <li>Mude as cores secundárias do seu tema em "Configurações do tema" > "Cores".</li>
+                    <li>Para uma edição de código: Duplique seu tema. No editor de código, abra <span class="inline-code">sections/footer.liquid</span> (ou o snippet/seção equivalente que renderiza o rodapé do seu tema). Encontre o texto de direitos autorais e adicione "Todos os direitos reservados." ao lado. Salve e visualize.</li>
+                </ol>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Ver Resposta</button>
+                <div class="solution-card">
+                    <div class="solution-title">Resposta do Exercício (Módulo 6):</div>
+                    <p><strong>1. Adicionar Seção "Depoimentos" ou "Texto Rico" via Editor de Temas:</strong></p>
+                    <ol>
+                        <li>No admin do Shopify, vá para <span class="inline-code">Loja Virtual > Temas</span>.</li>
+                        <li>No seu tema ativo, clique em "Personalizar".</li>
+                        <li>No painel esquerdo do Editor de Temas, certifique-se de que você está visualizando a "Página Inicial".</li>
+                        <li>Role para baixo no painel esquerdo até encontrar um botão como "+ Adicionar seção". Clique nele.</li>
+                        <li>Uma lista de seções disponíveis aparecerá. Procure por "Depoimentos" (Testimonials), "Texto Rico" (Rich text), "Texto com imagem" ou algo similar. Clique na seção desejada para adicioná-la.</li>
+                        <li>Após adicionar, a seção aparecerá no painel esquerdo. Clique nela para ver suas opções de configuração à direita (ou diretamente no painel esquerdo em temas mais novos). Adicione textos, imagens, ajuste o layout conforme as opções da seção.</li>
+                        <li>Clique em "Salvar" no canto superior direito.</li>
+                    </ol>
+
+                    <p class="mt-4"><strong>2. Mudar Cores Secundárias do Tema:</strong></p>
+                    <ol>
+                        <li>Ainda no Editor de Temas (<span class="inline-code">Loja Virtual > Temas > Personalizar</span>).</li>
+                        <li>No painel esquerdo, procure por "Configurações do tema" (geralmente um ícone de engrenagem ou pincel). Clique nele.</li>
+                        <li>Dentro das Configurações do Tema, procure por uma subseção chamada "Cores" (Colors).</li>
+                        <li>Você verá várias opções de cores (primária, secundária, texto, fundo, etc.). Localize as cores secundárias ou de destaque e altere-as para cores de sua preferência usando o seletor de cores ou inserindo um código hexadecimal.</li>
+                        <li>Observe as mudanças em tempo real na visualização da loja.</li>
+                        <li>Clique em "Salvar".</li>
+                    </ol>
+
+                    <p class="mt-4"><strong>3. Editar Texto de Direitos Autorais no Código do Rodapé:</strong></p>
+                    <ol>
+                        <li><strong>Importante: Duplique seu tema primeiro!</strong> Vá em <span class="inline-code">Loja Virtual > Temas</span>. No tema que você quer editar, clique em <span class="inline-code">Ações > Duplicar</span>. Trabalhe sempre na cópia para evitar quebrar sua loja ao vivo.</li>
+                        <li>Na cópia do tema (ou no seu tema de desenvolvimento), clique em <span class="inline-code">Ações > Editar código</span>.</li>
+                        <li>No painel de arquivos à esquerda, procure pela pasta <span class="inline-code">sections</span> e abra o arquivo <span class="inline-code">footer.liquid</span>. (Em temas mais antigos, isso pode estar em <span class="inline-code">snippets/footer.liquid</span> ou diretamente em <span class="inline-code">layout/theme.liquid</span>).</li>
+                        <li>Dentro do <span class="inline-code">footer.liquid</span>, procure pelo texto de direitos autorais. Ele geralmente se parece com algo como:
+                            <div class="code-block-wrapper my-2">
+                                <div class="code-block-header">
+                                    <span>Liquid / HTML (Exemplo)</span>
+                                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                                </div>
+                                <pre><code class="language-liquid">&lt;small class="copyright__content"&gt;&amp;copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: routes.root_url }}&lt;/small&gt;</code></pre>
+                            </div>
+                            Ou pode ser um texto fixo.
+                        </li>
+                        <li>Adicione "Todos os direitos reservados." ao lado. Exemplo de modificação:
+                            <div class="code-block-wrapper my-2">
+                                <div class="code-block-header">
+                                    <span>Liquid / HTML (Modificado)</span>
+                                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                                </div>
+                                <pre><code class="language-liquid">&lt;small class="copyright__content"&gt;&amp;copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: routes.root_url }}. Todos os direitos reservados.&lt;/small&gt;</code></pre>
+                            </div>
+                        </li>
+                        <li>Clique em "Salvar".</li>
+                        <li>Visualize sua loja (se estiver editando um tema duplicado não publicado, você pode clicar em "Ações > Pré-visualizar" nesse tema) para ver a alteração no rodapé.</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-title">Resumo Módulo 6:</div>
+                <p>Você aprendeu las duas abordagens para personalizar temas: através do Editor de Temas e editando o código diretamente, e a importância de backups.</p>
+            </div>
+        </section>
+
+        <section id="mod7-cli-intro" class="mt-12">
+            <h1>Módulo 7: Shopify CLI (Iniciante)</h1>
+            <p>Para um desenvolvimento mais profissional e eficiente, o Shopify CLI é essencial.</p>
+
+            <h2 id="mod7-o-que-e-cli">O que é o Shopify CLI?</h2>
+            <p>Shopify CLI (Command Line Interface) é uma ferramenta que permite interagir com a plataforma Shopify diretamente do seu terminal. Com ele, você pode desenvolver temas localmente, sincronizá-los, criar apps, etc.</p>
+            <p>A instalação varia por sistema operacional. Siga as instruções em <a href="https://shopify.dev/docs/themes/tools/cli/installation" target="_blank" class="text-indigo-600 hover:underline">shopify.dev/docs/themes/tools/cli/installation</a>.</p>
+            <p>Após a instalação, o primeiro comando importante é <span class="inline-code">shopify login --store SUA_LOJA.myshopify.com</span>.</p>
+
+            <h2 id="mod7-cli-comandos">Comandos Úteis (Introdução):</h2>
+            <ul>
+                <li><span class="inline-code">shopify theme serve</span>: Baixa uma cópia do tema (ou usa uma existente localmente), inicia um servidor de desenvolvimento local e observa alterações nos arquivos. Quando você salva um arquivo localmente, o tema na sua loja de desenvolvimento é atualizado (ou uma pré-visualização é disponibilizada).</li>
+                <li><span class="inline-code">shopify theme pull</span>: Baixa a versão mais recente de um tema da sua loja para o seu ambiente local.</li>
+                <li><span class="inline-code">shopify theme push</span>: Envia as alterações do seu tema local para a loja Shopify.</li>
+            </ul>
+            <p>O desenvolvimento local permite usar seu editor preferido, controle de versão com Git e um fluxo de trabalho mais rápido.</p>
+
+            <div class="exercise-card">
+                <div class="exercise-title">Exercício Prático Módulo 7:</div>
+                <ol>
+                    <li>Instale o Shopify CLI seguindo as instruções oficiais para o seu sistema operacional.</li>
+                    <li>No terminal, navegue até uma pasta vazia no seu computador (ex: <span class="inline-code">mkdir meus-temas-shopify && cd meus-temas-shopify</span>).</li>
+                    <li>Execute <span class="inline-code">shopify login --store SUA_LOJA_DE_DESENVOLVIMENTO.myshopify.com</span> (substitua pelo URL da sua loja de dev). Siga as instruções para autenticar.</li>
+                    <li>Execute <span class="inline-code">shopify theme serve --theme SEU_TEMA_ATIVO_ID_OU_NOME</span> (se você não especificar um tema, ele pode perguntar qual tema baixar ou você pode precisar usar <span class="inline-code">shopify theme pull -t ID_DO_TEMA</span> primeiro). Para simplificar, você pode primeiro ir no admin da loja, duplicar seu tema ativo, renomear a cópia para algo como "Meu Tema Dev Local" e então usar o nome ou ID deste tema duplicado.</li>
+                    <li>Siga as instruções do CLI. Ele deve baixar os arquivos do tema e iniciar um servidor local, fornecendo um URL para visualização (ex: <span class="inline-code">http://127.0.0.1:9292</span>).</li>
+                    <li>Abra a pasta do tema no seu editor de código preferido (VS Code, Sublime Text, etc.). Faça uma pequena alteração em <span class="inline-code">sections/header.liquid</span> (ex: adicione um comentário HTML como <span class="inline-code">&lt;!-- Teste CLI --&gt;</span> dentro de uma tag <span class="inline-code">&lt;div&gt;</span> existente). Salve o arquivo.</li>
+                    <li>Verifique o terminal onde o <span class="inline-code">shopify theme serve</span> está rodando (ele deve detectar a alteração) e visualize sua loja no URL fornecido pelo CLI para ver a alteração (ou a falta dela, se for apenas um comentário). O CLI também pode fazer upload automático para o tema de desenvolvimento na nuvem.</li>
+                    <li>Para parar o servidor de desenvolvimento local, volte ao terminal e pressione <span class="inline-code">Ctrl + C</span>.</li>
+                </ol>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Ver Resposta</button>
+                <div class="solution-card">
+                    <div class="solution-title">Resposta do Exercício (Módulo 7):</div>
+                    <p>Este exercício é prático e os resultados são observados no seu ambiente local. Aqui está um guia do que esperar e como verificar:</p>
+                    <p><strong>1. Instalação do Shopify CLI:</strong><br>
+                    Siga as instruções em <a href="https://shopify.dev/docs/themes/tools/cli/installation" target="_blank" class="text-indigo-600 hover:underline">shopify.dev/docs/themes/tools/cli/installation</a>. Após a instalação, você pode verificar se funcionou abrindo um novo terminal e digitando <span class="inline-code">shopify version</span>. Você deve ver a versão instalada.
+                    </p>
+
+                    <p class="mt-4"><strong>2. Navegar para Pasta e Login:</strong><br>
+                    Comandos de exemplo:
+                    </p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span>Terminal</span>
+                            <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code class="shell">mkdir ~/Desktop/shopify-dev
+cd ~/Desktop/shopify-dev
+shopify login --store sualoja-dev.myshopify.com</code></pre>
+                    </div>
+                    <p>O navegador deve abrir para você fazer login na sua conta Shopify Partners e autorizar o CLI.</p>
+
+                    <p class="mt-4"><strong>3. Servir o Tema com <span class="inline-code">shopify theme serve</span>:</strong><br>
+                    Para encontrar o ID ou nome do tema, você pode usar <span class="inline-code">shopify theme list</span> depois de logar, ou olhar no admin da loja. Vamos supor que você duplicou seu tema e o nomeou "Dev Theme CLI".
+                    </p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span>Terminal</span>
+                            <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code class="shell"># Primeiro, é uma boa prática puxar o tema para uma pasta local
+shopify theme pull --theme "Dev Theme CLI" --path ./dev-theme-cli 
+cd dev-theme-cli
+# Agora, sirva o tema a partir desta pasta
+shopify theme serve</code></pre>
+                    </div>
+                     <p>O CLI irá baixar os arquivos do tema (se ainda não existirem localmente na pasta especificada) e iniciar um servidor local. Ele mostrará mensagens como:</p>
+                    <pre class="bg-gray-700 text-white p-2 rounded my-2 text-xs overflow-x-auto"><code>Serving theme "Dev Theme CLI" (ID: 123456789)...
+Previewing theme in your browser at:
+  http://127.0.0.1:9292
+Syncing theme files with Shopify... Press Ctrl+C to stop.</code></pre>
+                    <p>Abra <span class="inline-code">http://127.0.0.1:9292</span> (ou o URL fornecido) no seu navegador.</p>
+
+
+                    <p class="mt-4"><strong>4. Editar Arquivo e Observar:</strong><br>
+                    Abra a pasta <span class="inline-code">dev-theme-cli</span> (ou como você nomeou) no seu editor de código.
+                    Navegue até <span class="inline-code">sections/header.liquid</span>.
+                    Adicione o comentário. Por exemplo, dentro da tag <span class="inline-code">&lt;header&gt;</span>:
+                    </p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span>Liquid / HTML (em sections/header.liquid)</span>
+                            <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code class="language-liquid">&lt;header class="site-header" role="banner"&gt;
+  &lt;!-- Teste CLI --&gt;
+  ... restante do código do header ...
+&lt;/header&gt;</code></pre>
+                    </div>
+                    <p>Ao salvar o arquivo:
+                    <ul>
+                        <li>O terminal onde <span class="inline-code">shopify theme serve</span> está rodando deve mostrar uma mensagem indicando que detectou a mudança e está atualizando/sincronizando. Ex: <span class="inline-code">sections/header.liquid synced</span>.</li>
+                        <li>Atualize a página no seu navegador (<span class="inline-code">http://127.0.0.1:9292</span>). Como você adicionou um comentário HTML, não haverá mudança visual. Para ver uma mudança visual, você poderia adicionar um texto simples como <span class="inline-code">&lt;p&gt;TESTE CLI&lt;/p&gt;</span> temporariamente.</li>
+                        <li>O CLI também cria um tema de desenvolvimento na sua loja online (com um nome como "[Dev] NomeDoSeuTema") e sincroniza as alterações para lá. Você pode pré-visualizar este tema diretamente na loja Shopify também.</li>
+                    </ul>
+                    </p>
+                    <p class="mt-4"><strong>5. Parar o Servidor:</strong><br>
+                    No terminal, pressione <span class="inline-code">Ctrl + C</span>. O servidor local será interrompido.
+                    </p>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-title">Resumo Módulo 7:</div>
+                <p>Você foi introduzido ao Shopify CLI, uma ferramenta para desenvolvimento de temas. Aprendeu sobre instalação, login e o comando <span class="inline-code">serve</span>.</p>
+            </div>
+        </section>
+
+        <section id="prog-mod1-conceitos" class="mt-12"> 
+            <h1>Módulo 8: Fundamentos do Shopify (Revisão Progressiva)</h1>
+            <p>Bem-vindo à Revisão Progressiva! Este módulo revisita os conceitos fundamentais do Shopify, essenciais para qualquer nível de desenvolvimento. Mesmo que já os conheça, uma revisão rápida ajuda a solidificar a base para os tópicos mais avançados que virão no Guia Progressivo.</p>
+
+            <h2>Revisão dos Conceitos Essenciais</h2>
+            <p>Lembre-se destes termos chave:</p>
+            <ul>
+                <li><strong>Loja (Store):</strong> O seu negócio online completo.</li>
+                <li><strong>Tema (Theme):</strong> A aparência e o layout da sua loja. Construído com Liquid, HTML, CSS e JavaScript.</li>
+                <li><strong>Produtos:</strong> Os itens que você vende, com todas as suas informações (preço, variantes, imagens, etc.).</li>
+                <li><strong>Coleções (Collections):</strong> Agrupamentos de produtos para organização e navegação.</li>
+                <li><strong>Clientes (Customers):</strong> Informações sobre os seus compradores.</li>
+                <li><strong>Carrinho (Cart):</strong> O local temporário onde os clientes guardam os produtos antes da compra.</li>
+                <li><strong>Checkout:</strong> O processo de finalização da compra (dados de envio, pagamento).</li>
+                <li><strong>Apps (Aplicativos):</strong> Extensões que adicionam novas funcionalidades ou integram com outros serviços.</li>
+                <li><strong>APIs (Interfaces de Programação de Aplicativos):</strong> Permitem que os seus temas e apps comuniquem com os dados da loja Shopify de forma programática.</li>
+                <li><strong>Liquid:</strong> A linguagem de template do Shopify. É usada para carregar dinamicamente os dados da sua loja (como nomes de produtos, preços, etc.) nos ficheiros do seu tema.</li>
+                <li><strong>Metafields (Campos Personalizados):</strong> Permitem adicionar dados personalizados e estruturados a produtos, coleções, clientes, etc., para além dos campos padrão oferecidos pelo Shopify.</li>
+            </ul>
+            <div class="summary-card">
+                <div class="summary-title">Objetivo deste Módulo (Revisão Progressiva):</div>
+                <p>Garantir que todos os conceitos básicos estão claros antes de avançarmos para a programação detalhada em Liquid e outras personalizações no Guia Progressivo. Uma base forte é crucial!</p>
+            </div>
+        </section>
+
+        <section id="prog-mod2-config" class="mt-12"> 
+            <h1>Módulo 9: Configurando o seu Ambiente de Desenvolvimento (Revisão Progressiva)</h1>
+            <p>Para começar a desenvolver temas ou personalizações para o Shopify de forma mais aprofundada, é essencial ter um ambiente de desenvolvimento configurado corretamente e entender as ferramentas disponíveis. Esta secção recapitula e expande os passos mais importantes.</p>
+
+            <h2>Configuração Essencial do Ambiente (Detalhada)</h2>
+            <ul>
+                <li><strong>Conta de Parceiro Shopify (Shopify Partners):</strong>
+                    <ul>
+                        <li>É o seu portal para todas as atividades de desenvolvimento no Shopify. Além de criar lojas de desenvolvimento, você pode criar apps, temas para a Theme Store e ganhar comissões.</li>
+                        <li>Crie uma conta gratuita em <a href="https://www.shopify.com/partners" target="_blank" class="text-indigo-600 hover:underline">shopify.com/partners</a>.</li>
+                    </ul>
+                </li>
+                <li><strong>Criar uma Loja de Desenvolvimento (Development Store):</strong>
+                    <ul>
+                        <li>São lojas completas, mas não podem processar pagamentos reais (a menos que transferidas para um cliente e um plano seja escolhido).</li>
+                        <li>Ideais para: construir temas do zero, personalizar temas existentes, desenvolver e testar apps.</li>
+                        <li>Ao criar, você pode escolher instalar o tema mais recente do Shopify (como o Dawn), que é uma excelente base para aprender e construir, ou começar sem nenhum tema específico.</li>
+                    </ul>
+                </li>
+                <li><strong>Familiarização com o Admin Shopify (Aprofundada):</strong>
+                    <ul>
+                        <li>**Produtos:** Entenda como adicionar produtos, variantes (tamanho, cor), preços, preços de comparação, SKU, códigos de barras, inventário, imagens, tags, fornecedor, tipo de produto e metafields.</li>
+                        <li>**Coleções:** Saiba criar coleções manuais (você escolhe os produtos) e automáticas (baseadas em condições como tags, preço, tipo de produto).</li>
+                        <li>**Loja Virtual (Online Store):**
+                            <ul>
+                                <li>**Temas:** Onde você gere os temas instalados, personaliza o tema ativo (Editor de Temas), edita o código, e pode adicionar temas da loja da Shopify ou por upload.</li>
+                                <li>**Blog posts:** Criação e gestão de artigos de blog.</li>
+                                <li>**Páginas:** Criação de páginas estáticas (Sobre Nós, Contato, FAQ).</li>
+                                <li>**Navegação:** Gestão dos menus da sua loja (cabeçalho, rodapé).</li>
+                                <li>**Preferências:** Configurações de SEO (título da página inicial, meta descrição), Google Analytics, Facebook Pixel.</li>
+                            </ul>
+                        </li>
+                        <li>**Configurações (Settings):** Explore todas as opções, como Geral (nome da loja, moeda), Pagamentos, Checkout, Frete e entrega, Impostos, Locais (para inventário), Notificações (templates de email), Ficheiros (upload de assets), Idiomas da loja.</li>
+                    </ul>
+                </li>
+                <li><strong>Shopify CLI (Command Line Interface) - A Ferramenta Central:</strong>
+                    <ul>
+                        <li>Além do desenvolvimento de temas, o CLI é usado para criar apps, extensões de apps, e interagir com os dados da sua loja (ex: popular com dados de teste).</li>
+                        <li>A instalação deve ser verificada com <span class="inline-code">shopify version</span>.</li>
+                        <li>O login (<span class="inline-code">shopify login --store SUA_LOJA.myshopify.com</span>) conecta o CLI à sua conta de parceiro e à loja especificada.</li>
+                    </ul>
+                </li>
+                 <li><strong>Editor de Código (com Extensões):</strong>
+                    <ul>
+                        <li>**VS Code:** Instale extensões como:
+                            <ul>
+                                <li>"Shopify Liquid" da Shopify (para syntax highlighting e snippets de Liquid).</li>
+                                <li>"Prettier - Code formatter" (para manter seu código HTML, CSS, JS e Liquid bem formatado).</li>
+                                <li>"ESLint" (para JavaScript, ajuda a encontrar erros e impor padrões de código).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Controlo de Versão (Git e GitHub/GitLab/Bitbucket):</strong>
+                    <ul>
+                        <li>Use o Git para todos os seus projetos de tema. Crie um repositório para cada tema.</li>
+                        <li>Adote um fluxo de trabalho com branches: uma branch <span class="inline-code">main</span> (ou <span class="inline-code">master</span>) para a versão estável/de produção, e branches separadas (<span class="inline-code">feature branches</span>) para cada nova funcionalidade ou correção.</li>
+                        <li>Use plataformas como GitHub para hospedar seus repositórios remotamente (backup, colaboração).</li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="summary-card">
+                <div class="summary-title">Objetivo deste Módulo (Revisão Progressiva):</div>
+                <p>Assegurar que você tem um entendimento aprofundado das ferramentas e configurações necessárias para um fluxo de desenvolvimento Shopify eficiente, profissional e escalável, preparando o terreno para o Guia Progressivo.</p>
+            </div>
+        </section>
+
+        <section id="prog-mod3-liquid-intro" class="mt-12"> 
+            <h1>Módulo 10: Dominando o Liquid (Progressivo)</h1>
+            <p>Liquid é a linguagem de template que dá vida aos temas Shopify, permitindo exibir dinamicamente o conteúdo da sua loja. Neste módulo, vamos explorar o Liquid desde o básico até conceitos mais avançados, com explicações detalhadas e exemplos práticos.</p>
+            
+            <h2 id="prog-mod3-liquid-revisao">O que é Liquid? (Revisão Rápida)</h2>
+            <p>Como vimos, Liquid é uma linguagem de template criada pelo Shopify. Ela não é uma linguagem de programação completa como JavaScript ou Python, mas sim uma forma de inserir dados e lógica de apresentação nos seus ficheiros HTML.</p>
+            <p>A sua principal função é fazer a ponte entre os dados da sua loja (produtos, coleções, informações do cliente, etc.) e o código HTML que é enviado para o navegador do utilizador.</p>
+            <p>A sintaxe do Liquid é caracterizada por dois tipos principais de delimitadores:</p>
+            <ul>
+                <li><strong>Delimitadores Duplos de Chavetas <span class="inline-code">{{ }}</span>:</strong> Usados para **saída (output)** de dados. O que estiver dentro será substituído pelo valor correspondente. Exemplo: <span class="inline-code">{{ product.title }}</span> mostrará o título do produto.</li>
+                <li><strong>Delimitadores de Chaveta e Percentagem <span class="inline-code">{% %}</span>:</strong> Usados para **lógica de programação**, como condicionais (if/else) e loops (for). Estes não produzem saída diretamente, mas controlam o que é renderizado. Exemplo: <span class="inline-code">{% if product.available %} ... {% endif %}</span>.</li>
+            </ul>
+            <p>Além disso, os **Filtros** (usados com o caractere pipe <span class="inline-code">|</span> dentro dos delimitadores de saída) modificam o output de strings, números ou objetos. Exemplo: <span class="inline-code">{{ product.price | money }}</span> formata o preço como moeda.</p>
+        </section>
+
+        <section id="prog-mod3-liquid-iniciante" class="mt-8">
+            <h2>Nível Iniciante: A Base do Liquid</h2>
+            <p>Neste nível, vamos focar-nos nos blocos de construção fundamentais do Liquid, garantindo que você entenda como ler e escrever código Liquid simples.</p>
+
+            <h3>Conteúdo:</h3>
+            <ul>
+                <li><strong>Tipos de Dados em Liquid:</strong> String, Number, Boolean, Nil, Array, Object.</li>
+                <li><strong>Objetos Globais Mais Comuns:</strong> <span class="inline-code">shop</span>, <span class="inline-code">product</span>, <span class="inline-code">collection</span>, <span class="inline-code">cart</span>, <span class="inline-code">customer</span>, <span class="inline-code">settings</span>, <span class="inline-code">page</span>.</li>
+                <li><strong>Tags de Controle de Fluxo Essenciais:</strong> <span class="inline-code">if/elsif/else/endif</span>, <span class="inline-code">unless/endunless</span>, <span class="inline-code">for/else/endfor</span>.</li>
+                <li><strong>Filtros Comuns e Úteis para Iniciantes:</strong>
+                    <ul>
+                        <li>Strings: <span class="inline-code">upcase</span>, <span class="inline-code">downcase</span>, <span class="inline-code">capitalize</span>, <span class="inline-code">truncate</span>, <span class="inline-code">strip_html</span>, <span class="inline-code">escape</span>.</li>
+                        <li>Números/Moeda: <span class="inline-code">money</span>, <span class="inline-code">money_with_currency</span>.</li>
+                        <li>Datas: <span class="inline-code">date</span>.</li>
+                        <li>Imagens: <span class="inline-code">image_url</span> (anteriormente <span class="inline-code">img_url</span>), <span class="inline-code">image_tag</span>.</li>
+                        <li>URLs: <span class="inline-code">link_to</span>.</li>
+                        <li>Geral: <span class="inline-code">default</span>.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Exemplos Práticos Detalhados (Nível Iniciante):</h3>
+            <h4>1. Exibir o Título e Preço de um Produto</h4>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>Liquid / HTML</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-liquid">&lt;h1&gt;{{ product.title }}&lt;/h1&gt;
+&lt;p&gt;Preço: {{ product.price | money }}&lt;/p&gt;
+{% if product.compare_at_price > product.price %}
+  &lt;p&gt;De: &lt;s&gt;{{ product.compare_at_price | money }}&lt;/s&gt;&lt;/p&gt;
+{% endif %}</code></pre>
+            </div>
+            <p><strong>Explicação:</strong> <span class="inline-code">{{ product.title }}</span> mostra o título. <span class="inline-code">{{ product.price | money }}</span> mostra o preço formatado. O bloco <span class="inline-code">if</span> verifica se há um preço de comparação maior para indicar uma promoção.</p>
+
+            <h4>2. Listar Nomes de Produtos numa Coleção</h4>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>Liquid / HTML</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-liquid">&lt;h2&gt;{{ collection.title }}&lt;/h2&gt;
+&lt;ul&gt;
+  {% for p_item in collection.products %}
+    &lt;li&gt;&lt;a href="{{ p_item.url }}"&gt;{{ p_item.title }}&lt;/a&gt;&lt;/li&gt;
+  {% else %}
+    &lt;li&gt;Nenhum produto aqui!&lt;/li&gt;
+  {% endfor %}
+&lt;/ul&gt;</code></pre>
+            </div>
+            <p><strong>Explicação:</strong> O loop <span class="inline-code">for</span> itera sobre <span class="inline-code">collection.products</span>. Para cada produto (<span class="inline-code">p_item</span>), cria um item de lista com um link para a página do produto e o seu título. O bloco <span class="inline-code">else</span> é mostrado se a coleção estiver vazia.</p>
+
+            <div class="exercise-card">
+                <div class="exercise-title">Exercício Prático (Liquid Iniciante):</div>
+                <ol>
+                    <li>No ficheiro <span class="inline-code">layout/theme.liquid</span>, adicione um rodapé simples que mostre o nome da loja e o ano atual. Use <span class="inline-code">{{ shop.name }}</span> e o filtro <span class="inline-code">date</span> com <span class="inline-code">"now"</span> e o formato <span class="inline-code">"%Y"</span>.</li>
+                    <li>Na página de produto (<span class="inline-code">templates/product.liquid</span>), se o produto tiver tags, liste todas elas. (Dica: <span class="inline-code">product.tags</span> é um array; use um loop <span class="inline-code">for</span>).</li>
+                </ol>
+                 <button class="toggle-solution-button" onclick="toggleSolution(this)">Ver Resposta</button>
+                <div class="solution-card">
+                    <div class="solution-title">Resposta do Exercício (Liquid Iniciante):</div>
+                    <p><strong>1. Rodapé com nome da loja e ano atual (em <span class="inline-code">layout/theme.liquid</span>, dentro do <span class="inline-code">&lt;footer&gt;</span> ou onde fizer sentido):</strong></p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span>Liquid / HTML</span>
+                            <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code class="language-liquid">&lt;footer class="site-footer p-4 text-center bg-gray-200 mt-8"&gt;
+  &lt;p&gt;&amp;copy; {{ "now" | date: "%Y" }} {{ shop.name }}. Todos os direitos reservados.&lt;/p&gt;
+&lt;/footer&gt;</code></pre>
+                    </div>
+                    <p><strong>Explicação:</strong> <span class="inline-code">{{ "now" | date: "%Y" }}</span> pega a data/hora atual e o filtro <span class="inline-code">date</span> com o formato <span class="inline-code">"%Y"</span> extrai apenas o ano com quatro dígitos. <span class="inline-code">{{ shop.name }}</span> exibe o nome da loja definido no admin.</p>
+
+                    <p class="mt-4"><strong>2. Listar tags do produto (em <span class="inline-code">templates/product.liquid</span>):</strong></p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span>Liquid / HTML</span>
+                            <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code class="language-liquid">{% if product.tags.size > 0 %}
+  &lt;div class="product-tags mt-4"&gt;
+    &lt;h4 class="font-semibold"&gt;Tags:&lt;/h4&gt;
+    &lt;ul class="list-disc list-inside"&gt;
+      {% for tag in product.tags %}
+        &lt;li&gt;
+            &lt;a href="{{ routes.all_products_collection_url }}?constraint={{ tag | url_encode }}" class="text-blue-600 hover:underline"&gt;
+                {{ tag | capitalize }}
+            &lt;/a&gt;
+        &lt;/li&gt;
+      {% endfor %}
+    &lt;/ul&gt;
+  &lt;/div&gt;
+{% endif %}</code></pre>
+                    </div>
+                    <p><strong>Explicação:</strong> <span class="inline-code">{% if product.tags.size > 0 %}</span> verifica se o array de tags não está vazio. O loop <span class="inline-code">{% for tag in product.tags %}</span> itera sobre cada tag. <span class="inline-code">{{ tag | capitalize }}</span> exibe o nome da tag com a primeira letra maiúscula. O link <span class="inline-code">&lt;a href="{{ routes.all_products_collection_url }}?constraint={{ tag | url_encode }}"&gt;</span> cria um link para a página de todos os produtos, filtrada por essa tag. O filtro <span class="inline-code">url_encode</span> garante que a tag seja segura para uso em um URL. <span class="inline-code">routes.all_products_collection_url</span> é uma forma mais robusta de obter o URL da coleção de todos os produtos.</p>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-title">Resumo (Liquid Iniciante):</div>
+                <p>Você compreende os tipos de dados, objetos globais, condicionais, loops e filtros básicos do Liquid, permitindo ler e fazer modificações simples em temas.</p>
+            </div>
+        </section>
+        
+        <section id="prog-mod3-liquid-intermediario" class="mt-12">
+            <h2>Nível Intermediário: Expandindo as suas Habilidades em Liquid</h2>
+            <p>Agora que você domina o básico, vamos explorar funcionalidades mais avançadas do Liquid que permitem maior controlo, reutilização de código e manipulação de dados mais complexa.</p>
+
+            <h3>Conteúdo:</h3>
+            <ul>
+                <li><strong>Variáveis Liquid:</strong>
+                    <ul>
+                        <li><strong><span class="inline-code">{% assign NOME_VARIAVEL = VALOR %}</span>:</strong> Cria (ou reatribui) uma nova variável Liquid. O <span class="inline-code">VALOR</span> pode ser uma string, número, booleano, outra variável Liquid, ou o resultado de um filtro.
+                            <br>Ex: <span class="inline-code">{% assign nome_produto_maiusculo = product.title | upcase %}</span>
+                        </li>
+                        <li><strong><span class="inline-code">{% capture NOME_VARIAVEL %} ...CONTEÚDO... {% endcapture %}</span>:</strong> Captura qualquer conteúdo renderizado entre as tags <span class="inline-code">capture</span> e <span class="inline-code">endcapture</span> e armazena-o como uma string na <span class="inline-code">NOME_VARIAVEL</span>. Útil para construir strings complexas ou reutilizar blocos de HTML/Liquid.
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Loops Avançados (<span class="inline-code">for</span>):</strong>
+                    <ul>
+                        <li><strong>Parâmetros de Loop:</strong>
+                            <ul>
+                                <li><span class="inline-code">limit:NUMERO</span>: Limita o número de iterações. Ex: <span class="inline-code">{% for product in collection.products limit:5 %}</span></li>
+                                <li><span class="inline-code">offset:NUMERO</span>: Pula um número de itens no início. Ex: <span class="inline-code">{% for product in collection.products offset:2 %}</span> (começa no terceiro produto).</li>
+                                <li><span class="inline-code">reversed</span>: Itera sobre o array na ordem inversa. Ex: <span class="inline-code">{% for product in collection.products reversed %}</span></li>
+                            </ul>
+                        </li>
+                        <li><strong>O Objeto <span class="inline-code">forloop</span>:</strong> Dentro de um loop <span class="inline-code">for</span>, o objeto <span class="inline-code">forloop</span> fornece informações sobre o estado do loop:
+                            <ul>
+                                <li><span class="inline-code">forloop.length</span>: O número total de itens no array que está a ser iterado.</li>
+                                <li><span class="inline-code">forloop.index</span>: O índice atual da iteração (começa em 1).</li>
+                                <li><span class="inline-code">forloop.index0</span>: O índice atual da iteração (começa em 0).</li>
+                                <li><span class="inline-code">forloop.rindex</span>: O índice atual da iteração na ordem inversa (ex: se há 5 itens, o primeiro é 5, o último é 1).</li>
+                                <li><span class="inline-code">forloop.rindex0</span>: O índice atual da iteração na ordem inversa (começa em 0 a partir do fim).</li>
+                                <li><span class="inline-code">forloop.first</span>: Retorna <span class="inline-code">true</span> se for a primeira iteração.</li>
+                                <li><span class="inline-code">forloop.last</span>: Retorna <span class="inline-code">true</span> se for a última iteração.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Tag <span class="inline-code">{% cycle 'valor1', 'valor2', ... %}</span>:</strong> Alterna entre um grupo de strings a cada iteração do loop. Útil para aplicar classes CSS alternadas a linhas de uma tabela ou itens de uma lista.
+                            <br>Pode ser nomeado para ter múltiplos ciclos independentes: <span class="inline-code">{% cycle 'meu_grupo': 'a', 'b' %}</span>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Operadores Lógicos e de Comparação Detalhados:</strong>
+                    <ul>
+                        <li><strong>Comparação:</strong> <span class="inline-code">==</span> (igual a), <span class="inline-code">!=</span> (diferente de), <span class="inline-code"><</span> (menor que), <span class="inline-code">></span> (maior que), <span class="inline-code"><=</span> (menor ou igual a), <span class="inline-code">>=</span> (maior ou igual a).</li>
+                        <li><strong>Lógicos:</strong> <span class="inline-code">and</span> (E lógico), <span class="inline-code">or</span> (OU lógico).</li>
+                        <li><strong><span class="inline-code">contains</span>:</strong> Verifica se uma string contém uma substring, ou se um array contém um elemento específico.
+                            <br>Ex: <span class="inline-code">{% if product.title contains "Promoção" %}</span>
+                            <br>Ex: <span class="inline-code">{% if product.tags contains "novidade" %}</span>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Acesso a Configurações do Tema (<span class="inline-code">settings</span>):</strong>
+                    <ul>
+                        <li>Como mencionado, <span class="inline-code">{{ settings.ID_DA_CONFIGURACAO }}</span> acede a valores definidos em <span class="inline-code">config/settings_schema.json</span> e personalizados pelo lojista no Editor de Temas.</li>
+                        <li>Isto é crucial para permitir que os lojistas personalizem cores, fontes, opções de layout, links de redes sociais, etc., sem editar código.</li>
+                    </ul>
+                </li>
+                <li><strong>Trabalhando com Menus de Navegação (<span class="inline-code">linklists</span>):</strong>
+                    <ul>
+                        <li>O objeto <span class="inline-code">linklists</span> permite aceder aos menus criados no admin do Shopify (<span class="inline-code">Loja Virtual > Navegação</span>).</li>
+                        <li>Para aceder a um menu, use o seu "handle" (identificador único, ex: <span class="inline-code">main-menu</span>). Ex: <span class="inline-code">linklists.main-menu.links</span>.</li>
+                        <li>Cada <span class="inline-code">link</span> dentro de <span class="inline-code">linklists.HANDLE.links</span> tem propriedades como:
+                            <ul>
+                                <li><span class="inline-code">link.title</span>: O texto do link.</li>
+                                <li><span class="inline-code">link.url</span>: O URL para onde o link aponta.</li>
+                                <li><span class="inline-code">link.active</span>: Retorna <span class="inline-code">true</span> se o URL do link corresponde à página atual.</li>
+                                <li><span class="inline-code">link.child_active</span>: Retorna <span class="inline-code">true</span> se um dos links descendentes (submenu) estiver ativo.</li>
+                                <li><span class="inline-code">link.links</span>: Um array de links filhos (se for um menu dropdown com sub-itens).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Inclusão de Snippets com <span class="inline-code">{% render 'NOME_DO_SNIPPET' %}</span>:</strong>
+                    <ul>
+                        <li>Snippets (ficheiros em <span class="inline-code">snippets/</span>) são pedaços de código Liquid/HTML reutilizáveis.</li>
+                        <li>A tag <span class="inline-code">render</span> é a forma moderna e recomendada de incluir snippets (substituindo a antiga tag <span class="inline-code">include</span>).</li>
+                        <li><strong>Passando Variáveis para Snippets:</strong> Você pode passar variáveis para um snippet para torná-lo mais dinâmico e configurável.
+                            <br>Ex: <span class="inline-code">{% render 'product-card', product_object: product, show_vendor: true %}</span>
+                            <br>Dentro de <span class="inline-code">snippets/product-card.liquid</span>, você acederia a estas variáveis como <span class="inline-code">{{ product_card.product_object.title }}</span> e <span class="inline-code">{% if product_card.show_vendor %}...{% endif %}</span>. (Note que o nome do ficheiro do snippet é usado como prefixo para as variáveis passadas).
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Filtros Intermediários para Manipulação de Dados:</strong>
+                    <ul>
+                        <li><span class="inline-code">split: 'DELIMITADOR'</span>: Divide uma string num array de strings, usando o delimitador especificado.</li>
+                        <li><span class="inline-code">join: 'DELIMITADOR'</span>: Une os elementos de um array numa única string, separados pelo delimitador.</li>
+                        <li><span class="inline-code">map: 'PROPRIEDADE'</span>: Itera sobre um array de objetos e extrai o valor de uma propriedade específica de cada objeto, retornando um novo array com esses valores.</li>
+                        <li><span class="inline-code">sort: 'PROPRIEDADE'</span> (Opcional): Ordena um array.</li>
+                        <li><span class="inline-code">where: 'PROPRIEDADE', 'VALOR'</span>: Filtra um array de objetos.</li>
+                         <li><span class="inline-code">uniq</span>: Remove elementos duplicados de um array.</li>
+                         <li><span class="inline-code">compact</span>: Remove todos os valores <span class="inline-code">nil</span> de um array.</li>
+                    </ul>
+                </li>
+                <li><strong>Comentários em Liquid:</strong>
+                    <ul>
+                        <li><span class="inline-code">{% comment %} ... Bloco de comentário ... {% endcomment %}</span></li>
+                        <li><span class="inline-code">{% # Este é um comentário de linha %}</span></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Exemplos Práticos Detalhados (Nível Intermediário):</h3>
+
+            <h4>1. Criar uma Variável e Usar <span class="inline-code">capture</span></h4>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>Liquid</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-liquid">{% assign items_no_carrinho = cart.item_count %}
+{% assign mensagem_carrinho = "" %}
+{% if items_no_carrinho > 0 %}
+  {% capture mensagem_carrinho %}
+    &lt;p&gt;Você tem {{ items_no_carrinho }} {{ items_no_carrinho | pluralize: 'item', 'itens' }} no seu carrinho!&lt;/p&gt;
+    &lt;a href="{{ routes.cart_url }}" class="text-blue-600 hover:underline"&gt;Ver Carrinho&lt;/a&gt;
+  {% endcapture %}
+{% else %}
+  {% assign mensagem_carrinho = "&lt;p&gt;O seu carrinho está vazio.&lt;/p&gt;" %}
+{% endif %}
+&lt;div class="status-carrinho p-4 bg-gray-100 rounded"&gt;{{ mensagem_carrinho }}&lt;/div&gt;</code></pre>
+            </div>
+            <p><strong>Explicação:</strong> Cria a variável <span class="inline-code">mensagem_carrinho</span> dinamicamente com base no estado do carrinho, usando <span class="inline-code">assign</span> e <span class="inline-code">capture</span>.</p>
+
+            <h4>2. Renderizar um Menu de Navegação com Submenus</h4>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>Liquid / HTML</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-liquid">&lt;nav aria-label="Menu Principal" class="bg-gray-800 p-4"&gt;
+  &lt;ul class="flex space-x-4"&gt;
+    {% for link_principal in linklists.main-menu.links %} {# Assumindo que o handle do menu principal é 'main-menu' #}
+      &lt;li class="relative group {% if link_principal.active or link_principal.child_active %}bg-gray-700{% endif %}"&gt;
+        &lt;a href="{{ link_principal.url }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"&gt;{{ link_principal.title }}&lt;/a&gt;
+        {% if link_principal.links.size > 0 %}
+          &lt;ul class="submenu absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20 hidden group-hover:block"&gt;
+            {% for sub_link in link_principal.links %}
+              &lt;li class="{% if sub_link.active %}bg-gray-100{% endif %}"&gt;
+                &lt;a href="{{ sub_link.url }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"&gt;{{ sub_link.title }}&lt;/a&gt;
+              &lt;/li&gt;
+            {% endfor %}
+          &lt;/ul&gt;
+        {% endif %}
+      &lt;/li&gt;
+    {% endfor %}
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+            </div>
+            <p><strong>Explicação:</strong> Itera sobre os links de um menu (<span class="inline-code">linklists.main-menu.links</span> - substitua 'main-menu' pelo handle do seu menu) e, se um link tiver sublinks (<span class="inline-code">link_principal.links.size > 0</span>), itera sobre eles para criar um submenu. Classes de exemplo Tailwind CSS foram adicionadas para estilização básica de um menu dropdown (a visibilidade do submenu é controlada por <span class="inline-code">group-hover:block</span>).</p>
+
+            <h4>3. Usar <span class="inline-code">render</span> com Parâmetros para um Card de Produto Reutilizável</h4>
+            <p>Ficheiro <span class="inline-code">snippets/meu-card-produto.liquid</span>:</p>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>snippets/meu-card-produto.liquid</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-liquid">{% comment %}
+  Snippet para exibir um card de produto.
+  Parâmetros esperados:
+  - produto_a_exibir: (Obrigatório) O objeto do produto.
+  - mostrar_preco_comparacao: (Opcional) Booleano, default: false.
+  - classe_css_custom: (Opcional) String, classes CSS adicionais para o div principal.
+{% endcomment %}
+{% assign p = meu_card_produto.produto_a_exibir %}
+{% assign show_compare = meu_card_produto.mostrar_preco_comparacao | default: false %}
+{% assign custom_class = meu_card_produto.classe_css_custom | default: "" %}
+
+&lt;div class="card-produto border rounded-lg p-4 shadow hover:shadow-md {{ custom_class }}"&gt;
+  {% if p.featured_image %}
+    &lt;a href="{{ p.url }}"&gt;
+      &lt;img src="{{ p.featured_image | image_url: width: 300, height: 300, crop: 'center' }}" 
+           alt="{{ p.featured_image.alt | escape }}" 
+           width="300" height="300" loading="lazy" 
+           class="w-full h-48 object-cover mb-4 rounded"&gt;
+    &lt;/a&gt;
+  {% endif %}
+  &lt;h4 class="text-lg font-semibold mb-1"&gt;&lt;a href="{{ p.url }}" class="hover:underline"&gt;{{ p.title }}&lt;/a&gt;&lt;/h4&gt;
+  &lt;p class="text-gray-700 mb-2"&gt;{{ p.price | money }}&lt;/p&gt;
+  {% if show_compare and p.compare_at_price > p.price %}
+    &lt;p class="text-sm text-gray-500"&gt;De: &lt;s&gt;{{ p.compare_at_price | money }}&lt;/s&gt;&lt;/p&gt;
+  {% endif %}
+  &lt;a href="{{ p.url }}" class="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-sm"&gt;
+    Ver Produto
+  &lt;/a&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            <p>Uso em <span class="inline-code">templates/collection.liquid</span> (ou onde quiser exibir produtos):</p>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>templates/collection.liquid</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-liquid">{% paginate collection.products by 8 %}
+  &lt;div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"&gt;
+    {% for produto_item in collection.products %}
+      {% render 'meu-card-produto', produto_a_exibir: produto_item, mostrar_preco_comparacao: true, classe_css_custom: "bg-white" %}
+    {% endfor %}
+  &lt;/div&gt;
+
+  {% if paginate.pages > 1 %}
+    &lt;div class="mt-8"&gt;
+      {{ paginate | default_pagination }}
+    &lt;/div&gt;
+  {% endif %}
+{% endpaginate %}</code></pre>
+            </div>
+            <p><strong>Explicação:</strong> O snippet <span class="inline-code">meu-card-produto</span> foi melhorado para aceitar mais parâmetros e usar valores padrão (<span class="inline-code">default</span>). O filtro <span class="inline-code">image_url</span> (anteriormente <span class="inline-code">img_url</span> em versões mais antigas do Shopify, mas <span class="inline-code">image_url</span> é o atual) agora especifica <span class="inline-code">width</span>, <span class="inline-code">height</span> e <span class="inline-code">crop</span> para melhor controle da imagem. Adicionado <span class="inline-code">loading="lazy"</span> para otimização.</p>
+
+            <div class="exercise-card">
+                <div class="exercise-title">Exercício Prático (Liquid Intermediário):</div>
+                <ol>
+                    <li>Crie um snippet <span class="inline-code">banner-promocional.liquid</span> que aceite <span class="inline-code">titulo</span> (string), <span class="inline-code">texto</span> (string), <span class="inline-code">cor_fundo</span> (string, ex: '#hexvalor' ou nome da cor CSS), e <span class="inline-code">url_link</span> (string) como parâmetros. Use valores padrão para cada um caso não sejam fornecidos. O banner deve ter um título, um texto e um botão "Saiba Mais" que leva para a <span class="inline-code">url_link</span>.</li>
+                    <li>Use <span class="inline-code">render</span> na sua página inicial (ex: <span class="inline-code">templates/index.liquid</span> ou uma seção) para incluir este snippet duas vezes com dados diferentes.</li>
+                    <li>Na sua página de coleção (<span class="inline-code">templates/collection.liquid</span>), ao listar os produtos, use o objeto <span class="inline-code">forloop</span> e la tag <span class="inline-code">cycle</span> para adicionar classes CSS alternadas aos cards de produto, por exemplo, <span class="inline-code">bg-white</span> e <span class="inline-code">bg-gray-50</span>.</li>
+                </ol>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Ver Resposta</button>
+                <div class="solution-card">
+                    <div class="solution-title">Resposta do Exercício (Liquid Intermediário):</div>
+                    <p><strong>1. Snippet <span class="inline-code">snippets/banner-promocional.liquid</span>:</strong></p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span>snippets/banner-promocional.liquid</span>
+                            <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code class="language-liquid">{% comment %}
+                          Parâmetros:
+                          - titulo: Título do banner (default: "Oferta Especial!")
+                          - texto: Texto descritivo (default: "Confira nossos produtos em promoção.")
+                          - cor_fundo: Cor de fundo CSS (default: "#f3f4f6" - cinza claro)
+                          - url_link: URL para o botão (default: routes.all_products_collection_url)
+                          - texto_botao: Texto do botão (default: "Saiba Mais")
+                        {% endcomment %}
+                        {% liquid
+                          assign banner_title = banner_promocional.titulo | default: "Oferta Especial!"
+                          assign banner_text = banner_promocional.texto | default: "Confira nossos produtos em promoção."
+                          assign banner_bg_color = banner_promocional.cor_fundo | default: "#f3f4f6"
+                          assign banner_url = banner_promocional.url_link | default: routes.all_products_collection_url
+                          assign banner_button_text = banner_promocional.texto_botao | default: "Saiba Mais"
+                        %}
+                        
+                        &lt;div class="banner-promocional p-8 text-center rounded-lg my-4" style="background-color: {{ banner_bg_color }};"&gt;
+                          &lt;h3 class="text-3xl font-bold mb-3"{% if banner_bg_color == "#000000" or banner_bg_color == "black" %} style="color:white;"{% endif %}&gt;
+                            {{ banner_title }}
+                          &lt;/h3&gt;
+                          &lt;p class="text-lg mb-5"{% if banner_bg_color == "#000000" or banner_bg_color == "black" %} style="color:lightgray;"{% endif %}&gt;
+                            {{ banner_text }}
+                          &lt;/p&gt;
+                          {% if banner_url != blank %}
+                            &lt;a href="{{ banner_url }}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-md text-base font-medium hover:bg-blue-700 transition-colors"&gt;
+                              {{ banner_button_text }}
+                            &lt;/a&gt;
+                          {% endif %}
+                        &lt;/div&gt;</code></pre>
+                    </div>
+                     <p><strong>Explicação do Snippet:</strong> Usamos a tag <span class="inline-code">{% liquid %}</span> para atribuições mais limpas e filtros <span class="inline-code">default</span> para todos os parâmetros. Adicionamos uma lógica simples para mudar a cor do texto se o fundo for preto, para melhor legibilidade.</p>
+
+                    <p class="mt-4"><strong>2. Uso do snippet em <span class="inline-code">templates/index.liquid</span> (ou numa seção da página inicial):</strong></p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span>Liquid / HTML</span>
+                            <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code class="language-liquid">{% comment %} Primeiro banner - promoção de verão {% endcomment %}
+{% render 'banner-promocional',
+  titulo: "☀️ Promoção de Verão!",
+  texto: "Descontos incríveis em toda a linha praia. Aproveite!",
+  cor_fundo: "#FFFBEB", 
+  url_link: "/collections/verao",
+  texto_botao: "Ver Coleção Verão" 
+%}
+
+{% comment %} Segundo banner - novidades {% endcomment %}
+{% render 'banner-promocional',
+  titulo: "✨ Novidades Chegando!",
+  texto: "Fique por dentro dos últimos lançamentos e tendências.",
+  cor_fundo: "#E0E7FF", 
+  url_link: "/collections/novidades",
+  texto_botao: "Descobrir Novidades"
+%}</code></pre>
+                    </div>
+                     <p><strong>Explicação do Uso:</strong> Chamamos o snippet <span class="inline-code">banner-promocional</span> duas vezes, passando diferentes valores para personalizar cada banner.</p>
+
+                    <p class="mt-4"><strong>3. Adicionar classes alternadas em <span class="inline-code">templates/collection.liquid</span>:</strong><br>
+                    Modifique o loop onde você renderiza os cards de produto (usando o snippet <span class="inline-code">meu-card-produto</span> como exemplo):</p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span>templates/collection.liquid (dentro do loop de produtos)</span>
+                            <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code class="language-liquid">{% paginate collection.products by 8 %}
+  &lt;div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"&gt;
+    {% for produto_item in collection.products %}
+      {# Atribui o resultado do cycle a uma variável para usar como classe #}
+      {% assign cor_de_fundo_alternada = cycle 'grupo_cores_card': 'bg-white', 'bg-gray-50' %}
+      
+      {% render 'meu-card-produto', 
+                produto_a_exibir: produto_item, 
+                mostrar_preco_comparacao: true, 
+                classe_css_custom: cor_de_fundo_alternada %}
+    {% endfor %}
+  &lt;/div&gt;
+
+  {% if paginate.pages > 1 %}
+    &lt;div class="mt-8 text-center"&gt;
+      {{ paginate | default_pagination }}
+    &lt;/div&gt;
+  {% endif %}
+{% endpaginate %}</code></pre>
+                    </div>
+                    <p><strong>Explicação do Cycle:</strong>
+                    A tag <span class="inline-code">{% cycle 'grupo_cores_card': 'bg-white', 'bg-gray-50' %}</span> irá, a cada iteração do loop <span class="inline-code">for</span>, alternar a saída entre 'bg-white' e 'bg-gray-50'.
+                    Atribuímos o resultado do <span class="inline-code">cycle</span> à variável <span class="inline-code">cor_de_fundo_alternada</span>. Demos um nome ao grupo do cycle (<span class="inline-code">'grupo_cores_card'</span>) para evitar conflitos se houver outros cycles na mesma página.
+                    Esta variável <span class="inline-code">cor_de_fundo_alternada</span> é então passada para o parâmetro <span class="inline-code">classe_css_custom</span> do snippet <span class="inline-code">meu-card-produto</span>. O snippet, por sua vez, adicionará essa classe ao div principal do card.
+                    </p>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-title">Resumo (Liquid Intermediário):</div>
+                <p>Você pode criar variáveis, usar loops avançados, trabalhar com menus, reutilizar código com snippets e parâmetros, e aplicar uma gama maior de filtros.</p>
+            </div>
+        </section>
+
+        <section id="prog-mod3-liquid-avancado" class="mt-12">
+            <h2>Nível Avançado: Proficiência e Técnicas Refinadas em Liquid</h2>
+            <p>Neste nível, exploramos as nuances do Liquid, focando em manipulação de dados complexos, otimização, e integração com funcionalidades mais avançadas da Shopify, como Metafields e internacionalização.</p>
+
+            <h3>Conteúdo:</h3>
+            <ul>
+                <li><strong>Metafields Avançados:</strong>
+                    <ul>
+                        <li>Acessando e renderizando diferentes tipos de metafields (string, integer, boolean, <span class="inline-code">json_string</span>, <span class="inline-code">list.single_line_text_field</span>, <span class="inline-code">list.product_reference</span>, etc.). Referência: <a href="https://shopify.dev/docs/api/liquid/objects/metafield" target="_blank" class="text-indigo-600 hover:underline">Metafield Object (shopify.dev)</a>.</li>
+                        <li>Iterando sobre metafields do tipo lista (ex: <span class="inline-code">list.file_reference</span>, <span class="inline-code">list.product_reference</span>).</li>
+                        <li>Trabalhando com o valor de metafields JSON (parseando com <span class="inline-code">| json</span> em JavaScript ou acessando suas chaves diretamente se for um objeto já interpretado pelo Liquid).</li>
+                    </ul>
+                </li>
+                <li><strong>A Tag <span class="inline-code">{% liquid %}</span>:</strong>
+                    <ul>
+                        <li>Sintaxe e benefícios: permite múltiplas atribuições e lógicas em um único bloco, comentários de linha com <span class="inline-code">#</span>, e geralmente um código mais limpo e legível para operações complexas.</li>
+                        <li>Ex: <span class="inline-code">{% liquid
+                             assign var1 = 'valor'
+                             assign var2 = var1 | upcase 
+                             echo var2 
+                           %}</span></li>
+                    </ul>
+                </li>
+                <li><strong>Manipulação Avançada de Arrays e Hashes (Objetos):</strong>
+                    <ul>
+                        <li>Encadeamento de filtros: <span class="inline-code">collection.products | map: 'vendor' | uniq | sort</span>.</li>
+                        <li>Uso de <span class="inline-code">where</span> com múltiplas condições (implícito ou com loops e condicionais).</li>
+                        <li>Criação de hashes/objetos com <span class="inline-code">assign</span> e chaves dinâmicas (mais comum em cenários de app ou desenvolvimento complexo de temas).</li>
+                    </ul>
+                </li>
+                 <li><strong>Objetos Globais e de Contexto (Aprofundado):</strong>
+                    <ul>
+                        <li><span class="inline-code">request</span>: Acesso a informações da requisição HTTP atual (<span class="inline-code">request.page_type</span>, <span class="inline-code">request.locale.iso_code</span>, <span class="inline-code">request.path</span>, <span class="inline-code">request.host</span>). Ref: <a href="https://shopify.dev/docs/api/liquid/objects/request" target="_blank" class="text-indigo-600 hover:underline">Request Object (shopify.dev)</a>.</li>
+                        <li><span class="inline-code">routes</span>: URLs gerados dinamicamente para partes chave da loja (<span class="inline-code">routes.root_url</span>, <span class="inline-code">routes.cart_url</span>, <span class="inline-code">routes.all_products_collection_url</span>). Ref: <a href="https://shopify.dev/docs/api/liquid/objects/routes" target="_blank" class="text-indigo-600 hover:underline">Routes Object (shopify.dev)</a>.</li>
+                        <li><span class="inline-code">paginate</span>: Usado para dividir coleções, resultados de busca e artigos de blog em múltiplas páginas. Ref: <a href="https://shopify.dev/docs/api/liquid/tags/theme-tags#paginate" target="_blank" class="text-indigo-600 hover:underline">Paginate Tag (shopify.dev)</a>.</li>
+                        <li><span class="inline-code">current_tags</span>, <span class="inline-code">current_page</span> (dentro de um loop <span class="inline-code">paginate</span>).</li>
+                         <li><span class="inline-code">recommendations</span>: Para exibir produtos recomendados (<span class="inline-code">recommendations.products</span>), geralmente requer interação com a API de Recomendações de Produto via JavaScript. Ref: <a href="https://shopify.dev/docs/themes/product-merchandising/recommendations" target="_blank" class="text-indigo-600 hover:underline">Product Recommendations (shopify.dev)</a>.</li>
+                    </ul>
+                </li>
+                <li><strong>Filtros Avançados e Casos de Uso Específicos:</strong>
+                    <ul>
+                        <li><span class="inline-code">default_pagination</span>: Gera a marcação HTML padrão para navegação de paginação.</li>
+                        <li><span class="inline-code">image_url</span> e <span class="inline-code">image_tag</span>: Com parâmetros para <span class="inline-code">crop</span>, <span class="inline-code">scale</span>, <span class="inline-code">format</span> (ex: <span class="inline-code">format: 'pjpg'</span> para JPG progressivo). Ref: <a href="https://shopify.dev/docs/api/liquid/filters/image_url" target="_blank" class="text-indigo-600 hover:underline">image_url filter (shopify.dev)</a>.</li>
+                        <li><span class="inline-code">format_address</span>: Formata os componentes de um endereço de cliente de acordo com as convenções do país.</li>
+                        <li><span class="inline-code">json</span>: Converte um objeto Liquid ou array em uma string JSON. Muito útil para passar dados para JavaScript.</li>
+                        <li><span class="inline-code">t</span> (translate): Para internacionalização de strings, com suporte a variáveis e pluralização. Ex: <span class="inline-code">{{ 'products.product.sold_out' | t }}</span>, <span class="inline-code">{{ 'cart.general.item_count' | t: count: cart.item_count }}</span>. Ref: <a href="https://shopify.dev/docs/api/liquid/filters/translation-filters" target="_blank" class="text-indigo-600 hover:underline">Translation Filters (shopify.dev)</a>.</li>
+                        <li><span class="inline-code">placeholder_svg_tag</span>: Gera um SVG placeholder, útil para lazy loading de imagens.</li>
+                        <li><span class="inline-code">metafield_tag</span> e <span class="inline-code">metafield_text</span>: Filtros para renderizar metafields com a formatação correta (especialmente útil para metafields ricos como <span class="inline-code">rich_text_field</span>).</li>
+                    </ul>
+                </li>
+                <li><strong>Considerações de Performance em Liquid:</strong>
+                    <ul>
+                        <li>Minimizar operações custosas dentro de loops grandes (ex: evitar filtros complexos repetidamente se o valor pode ser pré-calculado).</li>
+                        <li>O Shopify possui otimizações, mas loops aninhados sobre grandes conjuntos de dados podem impactar o tempo de renderização.</li>
+                        <li>Uso consciente de <span class="inline-code">assign</span> e <span class="inline-code">capture</span>; capturar grandes blocos de HTML repetidamente em um loop pode ser menos eficiente do que estruturas condicionais mais diretas.</li>
+                    </ul>
+                </li>
+                 <li><strong>Segurança com Liquid:</strong>
+                    <ul>
+                        <li>Sempre use o filtro <span class="inline-code">escape</span> ao renderizar conteúdo que pode ter origem em entrada de usuário ou metafields não totalmente controlados para prevenir XSS. Ex: <span class="inline-code">{{ customer.name | escape }}</span>.</li>
+                        <li>Para URLs, certifique-se de que são válidos e seguros, especialmente se construídos dinamicamente.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Exemplos Práticos Detalhados (Nível Avançado):</h3>
+
+            <h4>1. Exibir um Metafield do tipo Lista de Referência de Produtos</h4>
+            <p>Suponha que você tenha um metafield em um produto chamado <span class="inline-code">custom.related_manual_products</span> que é uma lista de referências de produtos (<span class="inline-code">list.product_reference</span>).</p>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>Liquid / HTML</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-liquid">{% # Supondo que estamos na página de um produto (objeto 'product' disponível) %}
+{% assign related_products_mf = product.metafields.custom.related_manual_products %}
+
+{% if related_products_mf != blank and related_products_mf.value.size > 0 %}
+  &lt;h3 class="text-xl font-semibold my-4"&gt;Produtos Relacionados Manualmente:&lt;/h3&gt;
+  &lt;ul class="list-disc pl-5"&gt;
+    {% for related_product_ref in related_products_mf.value %}
+      &lt;li class="mb-2"&gt;
+        &lt;a href="{{ related_product_ref.url }}" class="text-blue-600 hover:underline"&gt;
+          {{ related_product_ref.title }} - {{ related_product_ref.price | money }}
+        &lt;/a&gt;
+      &lt;/li&gt;
+    {% endfor %}
+  &lt;/ul&gt;
+{% endif %}</code></pre>
+            </div>
+            <p><strong>Explicação:</strong> Acessamos o metafield <span class="inline-code">product.metafields.custom.related_manual_products</span>. O <span class="inline-code">.value</span> de um metafield do tipo lista de referências retorna um array de objetos (neste caso, objetos de produto). Iteramos sobre essa lista para exibir os produtos referenciados. Alterei <span class="inline-code">related_products_mf.value != blank</span> para <span class="inline-code">related_products_mf != blank</span> pois o próprio metafield pode ser blank, e depois verificamos <span class="inline-code">.value.size</span>.</p>
+
+            <h4>2. Usar a Tag <span class="inline-code">{% liquid %}</span> para Lógica Condicional e Atribuições</h4>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>Liquid</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-liquid">{% liquid
+  assign product_on_sale = false
+  if product.compare_at_price != blank and product.compare_at_price > product.price
+    assign product_on_sale = true
+  endif
+
+  assign discount_percentage = 0
+  if product_on_sale
+    # Calcular a percentagem de desconto
+    assign price_diff = product.compare_at_price | minus: product.price
+    assign discount_percentage = price_diff | times: 100.0 | divided_by: product.compare_at_price | round: 0
+  endif
+%}
+
+{% if product_on_sale %}
+  &lt;p class="bg-green-100 text-green-700 p-3 rounded-md"&gt;
+    PROMOÇÃO! Este produto está com {{ discount_percentage }}% de desconto.
+  &lt;/p&gt;
+{% endif %}</code></pre>
+            </div>
+            <p><strong>Explicação:</strong> A tag <span class="inline-code">{% liquid %}</span> permite agrupar várias instruções de forma mais limpa. Calculamos se um produto está em promoção e qual a percentagem de desconto, armazenando em variáveis para uso posterior. Adicionada verificação <span class="inline-code">product.compare_at_price != blank</span>.</p>
+
+            <h4>3. Paginação de Produtos em uma Coleção</h4>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>Liquid / HTML (em templates/collection.liquid)</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-liquid">{% paginate collection.products by 12 %}
+  &lt;h1 class="text-3xl font-bold mb-6"&gt;{{ collection.title }}&lt;/h1&gt;
+
+  &lt;div class="product-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"&gt;
+    {% for product_item in collection.products %}
+      &lt;div class="product-card border p-4 rounded-lg shadow hover:shadow-lg"&gt;
+        &lt;a href="{{ product_item.url }}"&gt;
+          {% if product_item.featured_image %}
+            &lt;img src="{{ product_item.featured_image | image_url: width: 400, height: 400, crop: 'center' }}" 
+                 alt="{{ product_item.featured_image.alt | escape }}" 
+                 width="400" height="400" loading="lazy"
+                 class="w-full h-64 object-cover mb-4 rounded"&gt;
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag: 'w-full h-64 object-cover mb-4 rounded bg-gray-200' }}
+          {% endif %}
+        &lt;/a&gt;
+        &lt;h2 class="text-lg font-semibold mb-2"&gt;
+            &lt;a href="{{ product_item.url }}" class="hover:underline"&gt;{{ product_item.title }}&lt;/a&gt;
+        &lt;/h2&gt;
+        &lt;p class="text-gray-800 font-medium"&gt;{{ product_item.price | money }}&lt;/p&gt;
+         {% if product_item.compare_at_price > product_item.price %}
+            &lt;p class="text-sm text-gray-500 line-through"&gt;{{ product_item.compare_at_price | money }}&lt;/p&gt;
+        {% endif %}
+      &lt;/div&gt;
+    {% else %}
+      &lt;p class="col-span-full text-center text-gray-500 py-10"&gt;Nenhum produto encontrado nesta coleção.&lt;/p&gt;
+    {% endfor %}
+  &lt;/div&gt;
+
+  {% if paginate.pages > 1 %}
+    &lt;nav class="pagination mt-10 text-center" role="navigation" aria-label="Paginação"&gt;
+      {{ paginate | default_pagination }}
+    &lt;/nav&gt;
+  {% endif %}
+{% endpaginate %}</code></pre>
+            </div>
+            <p><strong>Explicação:</strong> A tag <span class="inline-code">{% paginate %}</span> envolve o loop de produtos e a lógica de exibição da paginação. <span class="inline-code">collection.products</span> dentro do bloco <span class="inline-code">paginate</span> refere-se apenas aos produtos da página atual. <span class="inline-code">{{ paginate | default_pagination }}</span> renderiza os links de navegação da paginação (Anterior, Próxima, números de página). Adicionado um placeholder SVG caso o produto não tenha imagem destacada.</p>
+
+            <div class="exercise-card">
+                <div class="exercise-title">Exercício Prático (Liquid Avançado):</div>
+                <ol>
+                    <li>Crie um metafield de produto do tipo "Lista de Textos (uma linha)" (<span class="inline-code">list.single_line_text_field</span>) no admin da Shopify. Chame-o, por exemplo, de <span class="inline-code">custom.product_highlights</span>. Adicione alguns destaques a um produto de teste (ex: "Material Premium", "Feito à mão", "Garantia de 2 anos").</li>
+                    <li>Na página de produto (<span class="inline-code">templates/product.liquid</span>), acesse este metafield. Se ele tiver valores, exiba cada destaque como um item de uma lista não ordenada (<span class="inline-code">&lt;ul&gt;</span>).</li>
+                    <li>Use a tag <span class="inline-code">{% liquid %}</span> para verificar se o metafield existe e tem itens antes de tentar renderizar a lista.</li>
+                    <li>Para cada item da lista, adicione um ícone de "check" (✓) antes do texto do destaque.</li>
+                </ol>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Ver Resposta</button>
+                <div class="solution-card">
+                    <div class="solution-title">Resposta do Exercício (Liquid Avançado):</div>
+                    <p><strong>1. Criação do Metafield:</strong><br>
+                    Vá em <span class="inline-code">Configurações > Dados Personalizados > Produtos > Adicionar definição</span>.
+                    <ul>
+                        <li>Nome: Destaques do Produto</li>
+                        <li>Namespace e chave: <span class="inline-code">custom.product_highlights</span> (ou o que você preferir, anote para usar no código)</li>
+                        <li>Tipo: Lista de textos (uma linha)</li>
+                        <li>Defina outras validações se necessário e salve.</li>
+                    </ul>
+                    Depois, edite um produto e adicione alguns valores a este metafield (ex: "Material Premium", "Feito à Mão", "Design Exclusivo").
+                    </p>
+
+                    <p class="mt-4"><strong>2 & 3 & 4. Código em <span class="inline-code">templates/product.liquid</span>:</strong></p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span>Liquid / HTML</span>
+                            <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code class="language-liquid">{% # Localize um bom lugar na sua template product.liquid para adicionar isso %}
+
+{% liquid
+  # Acessa o metafield. Substitua 'custom.product_highlights' se usou outro namespace/chave.
+  assign highlights_metafield = product.metafields.custom.product_highlights
+
+  # Verifica se o metafield tem valor e se a lista de valores não está vazia.
+  assign has_highlights = false
+  if highlights_metafield != blank and highlights_metafield.value.size > 0
+    assign has_highlights = true
+  endif
+%}
+
+{% if has_highlights %}
+  &lt;div class="product-custom-highlights mt-6 mb-6 p-4 border border-gray-200 rounded-md bg-gray-50"&gt;
+    &lt;h4 class="text-lg font-semibold mb-3 text-gray-800"&gt;Destaques do Produto:&lt;/h4&gt;
+    &lt;ul class="list-none pl-0"&gt;
+      {% for highlight_text in highlights_metafield.value %}
+        &lt;li class="flex items-center mb-2 text-gray-700"&gt;
+          &lt;svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"&gt;
+            &lt;path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /&gt;
+          &lt;/svg&gt;
+          {{- highlight_text | escape -}}
+        &lt;/li&gt;
+      {% endfor %}
+    &lt;/ul&gt;
+  &lt;/div&gt;
+{% endif %}</code></pre>
+                    </div>
+                    <p><strong>Explicação:</strong>
+                    <ul>
+                        <li>Usamos a tag <span class="inline-code">{% liquid %}</span> para definir <span class="inline-code">highlights_metafield</span> e a flag <span class="inline-code">has_highlights</span>.</li>
+                        <li>Verificamos se o <span class="inline-code">highlights_metafield</span> em si não é <span class="inline-code">blank</span> (ou seja, a definição do metafield existe para o produto) E se <span class="inline-code">highlights_metafield.value.size > 0</span> (ou seja, a lista de textos realmente contém itens).</li>
+                        <li>Se <span class="inline-code">has_highlights</span> for verdadeiro, renderizamos o título e a lista <span class="inline-code">&lt;ul&gt;</span>.</li>
+                        <li>Iteramos sobre <span class="inline-code">highlights_metafield.value</span> (que é um array de strings).</li>
+                        <li>Para cada <span class="inline-code">highlight_text</span>, exibimos um ícone SVG de "check" (para não depender de caracteres de texto que podem variar) seguido do texto do destaque. O ícone SVG é um exemplo, você pode usar outro ou um caractere como ✓.</li>
+                        <li>É importante usar o filtro <span class="inline-code">escape</span> em <span class="inline-code">{{ highlight_text | escape }}</span> para garantir que qualquer HTML no texto do metafield seja renderizado como texto literal, prevenindo XSS.</li>
+                        <li>O <span class="inline-code">{{- ... -}}</span> com hífens remove espaços em branco antes e/ou depois da tag Liquid, ajudando a manter o HTML renderizado mais limpo.</li>
+                    </ul>
+                    </p>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-title">Resumo (Liquid Avançado):</div>
+                <p>Você agora pode manipular Metafields complexos, usar a tag <span class="inline-code">{% liquid %}</span> para código mais organizado, implementar paginação, entender melhor os objetos globais de contexto, aplicar filtros avançados para internacionalização e otimização de imagens, e está ciente das considerações de performance e segurança.</p>
+            </div>
+        </section>
+
+        <section id="mod11-sections-intro" class="mt-12">
+            <h1>Módulo 11: Trabalhando com Seções e Blocos (OS 2.0)</h1>
+            <p>As Seções e Blocos são a espinha dorsal da personalização de temas na Online Store 2.0 (OS 2.0) da Shopify. Eles permitem que os lojistas adicionem, removam, reordenem e configurem módulos de conteúdo em várias páginas da loja diretamente pelo Editor de Temas, oferecendo uma flexibilidade sem precedentes.</p>
+            
+            <h2>Nível Iniciante: Fundamentos de Seções</h2>
+            <p>Neste nível, vamos entender o que são seções, sua estrutura básica e como criar uma seção simples com configurações personalizáveis.</p>
+
+            <h3>O que são Seções?</h3>
+            <p>Seções são arquivos <span class="inline-code">.liquid</span> localizados na pasta <span class="inline-code">sections</span> do seu tema. Cada seção define a estrutura HTML, o estilo CSS, o comportamento JavaScript e as configurações personalizáveis de um módulo de conteúdo específico.</p>
+            <ul>
+                <li><strong>Reutilizáveis:</strong> Uma mesma seção pode ser adicionada várias vezes em uma template ou em diferentes templates.</li>
+                <li><strong>Configuráveis:</strong> Lojistas podem personalizar o conteúdo e a aparência das seções através do Editor de Temas, sem precisar mexer no código.</li>
+                <li><strong>Contexto:</strong> Em temas OS 2.0, seções podem ser adicionadas a qualquer página através de templates JSON, não apenas na página inicial.</li>
+            </ul>
+
+            <h3>Estrutura Básica de um Arquivo de Seção (<span class="inline-code">.liquid</span>)</h3>
+            <p>Um arquivo de seção típico é composto por três partes principais:</p>
+            <ol>
+                <li><strong>HTML e Liquid:</strong> O código que renderiza o conteúdo visual da seção. Aqui você usará Liquid para acessar as configurações definidas no schema e exibir dados dinâmicos.</li>
+                <li><strong>Tags <span class="inline-code">{% schema %}</span>:</strong> Contêm uma estrutura JSON que define as configurações personalizáveis da seção e seus blocos. É aqui que você habilita a personalização no Editor de Temas.</li>
+                <li><strong>Tags <span class="inline-code">{% stylesheet %}</span> e <span class="inline-code">{% javascript %}</span> (Opcionais):</strong> Permitem incluir CSS e JavaScript específicos para a seção. O CSS dentro de <span class="inline-code">{% stylesheet %}</span> é escopado para a seção, e o JavaScript em <span class="inline-code">{% javascript %}</span> é carregado quando a seção é renderizada.</li>
+            </ul>
+
+            <h4>A Tag <span class="inline-code">{% schema %}</span></h4>
+            <p>Dentro das tags <span class="inline-code">{% schema %} {% endschema %}</span>, você define um objeto JSON. Os atributos mais importantes para iniciantes são:</p>
+            <ul>
+                <li><span class="inline-code">"name"</span>: O nome da seção que aparecerá no Editor de Temas.</li>
+                <li><span class="inline-code">"tag"</span>: (Opcional, default: 'div') A tag HTML que envolverá a seção.</li>
+                <li><span class="inline-code">"class"</span>: (Opcional) Classes CSS a serem adicionadas ao elemento wrapper da seção.</li>
+                <li><span class="inline-code">"settings"</span>: Um array de objetos, onde cada objeto define uma configuração personalizável para a seção.</li>
+            </ul>
+            <p>Tipos comuns de <span class="inline-code">settings</span> (configurações):</p>
+            <ul>
+                <li><span class="inline-code">"type": "text"</span>: Campo de texto simples. Propriedades: <span class="inline-code">id</span>, <span class="inline-code">label</span>, <span class="inline-code">default</span> (valor padrão).</li>
+                <li><span class="inline-code">"type": "richtext"</span>: Editor de texto rico. Propriedades: <span class="inline-code">id</span>, <span class="inline-code">label</span>, <span class="inline-code">default</span>.</li>
+                <li><span class="inline-code">"type": "image_picker"</span>: Seletor de imagem da biblioteca. Propriedades: <span class="inline-code">id</span>, <span class="inline-code">label</span>. Retorna um objeto de imagem.</li>
+                <li><span class="inline-code">"type": "checkbox"</span>: Caixa de seleção (verdadeiro/falso). Propriedades: <span class="inline-code">id</span>, <span class="inline-code">label</span>, <span class="inline-code">default</span> (true/false).</li>
+                <li><span class="inline-code">"type": "url"</span>: Campo para inserir um URL. Propriedades: <span class="inline-code">id</span>, <span class="inline-code">label</span>.</li>
+                <li><span class="inline-code">"type": "color"</span>: Seletor de cor. Propriedades: <span class="inline-code">id</span>, <span class="inline-code">label</span>, <span class="inline-code">default</span>.</li>
+            </ul>
+            <p>Para acessar o valor de uma configuração no Liquid, use <span class="inline-code">{{ section.settings.ID_DA_CONFIGURACAO }}</span>.</p>
+
+            <h3>Exemplo Prático: Seção "Título e Texto Simples"</h3>
+            <p>Vamos criar uma seção chamada <span class="inline-code">meu-titulo-texto.liquid</span> na pasta <span class="inline-code">sections/</span>:</p>
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span>sections/meu-titulo-texto.liquid</span>
+                    <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code class="language-liquid">&lt;div class="meu-titulo-texto-wrapper py-8 px-4 text-center"&gt;
+  {% if section.settings.titulo_da_secao != blank %}
+    &lt;h2 class="text-2xl font-bold mb-4"&gt;{{ section.settings.titulo_da_secao | escape }}&lt;/h2&gt;
+  {% endif %}
+  {% if section.settings.texto_da_secao != blank %}
+    &lt;div class="rte text-base"&gt;
+      {{ section.settings.texto_da_secao }}
+    &lt;/div&gt;
+  {% endif %}
+&lt;/div&gt;
+
+{% schema %}
+{
+  "name": "Meu Título e Texto",
+  "tag": "section",
+  "class": "meu-titulo-texto-secao",
+  "settings": [
+    {
+      "type": "text",
+      "id": "titulo_da_secao",
+      "label": "Título da Seção",
+      "default": "Título Padrão"
+    },
+    {
+      "type": "richtext",
+      "id": "texto_da_secao",
+      "label": "Texto da Seção",
+      "default": "&lt;p&gt;Este é um parágrafo de exemplo. Adicione seu conteúdo aqui!&lt;/p&gt;"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Meu Título e Texto"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+/* Estilos específicos para esta seção podem ir aqui, mas vamos usar Tailwind por enquanto */
+/* Exemplo:
+.meu-titulo-texto-wrapper h2 {
+  color: #333;
+}
+*/
+{% endstylesheet %}</code></pre>
+            </div>
+            <p><strong>Explicação:</strong></p>
+            <ul>
+                <li>O HTML renderiza um título (<span class="inline-code">h2</span>) e um texto (<span class="inline-code">div.rte</span>) se as respectivas configurações não estiverem vazias.</li>
+                <li>No schema, definimos <span class="inline-code">name</span> para o nome da seção no editor.</li>
+                <li>Em <span class="inline-code">settings</span>, criamos duas configurações: <span class="inline-code">titulo_da_secao</span> (tipo texto) e <span class="inline-code">texto_da_secao</span> (tipo richtext).</li>
+                <li>Adicionamos um <span class="inline-code">preset</span> para que a seção possa ser facilmente adicionada com valores padrão através do Editor de Temas.</li>
+                <li>No Liquid, acessamos os valores com <span class="inline-code">{{ section.settings.titulo_da_secao }}</span> e <span class="inline-code">{{ section.settings.texto_da_secao }}</span>.</li>
+                <li>Usamos <span class="inline-code">| escape</span> no título por segurança, embora para campos de texto simples controlados pelo lojista seja menos crítico do que dados do usuário. Para <span class="inline-code">richtext</span>, o Shopify já sanitiza a saída.</li>
+            </ul>
+            <p>Após salvar este arquivo, você poderá ir ao Editor de Temas (<span class="inline-code">Loja Virtual > Temas > Personalizar</span>), clicar em "Adicionar seção" em uma template (como a página inicial) e encontrar "Meu Título e Texto" na lista. Ao adicioná-la, você verá os campos "Título da Seção" e "Texto da Seção" para personalizar.</p>
+
+            <div class="exercise-card">
+                <div class="exercise-title">Exercício Prático (Seções - Nível Iniciante):</div>
+                <ol>
+                    <li>Crie um novo arquivo de seção chamado <span class="inline-code">minha-secao-imagem.liquid</span> na pasta <span class="inline-code">sections/</span>.</li>
+                    <li>Nesta seção, você deve permitir que o lojista configure:
+                        <ul>
+                            <li>Um título (tipo <span class="inline-code">text</span>).</li>
+                            <li>Um parágrafo de descrição (tipo <span class="inline-code">richtext</span>).</li>
+                            <li>Uma imagem (tipo <span class="inline-code">image_picker</span>).</li>
+                        </ul>
+                    </li>
+                    <li>Renderize o título, a imagem (se selecionada) e a descrição na seção.</li>
+                    <li>Adicione um <span class="inline-code">preset</span> para que a seção apareça no Editor de Temas.</li>
+                    <li>Teste adicionando e configurando esta seção na sua página inicial através do Editor de Temas.</li>
+                </ol>
+                <button class="toggle-solution-button" onclick="toggleSolution(this)">Ver Resposta</button>
+                <div class="solution-card">
+                    <div class="solution-title">Resposta do Exercício (Seções - Nível Iniciante):</div>
+                    <p><strong>Arquivo: <span class="inline-code">sections/minha-secao-imagem.liquid</span></strong></p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span>sections/minha-secao-imagem.liquid</span>
+                            <button class="copy-button" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code class="language-liquid">&lt;div class="minha-secao-imagem-container py-10 px-4 text-center" 
+     style="background-color: {{ section.settings.cor_de_fundo }};"&gt;
+
+  {% if section.settings.titulo_secao != blank %}
+    &lt;h2 class="text-3xl font-bold mb-4" style="color: {{ section.settings.cor_titulo }};"&gt;
+      {{ section.settings.titulo_secao | escape }}
+    &lt;/h2&gt;
+  {% endif %}
+
+  {% if section.settings.imagem_secao != blank %}
+    &lt;div class="max-w-md mx-auto mb-6"&gt;
+      &lt;img src="{{ section.settings.imagem_secao | image_url: width: 600 }}" 
+           alt="{{ section.settings.imagem_secao.alt | default: 'Imagem descritiva' | escape }}" 
+           loading="lazy" 
+           class="rounded-lg shadow-md mx-auto"&gt;
+    &lt;/div&gt;
+  {% endif %}
+
+  {% if section.settings.descricao_secao != blank %}
+    &lt;div class="rte max-w-2xl mx-auto" style="color: {{ section.settings.cor_texto }};"&gt;
+      {{ section.settings.descricao_secao }}
+    &lt;/div&gt;
+  {% endif %}
+
+&lt;/div&gt;
+
+{% schema %}
+{
+  "name": "Minha Seção com Imagem",
+  "tag": "section",
+  "class": "custom-image-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "titulo_secao",
+      "label": "Título da Seção",
+      "default": "Título Incrível Aqui"
+    },
+    {
+      "type": "image_picker",
+      "id": "imagem_secao",
+      "label": "Escolha uma Imagem"
+    },
+    {
+      "type": "richtext",
+      "id": "descricao_secao",
+      "label": "Descrição",
+      "default": "&lt;p&gt;Descreva algo interessante sobre esta seção ou imagem.&lt;/p&gt;"
+    },
+    {
+      "type": "header",
+      "content": "Configurações de Cor"
+    },
+    {
+      "type": "color",
+      "id": "cor_de_fundo",
+      "label": "Cor de Fundo da Seção",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "cor_titulo",
+      "label": "Cor do Título",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "cor_texto",
+      "label": "Cor do Texto da Descrição",
+      "default": "#555555"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Minha Seção com Imagem"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+/* Você pode adicionar estilos CSS específicos aqui se Tailwind não for suficiente */
+.custom-image-section .rte p {
+  /* Exemplo de estilo se necessário */
+  line-height: 1.6;
+}
+{% endstylesheet %}
+</code></pre>
+                    </div>
+                    <p><strong>Como testar:</strong></p>
+                    <ol>
+                        <li>Salve este código como <span class="inline-code">minha-secao-imagem.liquid</span> na pasta <span class="inline-code">sections</span> do seu tema.</li>
+                        <li>Vá em <span class="inline-code">Loja Virtual > Temas > Personalizar</span>.</li>
+                        <li>Na página inicial (ou outra template JSON), clique em "Adicionar seção".</li>
+                        <li>Procure por "Minha Seção com Imagem" e adicione-a.</li>
+                        <li>Configure o título, a imagem, a descrição e as cores usando os campos que aparecem no editor.</li>
+                        <li>Salve as alterações e visualize.</li>
+                    </ol>
+                    <p><strong>Melhorias Adicionadas na Solução:</strong></p>
+                    <ul>
+                        <li>Adicionadas configurações de cor (<span class="inline-code">color</span>) para o fundo da seção, título e texto, com valores padrão.</li>
+                        <li>Usado <span class="inline-code">section.settings.imagem_secao | image_url: width: 600</span> para renderizar a imagem com um tamanho específico.</li>
+                        <li>Adicionado um <span class="inline-code">default</span> para o atributo <span class="inline-code">alt</span> da imagem, caso não seja definido no admin.</li>
+                        <li>Adicionada a tag <span class="inline-code">header</span> no schema para agrupar visualmente as configurações de cor no editor.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-title">Resumo (Seções - Nível Iniciante):</div>
+                <p>Você aprendeu o que são seções, sua estrutura básica com HTML/Liquid, <span class="inline-code">{% schema %}</span> para configurações, e <span class="inline-code">{% stylesheet %}</span>/<span class="inline-code">{% javascript %}</span>. Você também criou e testou sua primeira seção configurável.</p>
+            </div>
+        </section>
+        <section id="placeholder-final" class="mt-12 py-10 text-center bg-white rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold text-gray-700">Continua...</h2>
+            <p class="text-gray-500 mt-2">Estamos a construir o seu conhecimento progressivamente. Os próximos níveis de "Seções e Blocos" e os módulos seguintes serão adicionados em breve.</p>
+        </section>
+
+    </main>
+
+    <script>
+        const sidebarLinks = document.querySelectorAll('.sidebar nav a');
+        function updateActiveLinkFromHash() {
+            const hash = window.location.hash;
+            let foundActive = false;
+            sidebarLinks.forEach(link => {
+                if (link.getAttribute('href') === hash) {
+                    link.classList.add('active');
+                    foundActive = true;
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            if (!foundActive && sidebarLinks.length > 0) {
+                let defaultLink = document.querySelector('.sidebar nav a.active'); 
+                if (!defaultLink && window.location.hash === '') { 
+                     defaultLink = document.querySelector('.sidebar nav a[href="#mod1-intro"]');
+                } else if (!defaultLink && hash !== '') { 
+                     // Se existe um hash mas não corresponde a nenhum link, tentamos o primeiro link do menu ativo
+                     // ou o primeiro link geral se nenhum menu específico estiver ativo.
+                     const activeModuleLevelLink = document.querySelector('.sidebar .module-title + .space-y-1.mb-3 a.active.level-title');
+                     if (activeModuleLevelLink) {
+                         defaultLink = activeModuleLevelLink;
+                     } else {
+                        const activeModuleLink = document.querySelector('.sidebar .module-title + .space-y-1.mb-3 a.active');
+                        if (activeModuleLink) {
+                            defaultLink = activeModuleLink;
+                        } else {
+                            defaultLink = document.querySelector('.sidebar nav a[href="#mod1-intro"]');
+                        }
+                     }
+                }
+
+
+                if (defaultLink && !defaultLink.classList.contains('active')) { 
+                    defaultLink.classList.add('active');
+                     if(window.location.hash === '' && defaultLink.getAttribute('href') !== '#') window.location.hash = defaultLink.getAttribute('href'); 
+                }
+            }
+        }
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                sidebarLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        window.addEventListener('DOMContentLoaded', updateActiveLinkFromHash);
+        window.addEventListener('hashchange', updateActiveLinkFromHash);
+        
+        function copyCode(buttonElement) {
+            const preElement = buttonElement.closest('.code-block-wrapper').querySelector('pre');
+            const codeToCopy = preElement.innerText || preElement.textContent;
+            navigator.clipboard.writeText(codeToCopy).then(() => {
+                const originalHTML = buttonElement.innerHTML;
+                buttonElement.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                buttonElement.disabled = true;
+                setTimeout(() => {
+                    buttonElement.innerHTML = originalHTML;
+                    buttonElement.disabled = false;
+                }, 2000);
+            }).catch(err => {
+                console.error('Erro ao copiar código: ', err);
+                const tempInput = document.createElement('textarea');
+                tempInput.value = codeToCopy;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                try {
+                    document.execCommand('copy');
+                    const originalHTML = buttonElement.innerHTML;
+                    buttonElement.innerHTML = '<i class="fas fa-check"></i> Copiado! (fallback)';
+                    buttonElement.disabled = true;
+                    setTimeout(() => {
+                        buttonElement.innerHTML = originalHTML;
+                        buttonElement.disabled = false;
+                    }, 2000);
+                } catch (e) {
+                    alert('Erro ao copiar. Por favor, copie manualmente.');
+                }
+                document.body.removeChild(tempInput);
+            });
+        }
+
+        function toggleSolution(buttonElement) {
+            const solutionCard = buttonElement.nextElementSibling;
+            if (solutionCard && solutionCard.classList.contains('solution-card')) {
+                if (solutionCard.style.display === 'none' || solutionCard.style.display === '') {
+                    solutionCard.style.display = 'block';
+                    buttonElement.textContent = 'Ocultar Resposta';
+                } else {
+                    solutionCard.style.display = 'none';
+                    buttonElement.textContent = 'Ver Resposta';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
